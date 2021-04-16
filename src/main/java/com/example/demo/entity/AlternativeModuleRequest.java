@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-@SuperBuilder
+
 public class AlternativeModuleRequest extends Request {
 
 	private String comment;

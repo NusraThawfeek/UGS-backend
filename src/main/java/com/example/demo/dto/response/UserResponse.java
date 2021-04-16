@@ -10,12 +10,6 @@ import lombok.NoArgsConstructor;
 public class UserResponse {	
 	private String message;
 
-	
-
-	public UserResponse(String message) {
-		super();
-		this.message = message;
-	}
 
 	public String getMessage() {
 		return message;

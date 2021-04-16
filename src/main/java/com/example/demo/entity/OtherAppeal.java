@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-@SuperBuilder
+
 public class OtherAppeal extends Request {
 
 	private String appealbrief;

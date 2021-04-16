@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.MRoles;
@@ -19,6 +20,7 @@ import com.example.demo.repository.StudentRepository;
 import com.example.demo.repository.UgsStaffRepository;
 
 @SpringBootApplication
+@EnableScheduling
 public class UgsApplication implements CommandLineRunner{
 	@Autowired
 	private UgsStaffRepository repo;
