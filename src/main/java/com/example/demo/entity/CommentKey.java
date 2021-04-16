@@ -9,14 +9,14 @@ import javax.persistence.Embeddable;
 public class CommentKey implements Serializable {
 
 	@Column(name = "FAC_Id")
-	private long FACId;
+	private long uid;
 	
 	@Column(name = "rid")
 	private int rid;
 
 	public CommentKey(Long long1, int rid) {
 		super();
-		FACId = long1;
+		this.uid = long1;
 		this.rid = rid;
 	}
 
@@ -24,12 +24,12 @@ public class CommentKey implements Serializable {
 		super();
 	}
 
-	public long getFACId() {
-		return FACId;
+	public long getUid() {
+		return uid;
 	}
 
-	public void setFACId(long fACId) {
-		FACId = fACId;
+	public void setUid(long uid) {
+		this.uid = uid;
 	}
 
 	public int getRid() {
@@ -44,7 +44,7 @@ public class CommentKey implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (FACId ^ (FACId >>> 32));
+		result = prime * result + (int) (uid ^ (uid >>> 32));
 		result = prime * result + rid;
 		return result;
 	}
@@ -58,7 +58,7 @@ public class CommentKey implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CommentKey other = (CommentKey) obj;
-		if (FACId != other.FACId)
+		if (uid != other.uid)
 			return false;
 		if (rid != other.rid)
 			return false;

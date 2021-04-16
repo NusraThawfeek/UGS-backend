@@ -12,11 +12,6 @@ public class UserResponse {
 
 	
 
-	public UserResponse(String message) {
-		super();
-		this.message = message;
-	}
-
 	public String getMessage() {
 		return message;
 	}

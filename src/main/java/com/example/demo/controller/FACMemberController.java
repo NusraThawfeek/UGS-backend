@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +28,11 @@ public class FACMemberController {
 	@GetMapping("facmember/{facId}")
 	public FACMember FACMember(@PathVariable int facId) {
 		return service.getFACMember(facId);
+	}
+	
+	@GetMapping("/facmember")
+	public  List<FACMember> getFACmembers() {
+	
+		return service.findAll();
 	}
 }

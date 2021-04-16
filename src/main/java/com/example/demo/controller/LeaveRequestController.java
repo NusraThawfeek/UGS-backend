@@ -34,7 +34,7 @@ public class LeaveRequestController {
 	@PostMapping("/request/leaverequest")
 	public LeaveRequest submitLeaveRequest(@RequestParam int sid, @RequestParam String leaveType, @RequestParam String purpose, @RequestParam Date from, 
 			@RequestParam Date to, @RequestParam int localDays, @RequestParam int totalDays, @RequestParam int semesterDays, @RequestParam String reason,
-			@RequestParam MultipartFile annex) {
+			@RequestParam MultipartFile annex) throws MessagingException {
 
 		return service.submitLeaveRequest(sid, leaveType, purpose, from, to, localDays, totalDays, semesterDays, reason, annex);
 	}

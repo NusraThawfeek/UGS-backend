@@ -35,7 +35,7 @@ public class OtherAppealController {
 	
 	@PostMapping("/request/otherappeal")
 	public OtherAppeal submiOtherAppeal(@RequestParam int sid, @RequestParam String appealbrief, @RequestParam String appealSummary,
-			@RequestParam String isTrainingCompleted, @RequestParam MultipartFile annex, @RequestParam MultipartFile sgpa) {
+			@RequestParam String isTrainingCompleted, @RequestParam MultipartFile annex, @RequestParam MultipartFile sgpa) throws MessagingException {
 		
 		return service.submiOtherAppeal(sid, appealbrief, appealSummary, isTrainingCompleted, annex, sgpa);
 	}

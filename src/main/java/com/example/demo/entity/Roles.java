@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -24,10 +25,6 @@ public class Roles {
 
 	public Roles(MRoles name) {
 		this.name = name;
-	}
-
-	public Roles() {
-		super();
 	}
 
 	public MRoles getName() {
