@@ -37,6 +37,7 @@ public class Request {
 	private boolean isSendToFacBoard;
 	private String type;
 	private String status;
+	//private boolean isAddedtoAgenda;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="std_user_id",nullable = false)
@@ -58,6 +59,7 @@ public class Request {
 		this.isSendToFacBoard = isSendToFacBoard;
 		this.std = std;
 		this.type = type;
+	
 	}
 
 	public Request() {
@@ -143,6 +145,8 @@ public class Request {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	
 	
 
 }

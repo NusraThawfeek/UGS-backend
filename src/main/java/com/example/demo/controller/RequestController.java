@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.demo.entity.Commented;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.Request;
 import com.example.demo.service.FileDownloadService;
@@ -81,9 +84,28 @@ public class RequestController {
 		return service.getNewReqDUGS(uid);
 	}
 	
+	@GetMapping("/NewReqAR")
+	public List<Request> getNewAR() {
+		
+		return service.getNewReqAR();
+	}
+	
+	@GetMapping("/PastReqAR")
+	public List<Request> getPastAR() {
+		
+		return service.getPastReqAR();
+	}
+	
+	
 	@GetMapping("/StudentReqByIndexNo/{indexNo}")
 	public List<Request> getReqByindexNo(@PathVariable String indexNo) {
 		
 		return service.getReqByindexNo(indexNo);
+	}
+	
+	@PutMapping("/AddRequestToAgenda")
+	public Request addToAgenda(@ModelAttribute Request r) {	
+		
+		return service.updateAddToAgenda(r);
 	}
 }

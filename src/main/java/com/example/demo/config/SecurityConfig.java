@@ -86,11 +86,14 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		
 		
 		.antMatchers("/PastReq/{uid}").permitAll()
+		.antMatchers("/PastReqAR").permitAll()
+		.antMatchers("/NewReqAcademicAdvisor/{uid}").permitAll()
+		.antMatchers("/NewReqHOD/{uid}").permitAll()
+		.antMatchers("/NewReqDean/{uid}").permitAll()
+		.antMatchers("/NewReqDUGS/{uid}").permitAll()
+		.antMatchers("/NewReqAR").permitAll()
+		.antMatchers("/AddRequestToAgenda").permitAll()
 		
-		.antMatchers("/NewReqAcademicAdvisor/{uid}").hasAuthority("ROLE_ACADEMICADVISOR")
-		.antMatchers("/NewReqHOD/{uid}").hasAuthority("ROLE_HOD")
-		.antMatchers("/NewReqDean/{uid}").hasAuthority("ROLE_DEAN")
-		.antMatchers("/NewReqDUGS/{uid}").hasAuthority("ROLE_DUGS")
 		
 		.antMatchers("/StudentReqByIndexNo/{indexNo}").permitAll()
 		.antMatchers("/StudentByIndexNo/{indexNo}").permitAll()
@@ -103,10 +106,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/Commented/update").permitAll()
 		.antMatchers("/Commented/RequestbyIds/{rid},{uid}").permitAll()
 		
-		.antMatchers("/Commented/EditByAcademicAdvisor/{rid},{uid}").hasAnyAuthority("ROLE_ACADEMICADVISOR")
-		.antMatchers("/Commented/EditByHOD/{rid},{uid}").hasAuthority("ROLE_HOD")
-		.antMatchers("/Commented/EditByDean/{rid},{uid}").hasAuthority("ROLE_DEAN")
-		.antMatchers("/Commented/EditByDugs/{rid},{uid}").hasAuthority("ROLE_DUGS")
+		.antMatchers("/Commented/EditByAcademicAdvisor/{rid},{uid}").permitAll()
+		.antMatchers("/Commented/EditByHOD/{rid},{uid}").permitAll()
+		.antMatchers("/Commented/EditByDean/{rid},{uid}").permitAll()
+		.antMatchers("/Commented/EditByDugs/{rid},{uid}").permitAll()
 		
 		
 		.anyRequest().authenticated()

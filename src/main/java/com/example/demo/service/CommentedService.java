@@ -163,23 +163,21 @@ public class CommentedService {
 
 	public boolean editForDugs(Request rid, Long id) {
 
-//		Optional<Roles> role = rolesrepo.findByName(MRoles.ROLE_AR);
-//		AssistentRegistrar ar = urepo.findByRoles(role);
-//
-//		if (frepo.findById(id).get().isDugs()) {
-//
-//			if ((getarByRidAndUid(rid, ar) != null)) {
-//				return false;
-//			} else {
-//				return true;
-//			}
-//		}
-		return false;
+		if(frepo.findById(id).get().isDugs()) {
+			if(rid.getIsSendToFacBoard()) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		else {
+			return false;
+		}
+		
+		
 	}
 
-//	private AssistentRegistrar getarByRidAndUid(Request rid, AssistentRegistrar ar) {
-//
-//		return crepo.findARByRidAndUid(rid, ar).orElse(null);
-//	}
+
 
 }

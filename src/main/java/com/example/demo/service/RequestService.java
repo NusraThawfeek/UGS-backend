@@ -66,5 +66,21 @@ public class RequestService {
 		// TODO Auto-generated method stub
 		return repository.findByindexNo(indexNo);
 	}
+
+	public Request updateAddToAgenda(Request r) {
+		
+		Request req=getRequest(r.getRid());
+		req.setIsSendToFacBoard(r.getIsSendToFacBoard());
+		return repository.save(req);
+	}
+
+	public List<Request> getNewReqAR() {
+		// TODO Auto-generated method stub
+		return repository.findNewRequestForAR();
+	}
 	
+	public List<Request> getPastReqAR() {
+		// TODO Auto-generated method stub
+		return repository.findPastRequestForAR();
+	}
 }

@@ -67,6 +67,22 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		List<Request> findnewRequestForDUGS(@Param("uid") FACMember uid);
 		
 		
-		
+		//past req for AR
+		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_mid,r.is_send_to_fac_board,"
+				+ "r.status,r.std_user_id,r.type,0 AS clazz_\r\n"
+				+ "from commented c, request r,facmember f\r\n"
+				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true", nativeQuery = true)
+		List<Request> findPastRequestForAR();
 	
+		//New req for AR
+		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_mid,r.is_send_to_fac_board,"
+				+ "r.status,r.std_user_id,r.type,0 AS clazz_\r\n"
+				+ "from commented c, request r,facmember f\r\n"
+				+ "where c.rid=r.rid and c.fac_id=f.user_id and c.is_forwarded=true and f.is_dugs=true and r.rid not in\r\n"
+				+ "(select distinct(r.rid) \r\n"
+				+ "from commented c, request r,facmember f\r\n"
+				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true)", nativeQuery = true)
+		List<Request> findNewRequestForAR();
+		
+		
 }
