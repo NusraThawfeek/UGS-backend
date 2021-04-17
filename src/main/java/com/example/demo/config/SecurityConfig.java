@@ -80,7 +80,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_annex/{rid}").permitAll()
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
-		
+
 		.antMatchers("/facmember").permitAll()
 		.antMatchers("/facmember/{facId}").permitAll()
 		
@@ -111,7 +111,22 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/Commented/EditByDean/{rid},{uid}").permitAll()
 		.antMatchers("/Commented/EditByDugs/{rid},{uid}").permitAll()
 		
-		
+
+		.antMatchers("/meetings").permitAll()
+		.antMatchers("/meetings/get").permitAll()
+		.antMatchers("/meetings/{id}").permitAll()
+		.antMatchers("/meetings/mail/{id}").permitAll()
+		.antMatchers("/facmembers").permitAll()
+		.antMatchers("/sendmail").permitAll()
+		.antMatchers("/subcomittee/**").permitAll()
+		.antMatchers("/subcomittee/fileupload/{id}").permitAll()
+		.antMatchers("/subcomittee/statusupdate/{id}").permitAll()
+		.antMatchers("/attendance/create").permitAll()
+		.antMatchers("/attendance/getByMeetingId/{meetingId}").permitAll()
+		.antMatchers("/attendance/getByMeetingDate/{date}").permitAll()
+		.antMatchers("/facmembers").permitAll()
+		.antMatchers("/facmember/create").permitAll()
+
 		.anyRequest().authenticated()
 		.and()
 		.exceptionHandling()

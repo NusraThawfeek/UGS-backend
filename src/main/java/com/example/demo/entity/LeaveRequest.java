@@ -21,7 +21,9 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 @PrimaryKeyJoinColumn
+
 //@SuperBuilder
+
 public class LeaveRequest extends Request {
 
 	private String leaveType;

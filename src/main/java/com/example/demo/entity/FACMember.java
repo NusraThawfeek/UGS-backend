@@ -9,29 +9,27 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class FACMember extends User{
+public class FACMember extends User {
 	private String department;
-	
+
 	@JsonProperty("isAcademicAdvisor")
 	private boolean isAcademicAdvisor;
-	
+
 	@JsonProperty("isHod")
 	private boolean isHod;
-	
+
 	@JsonProperty("isDean")
 	private boolean isDean;
-	
+
 	@JsonProperty("isDugs")
 	private boolean isDugs;
-	
+
 	@JsonProperty("isOnlyLecturer")
 	private boolean isOnlyLecturer;
 
@@ -42,5 +40,15 @@ public class FACMember extends User{
 	 @JsonIgnore
 	 @OneToMany(mappedBy = "academicAdvisor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	 private List<Student> sid;
+
 	
+
+	public FACMember() {
+		this.isAcademicAdvisor = false;
+		this.isDean = false;
+		this.isHod = false;
+		this.isOnlyLecturer = true;
+
+	}
+
 }

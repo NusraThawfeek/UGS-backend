@@ -1,35 +1,57 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Attend {
 
-	@EmbeddedId
-	private AttendKey Id;
-	
-	@ManyToOne
-    @MapsId("facMemberId")
-    @JoinColumn(name = "fac_member_id")
-    private FACMember facMember;
+	// @EmbeddedId
+	// private AttendKey Id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
-    @ManyToOne
-    @MapsId("facMeetingId")
-    @JoinColumn(name = "fac_meeting_id")
-    private FACMeeting facMeeting;
-    
-    private boolean attendence;
-    private String apology;
-    
-	public Attend(FACMember facMember, FACMeeting facMeeting, boolean attendence, String apology) {
+//	@ManyToOne
+//
+//	@MapsId("facMemberId")
+//
+//	@JoinColumn(name = "fac_member_id")
+//	private FACMember facmember;
+//
+//	@ManyToOne
+//
+//	@MapsId("facMeetingId")
+//
+//	@JoinColumn(name = "fac_meeting_id")
+//	private FACMeeting facMeeting;
+	@ManyToOne
+	@JoinColumn(name = "meetingId")
+	private FACMeeting facmeeting;
+
+	@ManyToOne
+	@JoinColumn(name = "memberId")
+	private FACMember facmember;
+	
+	private String attendence;
+	private String apology;
+
+	public Attend(Integer id, FACMember facmember, FACMeeting facmeeting, String attendence, String apology) {
 		super();
-		Id = new AttendKey(facMember.getUserId(), facMeeting.getMid());
-		this.facMember = facMember;
-		this.facMeeting = facMeeting;
+		// Id = new AttendKey(facMember.getUserId(), facMeeting.getId());
+		this.id = id;
+		this.facmember = facmember;
+		this.facmeeting = facmeeting;
 		this.attendence = attendence;
 		this.apology = apology;
 	}
@@ -38,21 +60,39 @@ public class Attend {
 		super();
 	}
 
-
-
-	public AttendKey getId() {
-		return Id;
+	public FACMember getFacMember() {
+		return facmember;
 	}
 
-	public void setId(AttendKey id) {
-		Id = id;
+	public void setFacMember(FACMember facMember) {
+		this.facmember = facMember;
 	}
 
-	public boolean isAttendence() {
+	public FACMeeting getFacMeeting() {
+		return facmeeting;
+	}
+
+	public void setFacMeeting(FACMeeting facMeeting) {
+		this.facmeeting = facMeeting;
+	}
+
+	public String getAttendence() {
 		return attendence;
 	}
 
-	public void setAttendence(boolean attendence) {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String isAttendence() {
+		return attendence;
+	}
+
+	public void setAttendence(String attendence) {
 		this.attendence = attendence;
 	}
 
@@ -63,8 +103,7 @@ public class Attend {
 	public void setApology(String apology) {
 		this.apology = apology;
 	}
+
 	
-	
-    
-    
+
 }

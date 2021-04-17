@@ -29,7 +29,6 @@ import lombok.experimental.SuperBuilder;
 import lombok.Data;
 
 //@Data
-
 @Inheritance(strategy = InheritanceType.JOINED)
 //@SuperBuilder
 @Entity
@@ -69,9 +68,10 @@ public class User {
 		super();
 	}
 
-	public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email,
+	public User(Long userId,@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email,
 			@NotBlank @Size(min = 8) String password, String contactNo, Set<Roles> roles) {
 		super();
+		this.userId=userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

@@ -1,64 +1,65 @@
 package com.example.demo.entity;
 
-
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
-@Table
+@Table(name = "fac_meeting")
 public class FACMeeting {
 
 	@Id
-	@GeneratedValue
-	private int mid;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date meetingDate;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date meetingTime;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date date;
+	private String meetingTime;
+
 	private String location;
+	private String AgendaLink;
+	private String MinuteLink1;
+	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
 	private List<Memo> memos;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting1")
 	private List<Request> requests;
-	
-	@OneToMany(mappedBy = "facMeeting")
+
+	@OneToMany(mappedBy = "facmeeting")
+	@JsonIgnore
 	private List<Attend> attends;
 	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AssistentRegistrar assistantRegistrar;
-	
-	private boolean assRegAttend;
-	private String assRegApology;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "createdFacMeeting")
-	private List<SubCommitee> createSubCommitee;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "reportSubmittedFacMeeting")
-	private List<SubCommitee> reportSubmittedSubCommitee;
 
-	public FACMeeting(Date meetingDate, Date meetingTime, String location) {
+	// private boolean assRegAttend;
+	// private String assRegApology;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "createdFacMeeting")
+	private List<SubComittee> createSubCommitee;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "reportSubmittedFacMeeting")
+	private List<SubComittee> reportSubmittedSubCommitee;
+
+	public FACMeeting(Date date, String meetingTime, String location) {
 		super();
-		this.meetingDate = meetingDate;
+		this.date = date;
 		this.location = location;
 		this.meetingTime = meetingTime;
 	}
@@ -67,27 +68,43 @@ public class FACMeeting {
 		super();
 	}
 
-	public int getMid() {
-		return mid;
+	public String getAgendaLink() {
+		return AgendaLink;
 	}
 
-	public void setMid(int mid) {
-		this.mid = mid;
+	public void setAgendaLink(String agendaLink) {
+		AgendaLink = agendaLink;
 	}
 
-	public Date getMeetingDate() {
-		return meetingDate;
+	public String getMinuteLink1() {
+		return MinuteLink1;
 	}
 
-	public void setMeetingDate(Date meetingDate) {
-		this.meetingDate = meetingDate;
+	public void setMinuteLink1(String minuteLink1) {
+		MinuteLink1 = minuteLink1;
 	}
 
-	public Date getMeetingTime() {
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getMeetingTime() {
 		return meetingTime;
 	}
 
-	public void setMeetingTime(Date meetingTime) {
+	public void setMeetingTime(String meetingTime) {
 		this.meetingTime = meetingTime;
 	}
 
@@ -115,21 +132,4 @@ public class FACMeeting {
 		this.assistantRegistrar = assistantRegistrar;
 	}
 
-	public boolean isAssRegAttend() {
-		return assRegAttend;
-	}
-
-	public void setAssRegAttend(boolean assRegAttend) {
-		this.assRegAttend = assRegAttend;
-	}
-
-	public String getAssRegApology() {
-		return assRegApology;
-	}
-
-	public void setAssRegApology(String assRegApology) {
-		this.assRegApology = assRegApology;
-	}
-	
-	
 }

@@ -18,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 
 //@SuperBuilder
 
+
 public class AlternativeModuleRequest extends Request {
 
 	private String comment;
