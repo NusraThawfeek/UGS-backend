@@ -49,6 +49,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/all/login").permitAll()
 		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/admin/register/fac").permitAll()
 		
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").permitAll()
@@ -79,6 +80,37 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_annex/{rid}").permitAll()
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
+		
+		.antMatchers("/facmember").permitAll()
+		.antMatchers("/facmember/{facId}").permitAll()
+		
+		
+		.antMatchers("/PastReq/{uid}").permitAll()
+		.antMatchers("/PastReqAR").permitAll()
+		.antMatchers("/NewReqAcademicAdvisor/{uid}").permitAll()
+		.antMatchers("/NewReqHOD/{uid}").permitAll()
+		.antMatchers("/NewReqDean/{uid}").permitAll()
+		.antMatchers("/NewReqDUGS/{uid}").permitAll()
+		.antMatchers("/NewReqAR").permitAll()
+		.antMatchers("/AddRequestToAgenda").permitAll()
+		
+		
+		.antMatchers("/StudentReqByIndexNo/{indexNo}").permitAll()
+		.antMatchers("/StudentByIndexNo/{indexNo}").permitAll()
+		.antMatchers("/Student").permitAll()
+		
+		
+		.antMatchers("/Commented/Request/{rid}").permitAll()
+		.antMatchers("/Commented/RequestbyUid/{uid}").permitAll()
+		.antMatchers("/Commented").permitAll()
+		.antMatchers("/Commented/update").permitAll()
+		.antMatchers("/Commented/RequestbyIds/{rid},{uid}").permitAll()
+		
+		.antMatchers("/Commented/EditByAcademicAdvisor/{rid},{uid}").permitAll()
+		.antMatchers("/Commented/EditByHOD/{rid},{uid}").permitAll()
+		.antMatchers("/Commented/EditByDean/{rid},{uid}").permitAll()
+		.antMatchers("/Commented/EditByDugs/{rid},{uid}").permitAll()
+		
 		
 		.anyRequest().authenticated()
 		.and()

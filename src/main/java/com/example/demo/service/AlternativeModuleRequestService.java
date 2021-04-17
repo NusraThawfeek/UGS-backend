@@ -18,9 +18,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.AlternativeModuleRequest;
+import com.example.demo.entity.FACMember;
 import com.example.demo.entity.LeaveRequest;
 import com.example.demo.entity.ModuleDiscontinue;
 import com.example.demo.entity.ModuleDiscontinueKey;
+import com.example.demo.entity.Student;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.AlternativeModuleRequestRepository;
 import com.example.demo.repository.ModuleDiscontinueRepository;
@@ -46,7 +48,7 @@ public class AlternativeModuleRequestService {
 	@Autowired
 	private DecisionMailService mailService;
 	
-	public void submitAlternativemoduleRequest(int sid, MultipartFile annex, String mcode[], String currentGrade[], String comment) {
+	public void submitAlternativemoduleRequest(int sid, MultipartFile annex, String mcode[], String currentGrade[], String comment) throws MessagingException {
 		
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
 
@@ -83,6 +85,9 @@ public class AlternativeModuleRequestService {
     		
     		moduleDiscontinueRepo.saveAll(moduleDiscontinueList);
     		
+    		Student std=studentService.getStudent(sid);
+    		
+    		mailService.newRequest(std.getAcademicAdvisor(),"AcademicAdvisor", std);
     		
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

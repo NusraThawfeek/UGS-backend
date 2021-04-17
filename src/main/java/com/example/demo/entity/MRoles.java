@@ -7,5 +7,6 @@ public enum MRoles {
 	ROLE_DUGS,
 	ROLE_DEAN,
 	ROLE_HOD,
-	ROLE_AR
+	ROLE_AR,
+	ROLE_ACADEMICADVISOR,
 }

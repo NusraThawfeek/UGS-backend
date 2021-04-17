@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 //@NoArgsConstructor
 //@Data
+
 @Entity
 public class Roles {
 
@@ -24,10 +25,6 @@ public class Roles {
 
 	public Roles(MRoles name) {
 		this.name = name;
-	}
-
-	public Roles() {
-		super();
 	}
 
 	public MRoles getName() {

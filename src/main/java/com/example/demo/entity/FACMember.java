@@ -1,7 +1,13 @@
 package com.example.demo.entity;
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -29,12 +35,12 @@ public class FACMember extends User{
 	@JsonProperty("isOnlyLecturer")
 	private boolean isOnlyLecturer;
 
-	public FACMember() {
-		this.isAcademicAdvisor = false;
-		this.isDean = false;
-		this.isHod = false;
-		this.isOnlyLecturer = true;
-		
-	}
+	 @JsonIgnore
+	@OneToMany(mappedBy = "uid",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Commented> comments;
+	 
+	 @JsonIgnore
+	 @OneToMany(mappedBy = "academicAdvisor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	 private List<Student> sid;
 	
 }

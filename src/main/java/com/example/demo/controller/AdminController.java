@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,7 @@ public class AdminController {
 	private IAdminService service;
 
 	@PostMapping("/register/student/single")
-	public ResponseEntity<String> registerSingleStudent(@Valid @RequestBody StudentSingleRegister registerStudent) {
+	public ResponseEntity<String> registerSingleStudent(@Valid @ModelAttribute StudentSingleRegister registerStudent) {
 		log.info("Registration of Single Student called, Index:" + registerStudent.getIndexNumber());
 		String index = service.saveStudent(registerStudent);
 		return ResponseEntity.ok("Registration Successfull Index Number: " + index);
