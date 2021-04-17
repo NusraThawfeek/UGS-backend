@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
-<<<<<<< HEAD
 
-=======
->>>>>>> 8ff7ad82f2521e5cef821f951247516812963dfb
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,14 +35,14 @@ public class FACMemberController {
 	public FACMember FACMember(@PathVariable int facId) {
 		return service.getFACMember(facId);
 	}
-<<<<<<< HEAD
+
 	
 	@GetMapping("/facmember")
 	public  List<FACMember> getFACmembers() {
 	
 		return service.findAll();
 	}
-=======
+
 
 	@PostMapping(path = "/facmember/create")
 	public ResponseEntity<?> create(FACMember facmember) {
@@ -57,5 +54,5 @@ public class FACMemberController {
 		return service.getAll();
 	}
 
->>>>>>> 8ff7ad82f2521e5cef821f951247516812963dfb
+
 }

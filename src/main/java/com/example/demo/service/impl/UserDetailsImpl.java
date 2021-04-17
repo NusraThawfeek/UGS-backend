@@ -27,6 +27,7 @@ public class UserDetailsImpl implements UserDetails {
 	
 	private String firstName;
 	private String lastName;
+	private String nameToBeAppeared;
 	
 	private String email;
 	
@@ -48,7 +49,7 @@ public class UserDetailsImpl implements UserDetails {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new UserDetailsImpl(user.getUserId(),user.getEmail(), user.getPassword(), authorities);
+		return new UserDetailsImpl(user.getUserId(),user.getEmail(), user.getPassword(), authorities,user.getNameToBeAppeared());
 	}
 	@Override
 	public String getPassword() {
@@ -80,28 +81,15 @@ public class UserDetailsImpl implements UserDetails {
 		return true;
 	}
 
-	
 
 
-	public Long getUserId() {
-		return userId;
-	}
-
-
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-
-
-	public UserDetailsImpl(Long userId, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(Long userId, String email, String password, Collection<? extends GrantedAuthority> authorities, String nameToBeAppeared) {
 		super();
 		this.userId = userId;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.nameToBeAppeared = nameToBeAppeared;
 	}
-
 
 }

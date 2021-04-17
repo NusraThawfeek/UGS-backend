@@ -10,9 +10,8 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@NoArgsConstructor
-//@Data
-
+@NoArgsConstructor
+@Data
 @Entity
 public class Roles {
 

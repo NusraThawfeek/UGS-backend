@@ -5,8 +5,17 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@NoArgsConstructor
 @Embeddable
 public class CommentKey implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "FAC_Id")
 	private long uid;
@@ -20,26 +29,7 @@ public class CommentKey implements Serializable {
 		this.rid = rid;
 	}
 
-	public CommentKey() {
-		super();
-	}
-
-	public long getUid() {
-		return uid;
-	}
-
-	public void setUid(long uid) {
-		this.uid = uid;
-	}
-
-	public int getRid() {
-		return rid;
-	}
-
-	public void setRid(int rid) {
-		this.rid = rid;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

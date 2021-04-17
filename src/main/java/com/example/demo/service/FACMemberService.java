@@ -28,12 +28,12 @@ public class FACMemberService {
 		return repo.findById(FACId).orElse(null);
 	}
 
-<<<<<<< HEAD
+
 	public List<FACMember> findAll() {
 	
 		return repo.findAll();
 	}
-=======
+
 	public ResponseEntity<?> create(FACMember facmember) {
 		this.repo.save(facmember);
 		return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
@@ -43,5 +43,5 @@ public class FACMemberService {
 		return repo.findAll();
 	}
 
->>>>>>> 8ff7ad82f2521e5cef821f951247516812963dfb
+
 }

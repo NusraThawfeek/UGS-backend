@@ -4,11 +4,9 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,7 +14,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "fac_meeting")
 public class FACMeeting {
@@ -48,8 +50,6 @@ public class FACMeeting {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AssistentRegistrar assistantRegistrar;
 
-	// private boolean assRegAttend;
-	// private String assRegApology;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "createdFacMeeting")
 	private List<SubComittee> createSubCommitee;
@@ -64,72 +64,6 @@ public class FACMeeting {
 		this.meetingTime = meetingTime;
 	}
 
-	public FACMeeting() {
-		super();
-	}
-
-	public String getAgendaLink() {
-		return AgendaLink;
-	}
-
-	public void setAgendaLink(String agendaLink) {
-		AgendaLink = agendaLink;
-	}
-
-	public String getMinuteLink1() {
-		return MinuteLink1;
-	}
-
-	public void setMinuteLink1(String minuteLink1) {
-		MinuteLink1 = minuteLink1;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getMeetingTime() {
-		return meetingTime;
-	}
-
-	public void setMeetingTime(String meetingTime) {
-		this.meetingTime = meetingTime;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public List<Attend> getAttends() {
-		return attends;
-	}
-
-	public void setAttends(List<Attend> attends) {
-		this.attends = attends;
-	}
-
-	public AssistentRegistrar getAssistantRegistrar() {
-		return assistantRegistrar;
-	}
-
-	public void setAssistantRegistrar(AssistentRegistrar assistantRegistrar) {
-		this.assistantRegistrar = assistantRegistrar;
-	}
+	
 
 }

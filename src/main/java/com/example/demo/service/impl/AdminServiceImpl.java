@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.request.ChangePasswordRequest;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.entity.AssistentRegistrar;
@@ -51,18 +52,17 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 	private UgsStaffRepository ugsRepo;
 
 	@Autowired
-	private UserRepository user;
-	
+	private UserRepository userRepo;
+
 	@Autowired
 	private RolesRepository roleRepo;
-	
+
 	@Autowired
 	private EmailUtil email;
 
-
 	@Override
 	public String saveStudent(StudentSingleRegister studentReq) {
-		if (user.existsByEmail(studentReq.getEmail())) {
+		if (userRepo.existsByEmail(studentReq.getEmail())) {
 			return null;
 		}
 
@@ -72,31 +72,54 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 		Student student = new Student();
 		student.setFirstName(studentReq.getFirstName());
 		student.setLastName(studentReq.getLastName());
+		student.setNameToBeAppeared(studentReq.getNameToBeAppeared());
 		student.setEmail(studentReq.getEmail());
-		student.setPassword(encoder.encode(studentReq.getPassword()));
+		String password = encoder.encode(studentReq.getIndexNumber()).substring(0, 10);
+
+		student.setPassword(encoder.encode(password));
 		student.setContactNo(studentReq.getContactNumber());
 		student.setBatchYear(studentReq.getBatch());
 		student.setCourseTitle(studentReq.getCourse());
 		student.setLevelSemester(studentReq.getLevelSem());
 		student.setIndexNo(studentReq.getIndexNumber());
-	
+		FACMember academicAdvisor = (FACMember) userRepo.findByEmail(studentReq.getAcademicAdvisorEmail()).get();
+		student.setAcademicAdvisor(academicAdvisor);
+
 		Set<Roles> roles = new HashSet<Roles>();
 		Roles stdRole = roleRepo.findByName(MRoles.ROLE_STUDENT).get();
 		roles.add(stdRole);
 		student.setRoles(roles);
-		return studentRepo.save(student).getIndexNo();
+
+		Student savedStudent = studentRepo.save(student);
+		if (savedStudent != null) {
+			String message = "Hello from Division of Undergraduate Studies \n"
+					+ "Please use the following password to log in to the system " + "\n " + password + "\n"
+					+ "Please be kind to change the password soon after your first login";
+			email.sendEmail(student.getEmail(), "One Time Login Password", message);
+		}
+		return savedStudent.getIndexNo();
 	}
-	
+
 	@Override
 	public int saveAll(List<StudentBatchRequest> students) {
-		for(int i = 0;i < students.size();i++) {
+//		user already exists scenario what should happen do we send the results or highlight them in frontEnd
+		for (int i = 0; i < students.size(); i++) {
 			StudentBatchRequest oneStudent = students.get(i);
+			if (userRepo.existsByEmail(oneStudent.getEmail())) {
+				return i;
+			}
+
+			if (studentRepo.existsByIndexNo(oneStudent.getIndexNo())) {
+				return i;
+			}
+
 			Student student = new Student();
 			student.setFirstName(oneStudent.getFirstName());
 			student.setLastName(oneStudent.getLastName());
+			student.setNameToBeAppeared(oneStudent.getNameToBeAppeared());
 			student.setEmail(oneStudent.getEmail());
-			String password = encoder.encode(oneStudent.getIndexNo()).substring(0,10);
-			
+			String password = encoder.encode(oneStudent.getIndexNo()).substring(0, 10);
+
 			student.setPassword(encoder.encode(password));
 			student.setContactNo(oneStudent.getContactNo());
 			student.setBatchYear(oneStudent.getBatchYear());
@@ -107,12 +130,13 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 			Roles stdRole = roleRepo.findByName(MRoles.ROLE_STUDENT).get();
 			roles.add(stdRole);
 			student.setRoles(roles);
-			studentRepo.save(student);
-			String message = "Hello from Division of Undergraduate Studies \n"
-					+ "Please use the following password to log in to the system "
-					+"\n "+password+"\n"+
-					"Please be kind to change the password soon after your first login";
-			email.sendEmail(student.getEmail(), "One Time Login Password", message);
+			Student savedStudent = studentRepo.save(student);
+			if (savedStudent != null) {
+				String message = "Hello from Division of Undergraduate Studies \n"
+						+ "Please use the following password to log in to the system " + "\n " + password + "\n"
+						+ "Please be kind to change the password soon after your first login";
+				email.sendEmail(student.getEmail(), "One Time Login Password", message);
+			}
 		}
 		return students.size();
 	}
@@ -137,7 +161,51 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 
 	@Override
 	public Optional<User> findUserByUserName(String email) {
-		return user.findByEmail(email);
+		return userRepo.findByEmail(email);
+	}
+
+	@Override
+	public List<FACMember> getAllAcademicAdvisors() {
+		return facRepo.findAllByIsAcademicAdvisor(true);
+	}
+	
+	@Override
+	public Roles getRole(MRoles role) {
+		return roleRepo.findByName(role).get();
+	}
+	
+	
+
+	@Override
+	public Student getStudent(long id) {
+		return studentRepo.findById(id).get();
+	}
+
+	@Override
+	public FACMember getFacMember(long id) {
+		return facRepo.findById(id).get();
+	}
+
+	@Override
+	public AssistentRegistrar getAr(long id) {
+		return arRepo.findById(id).get();
+	}
+
+	@Override
+	public UgsStaff getUgsStaff(long id) {
+		return ugsRepo.findById(id).get();
+	}
+
+	
+	@Override
+	public int updatePassword(ChangePasswordRequest req) {
+		User user = userRepo.findById(req.getId()).get();
+		if (encoder.matches(req.getOldPassword(), user.getPassword())) {
+			user.setPassword(encoder.encode(req.getNewPassword()));
+			userRepo.save(user);
+			return 1;
+		}
+		return 0;
 	}
 
 	@Override
@@ -151,6 +219,18 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 		return UserDetailsImpl.build(user);
 	}
 
-	
+	@Override
+	public void changePassword(User user) {
+		String password = encoder.encode(user.getPassword()).substring(0, 10);
+		user.setPassword(encoder.encode(password));
+		userRepo.save(user);
+		String message = "Hello from Division of Undergraduate Studies \n"
+				+ "Please use the following password to log in to the system " + "\n " + password + "\n"
+				+ "Please be kind to change the password soon after your first login";
+		email.sendEmail(user.getEmail(), "Password Change for UGS-IT ", message);
+		
+		
+	}
 
 }
+

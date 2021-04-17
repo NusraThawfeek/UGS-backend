@@ -4,20 +4,24 @@ import java.util.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
 @Entity
+@NoArgsConstructor
 public class Commented {
 
 	@EmbeddedId
     private CommentKey cid;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("FACId")
     @JoinColumn(name = "FAC_Id")
     private FACMember uid;
@@ -48,72 +52,7 @@ public class Commented {
 		this.description = description;
 	}
 
-	public Commented() {
-		super();
-	}
 
-	public CommentKey getCid() {
-		return cid;
-	}
-
-	public void setCid(CommentKey cid) {
-		this.cid = cid;
-	}
-
-
-	public FACMember getUid() {
-		return uid;
-	}
-
-	public void setUid(FACMember uid) {
-		this.uid = uid;
-	}
-
-	public Request getRid() {
-		return rid;
-	}
-
-	public void setRid(Request rid) {
-		this.rid = rid;
-	}
-
-	public Date getEnteredDate() {
-		return enteredDate;
-	}
-
-	public void setEnteredDate(Date enteredDate) {
-		this.enteredDate = enteredDate;
-	}
-
-	public boolean isIsRecomended() {
-		return IsRecomended;
-	}
-
-	public void setIsRecomended(boolean isRecomended) {
-		IsRecomended = isRecomended;
-	}
-
-	public boolean isIsForwarded() {
-		return IsForwarded;
-	}
-
-	public void setIsForwarded(boolean isForwarded) {
-		IsForwarded = isForwarded;
-	}
-
-	public boolean isIsRejected() {
-		return IsRejected;
-	}
-	public void setIsRejected(boolean isRejected) {
-		IsRejected = isRejected;
-	}
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	
 
