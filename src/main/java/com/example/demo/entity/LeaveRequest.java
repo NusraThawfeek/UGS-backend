@@ -15,11 +15,11 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-@Data
+//@Data
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-@SuperBuilder
+//@SuperBuilder
 public class LeaveRequest extends Request {
 
 	private String leaveType;

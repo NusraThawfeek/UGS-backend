@@ -28,10 +28,10 @@ import lombok.experimental.SuperBuilder;
 
 import lombok.Data;
 
-@Data
+//@Data
 
 @Inheritance(strategy = InheritanceType.JOINED)
-@SuperBuilder
+//@SuperBuilder
 @Entity
 @Table(uniqueConstraints = {
 		@UniqueConstraint(columnNames = "email")

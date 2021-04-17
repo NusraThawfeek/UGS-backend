@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-@SuperBuilder
+//@SuperBuilder
 public class LateModuleChangeRequest extends Request {
 
 	private String reason;

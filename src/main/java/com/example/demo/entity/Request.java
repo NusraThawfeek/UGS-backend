@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.JOINED)
-@SuperBuilder
+//@SuperBuilder
 public class Request {
 
 	@Id
