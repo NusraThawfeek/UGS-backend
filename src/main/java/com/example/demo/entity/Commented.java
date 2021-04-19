@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -31,7 +33,7 @@ public class Commented {
     @JoinColumn(name = "rid")
     @JsonBackReference
     private Request rid;
-   
+	@Temporal(TemporalType.DATE)
     private Date enteredDate = new Date();
   
 	private boolean IsRecomended;
