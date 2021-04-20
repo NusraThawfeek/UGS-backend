@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.MRoles;
 import com.example.demo.entity.Roles;
 
-public interface RolesRepository extends JpaRepository<Roles, Integer> {
-
-	Optional<Roles> findByName(MRoles name);
+public interface RolesRepository extends JpaRepository<Roles, Integer>{
+	Optional<Roles>  findByName(MRoles name);
 }

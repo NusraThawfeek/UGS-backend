@@ -4,18 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-@SuperBuilder
 public class AlternativeModuleRequest extends Request {
 
 	private String comment;

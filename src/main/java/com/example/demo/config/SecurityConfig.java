@@ -49,6 +49,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/all/login").permitAll()
 		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/admin/register/fac").permitAll()
 		
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").permitAll()
@@ -79,7 +80,51 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_annex/{rid}").permitAll()
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
+
+		.antMatchers("/facmember").permitAll()
+		.antMatchers("/facmember/{facId}").permitAll()
 		
+		
+		.antMatchers("/PastReq/{uid}").hasAnyAuthority("ROLE_AR","ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR")
+		.antMatchers("/PastReqAR").hasAuthority("ROLE_AR")
+		.antMatchers("/NewReqAcademicAdvisor/{uid}").hasAuthority("ROLE_ACADEMICADVISOR")
+		.antMatchers("/NewReqHOD/{uid}").hasAnyAuthority("ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM")
+		.antMatchers("/PastReqAR").hasAuthority("ROLE_AR")
+		.antMatchers("/NewReqDean/{uid}").hasAuthority("ROLE_DEAN")
+		.antMatchers("/NewReqDUGS/{uid}").hasAuthority("ROLE_UGS")
+		.antMatchers("/NewReqAR").hasAuthority("ROLE_AR")
+		.antMatchers("/AddRequestToAgenda").hasAuthority("ROLE_AR")
+		
+		
+		.antMatchers("/StudentReqByIndexNo/{indexNo}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
+		.antMatchers("/StudentByIndexNo/{indexNo}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
+		.antMatchers("/Student").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
+		
+		
+		.antMatchers("/Commented/Request/{rid}").hasAnyAuthority("ROLE_AR","ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR")
+		
+		.antMatchers("/Commented/update").hasAnyAuthority("ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR")
+		.antMatchers("/Commented/RequestbyIds/{rid},{uid}").hasAnyAuthority("ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR")
+		
+		.antMatchers("/Commented/EditByAcademicAdvisor/{rid},{uid}").hasAuthority("ROLE_ACADEMICADVISOR")
+		.antMatchers("/Commented/EditByHOD/{rid},{uid}").hasAnyAuthority("ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM")
+		.antMatchers("/Commented/EditByDean/{rid},{uid}").hasAuthority("ROLE_DEAN")
+		.antMatchers("/Commented/EditByDugs/{rid},{uid}").hasAuthority("ROLE_UGS")
+		
+
+		.antMatchers("/meetings").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/get").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/{id}").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
+		.antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
+		.antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
+		.antMatchers("/subcomittee/statusupdate/{id}").hasAuthority("ROLE_AR")
+		.antMatchers("/attendance/create").hasAuthority("ROLE_AR")
+		.antMatchers("/attendance/getByMeetingId/{meetingId}").hasAuthority("ROLE_AR")
+		.antMatchers("/attendance/getByMeetingDate/{date}").hasAuthority("ROLE_AR")
+		.antMatchers("/facmembers").permitAll()
+		
+
 		.anyRequest().authenticated()
 		.and()
 		.exceptionHandling()
@@ -88,9 +133,9 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
-		.addFilterBefore( securityFilter, UsernamePasswordAuthenticationFilter.class);
+		.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 		;
-		
+
 		http.cors();
 	}
 
@@ -101,8 +146,5 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 //		.antMatchers(HttpMethod.POST,"/admin/register");
 //	
 //	}
-	
-	
-	
-	
+
 }

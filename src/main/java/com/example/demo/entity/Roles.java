@@ -26,10 +26,6 @@ public class Roles {
 		this.name = name;
 	}
 
-	public Roles() {
-		super();
-	}
-
 	public MRoles getName() {
 		return name;
 	}

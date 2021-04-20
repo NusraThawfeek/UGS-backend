@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.LeaveRequest;
 import com.example.demo.entity.OtherAppeal;
+import com.example.demo.entity.Student;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.OtherAppealRepository;
 
@@ -35,7 +36,7 @@ public class OtherAppealService {
 	@Autowired
 	private DecisionMailService mailService;
 
-	public OtherAppeal submiOtherAppeal(int sid, String appealbrief, String appealSummary, String isTrainingCompleted, MultipartFile annex, MultipartFile sgpa) {
+	public OtherAppeal submiOtherAppeal(int sid, String appealbrief, String appealSummary, String isTrainingCompleted, MultipartFile annex, MultipartFile sgpa) throws MessagingException {
 
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
 		String sgpaName = StringUtils.cleanPath(sgpa.getOriginalFilename());
@@ -77,6 +78,9 @@ public class OtherAppealService {
 			OtherAppeal otherAppeal = new OtherAppeal(filePath, "", enteredDate, false, studentService.getStudent(sid),
 					appealbrief, appealSummary, sgpaPath, isTrainingCompleted, "Appeal");
 
+			Student std=studentService.getStudent(sid);
+    		
+    		mailService.newRequest(std.getAcademicAdvisor(),"AcademicAdvisor", std);
 			return repo.save(otherAppeal);
 		} catch (IOException ex) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

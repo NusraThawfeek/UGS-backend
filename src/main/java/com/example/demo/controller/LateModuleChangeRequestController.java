@@ -37,7 +37,7 @@ public class LateModuleChangeRequestController {
 	@PostMapping("/request/latemodulechangerequest")
 	public String submitLateModuleChangeRequest(@RequestParam int sid, @RequestParam MultipartFile annex, @RequestParam MultipartFile sgpa, 
 			@RequestParam String reason, @RequestParam String isTrainingCompleted, @RequestParam String mcode[], @RequestParam String addOrDrop[], 
-			@RequestParam int noOfAttendedLectures[], @RequestParam int noOfNotAttendedLectures[], @RequestParam int noOfMissedAssignments[]) {
+			@RequestParam int noOfAttendedLectures[], @RequestParam int noOfNotAttendedLectures[], @RequestParam int noOfMissedAssignments[]) throws MessagingException {
 		
 		service.submitLateModuleChangeRequest(sid, annex, sgpa, reason, isTrainingCompleted, mcode, addOrDrop, 
 				noOfAttendedLectures, noOfNotAttendedLectures, noOfMissedAssignments);

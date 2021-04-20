@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -16,16 +17,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.JOINED)
-@SuperBuilder
+
+//@SuperBuilder
+
 public class Request {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int rid;
 	private String annexPath;
 	private String decision;
@@ -34,13 +39,15 @@ public class Request {
 	private boolean isSendToFacBoard;
 	private String type;
 	private String status;
+	//private boolean isAddedtoAgenda;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn
+	@JoinColumn(name="std_user_id",nullable = false)
 	private Student std;
 	
-	@OneToMany(mappedBy = "request")
-	private List<Comment> comments;
+	@OneToMany(mappedBy = "rid")
+	@JsonManagedReference
+	private List<Commented> comments;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private FACMeeting facMeeting1;
@@ -54,6 +61,7 @@ public class Request {
 		this.isSendToFacBoard = isSendToFacBoard;
 		this.std = std;
 		this.type = type;
+	
 	}
 
 	public Request() {
@@ -116,11 +124,11 @@ public class Request {
 		this.type = type;
 	}
 
-	public List<Comment> getComments() {
+	public List<Commented> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(List<Commented> comments) {
 		this.comments = comments;
 	}
 
@@ -139,6 +147,8 @@ public class Request {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	
 	
 
 }

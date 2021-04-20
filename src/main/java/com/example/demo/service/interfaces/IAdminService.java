@@ -3,12 +3,17 @@ package com.example.demo.service.interfaces;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.dto.request.ChangePasswordRequest;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.FACMember;
+import com.example.demo.entity.MRoles;
+import com.example.demo.entity.Roles;
+import com.example.demo.entity.Student;
 import com.example.demo.entity.UgsStaff;
 import com.example.demo.entity.User;
+
 
 public interface IAdminService {
 	String saveStudent(StudentSingleRegister student);
@@ -29,6 +34,19 @@ public interface IAdminService {
 	String saveUGS(UgsStaff ugs);
 
 	int saveAll(List<StudentBatchRequest> students);
-		
 	
+	List<FACMember> getAllAcademicAdvisors();
+//	TODO: add repo method to get the academic advisors
+		
+	void changePassword(User user);
+	
+	Roles getRole(MRoles role);
+	
+	Student getStudent(long id);
+	FACMember getFacMember(long id);
+	AssistentRegistrar getAr(long id);
+	UgsStaff getUgsStaff(long id);
+
+
+	int updatePassword(ChangePasswordRequest req);
 }

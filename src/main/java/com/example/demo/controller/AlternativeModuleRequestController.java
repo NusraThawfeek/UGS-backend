@@ -34,7 +34,7 @@ public class AlternativeModuleRequestController {
 	
 	@PostMapping("/request/alternativemodulerequest")
 	public String submitAlternativeModuleRequest(@RequestParam int sid, @RequestParam MultipartFile annex, @RequestParam String discontinueMcode[],
-			@RequestParam String currentGrade[], @RequestParam String comment) {
+			@RequestParam String currentGrade[], @RequestParam String comment) throws MessagingException {
 		
 		alterService.submitAlternativemoduleRequest(sid, annex, discontinueMcode, currentGrade, comment);
 		

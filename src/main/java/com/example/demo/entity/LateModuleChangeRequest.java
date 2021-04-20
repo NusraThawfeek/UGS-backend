@@ -11,11 +11,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.experimental.SuperBuilder;
-
+//@SuperBuilder
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-@SuperBuilder
 public class LateModuleChangeRequest extends Request {
 
 	private String reason;

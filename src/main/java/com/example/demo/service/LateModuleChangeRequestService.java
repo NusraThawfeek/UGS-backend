@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.LateChanges;
 import com.example.demo.entity.LateModuleChangeRequest;
+import com.example.demo.entity.Student;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.LateChangesRepository;
 import com.example.demo.repository.LateModuleChangeRequestRepository;
@@ -43,7 +44,7 @@ public class LateModuleChangeRequestService {
 
 	public void submitLateModuleChangeRequest(int sid, MultipartFile annex, MultipartFile sgpa, String reason,
 			String isTrainingCompleted, String mcode[], String addOrDrop[], int noOfAttendedLectures[],
-			int noOfNotAttendedLectures[], int noOfMissedAssignments[]) {
+			int noOfNotAttendedLectures[], int noOfMissedAssignments[]) throws MessagingException {
 
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
 		String sgpaName = StringUtils.cleanPath(sgpa.getOriginalFilename());
@@ -102,6 +103,10 @@ public class LateModuleChangeRequestService {
 
 			lateChangesRepository.saveAll(lateChangesList);
 
+			Student std=studentService.getStudent(sid);
+    		
+    		mailService.newRequest(std.getAcademicAdvisor(),"AcademicAdvisor", std);
+			
 		} catch (IOException ex) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
 		}

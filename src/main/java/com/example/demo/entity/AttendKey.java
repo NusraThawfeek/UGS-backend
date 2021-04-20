@@ -8,6 +8,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AttendKey implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "fac_member_id")
 	private long facMemberId;
 	

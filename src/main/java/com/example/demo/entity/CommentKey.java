@@ -5,46 +5,36 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@NoArgsConstructor
 @Embeddable
 public class CommentKey implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "FAC_Id")
-	private long FACId;
+	private long uid;
 	
 	@Column(name = "rid")
 	private int rid;
 
 	public CommentKey(Long long1, int rid) {
 		super();
-		FACId = long1;
+		this.uid = long1;
 		this.rid = rid;
 	}
 
-	public CommentKey() {
-		super();
-	}
-
-	public long getFACId() {
-		return FACId;
-	}
-
-	public void setFACId(long fACId) {
-		FACId = fACId;
-	}
-
-	public int getRid() {
-		return rid;
-	}
-
-	public void setRid(int rid) {
-		this.rid = rid;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (FACId ^ (FACId >>> 32));
+		result = prime * result + (int) (uid ^ (uid >>> 32));
 		result = prime * result + rid;
 		return result;
 	}
@@ -58,7 +48,7 @@ public class CommentKey implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CommentKey other = (CommentKey) obj;
-		if (FACId != other.FACId)
+		if (uid != other.uid)
 			return false;
 		if (rid != other.rid)
 			return false;

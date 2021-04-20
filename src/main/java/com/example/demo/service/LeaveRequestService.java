@@ -37,7 +37,7 @@ public class LeaveRequestService {
 	private DecisionMailService mailService;
 
 	public LeaveRequest submitLeaveRequest(int sid, String leaveType, String purpose, Date from, Date to, int localDays,
-			int totalDays, int semesterDays, String reason, MultipartFile annex) {
+			int totalDays, int semesterDays, String reason, MultipartFile annex) throws MessagingException {
 
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
 
@@ -71,7 +71,11 @@ public class LeaveRequestService {
 					localDays, overseasDays, totalDays,
 					semesterDays, vacationDays, reason, studentService.getStudent(sid), "Leave");
 
+			Student std=studentService.getStudent(sid);
+    		
+    		mailService.newRequest(std.getAcademicAdvisor(),"AcademicAdvisor", std);
 			return repository.save(req);
+		
 
 		} catch (IOException ex) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

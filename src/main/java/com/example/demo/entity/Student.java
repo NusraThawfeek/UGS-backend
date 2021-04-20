@@ -1,9 +1,19 @@
 package com.example.demo.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,54 +34,18 @@ public class Student extends User {
 	private String levelSemester;
 
 	private int shortTermBal;
+	
 	private int longTermBal;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="std",fetch = FetchType.LAZY)
+	private Set<Request> req;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false,name="fac_member_user_id")
+	private FACMember academicAdvisor;
+	
 
-	public String getIndexNo() {
-		return indexNo;
-	}
-
-	public void setIndexNo(String indexNo) {
-		this.indexNo = indexNo;
-	}
-
-	public String getBatchYear() {
-		return batchYear;
-	}
-
-	public void setBatchYear(String batchYear) {
-		this.batchYear = batchYear;
-	}
-
-	public String getCourseTitle() {
-		return courseTitle;
-	}
-
-	public void setCourseTitle(String courseTitle) {
-		this.courseTitle = courseTitle;
-	}
-
-	public String getLevelSemester() {
-		return levelSemester;
-	}
-
-	public void setLevelSemester(String levelSemester) {
-		this.levelSemester = levelSemester;
-	}
-
-	public int getShortTermBal() {
-		return shortTermBal;
-	}
-
-	public void setShortTermBal(int shortTermBal) {
-		this.shortTermBal = shortTermBal;
-	}
-
-	public int getLongTermBal() {
-		return longTermBal;
-	}
-
-	public void setLongTermBal(int longTermBal) {
-		this.longTermBal = longTermBal;
-	}
+	
 
 }
