@@ -47,12 +47,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/all/login").permitAll()
-		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_ADMIN")
-		.antMatchers("/admin/register/fac").permitAll()
+		.antMatchers("/all/**").permitAll()
+		.antMatchers("/admin/**","/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
 		
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
-		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").permitAll()
+		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").hasAnyAuthority("ROLE_STUDENT","ROLE_FAC")
 		.antMatchers("/pastrequest/getallleaverequest").permitAll()
 		.antMatchers("/pastrequest/leaverequest/{sid}").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/updateleaverequest").hasAuthority("ROLE_AR")

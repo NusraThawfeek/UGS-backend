@@ -63,15 +63,13 @@ public class FACMeetingService {
 
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
 
-		if (repository.existsById(facMeeting.getId()) == true) {
-			return ResponseEntity.status(404).body(new MessageResponse("Meeting Id Already Exist"));
-		} else {
+	
 
 			FACMeeting newmeeting = repository.save(facMeeting);
 			newmeeting.getId();
 
 			return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
-		}
+		
 
 	}
 
