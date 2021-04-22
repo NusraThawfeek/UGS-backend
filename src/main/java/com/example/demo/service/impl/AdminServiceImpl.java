@@ -84,6 +84,8 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 		student.setIndexNo(studentReq.getIndexNumber());
 		FACMember academicAdvisor = (FACMember) userRepo.findByEmail(studentReq.getAcademicAdvisorEmail()).get();
 		student.setAcademicAdvisor(academicAdvisor);
+		student.setShortTermBal(studentReq.getShortTermBal());
+		student.setLongTermBal(studentReq.getLongTermBal());
 
 		Set<Roles> roles = new HashSet<Roles>();
 		Roles stdRole = roleRepo.findByName(MRoles.ROLE_STUDENT).get();
