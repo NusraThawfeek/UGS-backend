@@ -35,6 +35,10 @@ public class StudentSingleRegister {
 	
 	@NotBlank
 	private String academicAdvisorEmail;
+		
+	private int shortTermBal;
+	
+	private int longTermBal;
 
 }
 

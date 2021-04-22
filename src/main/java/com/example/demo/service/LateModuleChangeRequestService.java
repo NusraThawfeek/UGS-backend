@@ -73,14 +73,14 @@ public class LateModuleChangeRequestService {
 					+ "FAC-" + datetime + annex.getOriginalFilename();
 
 			File convertFileSgpa = new File("E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\sgpa\\"
-							+ sgpa.getOriginalFilename());
+					+ "FAC-" + datetime + sgpa.getOriginalFilename());
 			convertFile.createNewFile();
 			FileOutputStream fout2 = new FileOutputStream(convertFileSgpa);
 			fout2.write(sgpa.getBytes());
 			fout2.close();
 
 			String sgpaPath = "E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\sgpa\\"
-					+ "FAC-" + datetime + annex.getOriginalFilename();
+					+ "FAC-" + datetime + sgpa.getOriginalFilename();
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date enteredDate = new Date();

@@ -47,6 +47,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 		.authorizeRequests()
+//		.antMatchers("/*").permitAll()
+//		.antMatchers("/*/*").permitAll()
+//		.antMatchers("/*/*/*").permitAll()
+//		.antMatchers("/*/*/*/*").permitAll()
 		.antMatchers("/all/login").permitAll()
 		.antMatchers("/*").permitAll()
 		.antMatchers("/*/*").permitAll()
@@ -85,6 +89,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_annex/{rid}").permitAll()
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
+		.antMatchers("/getstudent/{uid}").permitAll()
 
 		.antMatchers("/facmember").permitAll()
 		.antMatchers("/facmember/{facId}").permitAll()
