@@ -42,7 +42,7 @@ public class Student extends User {
 	private Set<Request> req;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false,name="fac_member_user_id")
+	@JoinColumn(nullable = false,name="academicAdvisor")
 	private FACMember academicAdvisor;
 	
 

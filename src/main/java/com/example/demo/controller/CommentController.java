@@ -23,88 +23,79 @@ import com.example.demo.entity.Request;
 import com.example.demo.repository.CommentedRepository;
 import com.example.demo.service.CommentedService;
 
-
 @RestController
 @CrossOrigin(origins = "*")
 public class CommentController {
 
 	@Autowired
 	CommentedRepository crepo;
-	
+
 	@Autowired
 	CommentedService cservice;
-	
+
 	@CrossOrigin("*")
 
 	@GetMapping("/Commented")
-	public  List<Commented> getComments() {
+	public List<Commented> getComments() {
 		return crepo.findAll();
 	}
-	
-	
+
 	@GetMapping("/Commented/Request/{rid}")
 	public List<Commented> FindByReqId(@PathVariable Request rid) {
-			return crepo.findByrid(rid);
+		return crepo.findByrid(rid);
 	}
-	
 
 	@GetMapping("/Commented/RequestbyUid/{uid}")
 	public List<Commented> FindByReqId(@PathVariable FACMember uid) {
-	return crepo.findByuid(uid);		
+		return crepo.findByuid(uid);
 	}
-	
-	
-
 
 	@PostMapping("/Commented")
 	public Commented addComment(@ModelAttribute Commented c) throws UnsupportedEncodingException, MessagingException {
-			
-			return cservice.addComment(c);
+
+		return cservice.addComment(c);
 	}
-	
-	
+
 	@PutMapping("/Commented/update")
-	public Commented updateComment(@ModelAttribute Commented c) throws UnsupportedEncodingException, MessagingException {	
-	
+	public Commented updateComment(@ModelAttribute Commented c)
+			throws UnsupportedEncodingException, MessagingException {
+
 		return cservice.updateComment(c);
 	}
-	
-  	@DeleteMapping("/Commented/{cid}")
+
+	@DeleteMapping("/Commented/{cid}")
 	public String deleteComment(@PathVariable CommentKey cid) {
-	
-		Commented c =crepo.getOne(cid);
+
+		Commented c = crepo.getOne(cid);
 		crepo.delete(c);
 		return "Deleted successfully";
 	}
-  	
-  
-	@GetMapping("/Commented/RequestbyIds/{rid},{uid}")
-	public Commented FindByIds(@PathVariable(value="rid") Request rid,@PathVariable(value="uid") FACMember uid) {
-		return cservice.getByRidAndUid(rid,uid);		
-	}
-  	
 
-	
-	@GetMapping("/Commented/EditByAcademicAdvisor/{rid},{uid}")
-	public boolean editForAcademivAdv(@PathVariable(value="rid") Request rid, @PathVariable(value="uid") Long uid) {
-	return cservice.editForAcademivAdv(rid, uid);
+	@GetMapping("/Commented/RequestbyIds/{rid},{uid}")
+	public Commented FindByIds(@PathVariable(value = "rid") Request rid, @PathVariable(value = "uid") FACMember uid) {
+		return cservice.getByRidAndUid(rid, uid);
 	}
-	
+
+	@GetMapping("/Commented/EditByAcademicAdvisor/{rid},{uid}")
+	public boolean editForAcademivAdv(@PathVariable(value = "rid") Request rid, @PathVariable(value = "uid") Long uid) {
+		return cservice.editForAcademivAdv(rid, uid);
+	}
+
 	@CrossOrigin("*")
 	@GetMapping("/Commented/EditByHOD/{rid},{uid}")
-	public boolean editForHOD(@PathVariable(value="rid") Request rid, @PathVariable(value="uid") Long uid) {
-	return cservice.editForHOD(rid, uid);
+	public boolean editForHOD(@PathVariable(value = "rid") Request rid, @PathVariable(value = "uid") Long uid) {
+		return cservice.editForHOD(rid, uid);
 	}
 
 	@CrossOrigin("*")
 	@GetMapping("/Commented/EditByDean/{rid},{uid}")
-	public boolean editForDean(@PathVariable(value="rid") Request rid, @PathVariable(value="uid") Long uid) {
-	return cservice.editForDean(rid, uid);
+	public boolean editForDean(@PathVariable(value = "rid") Request rid, @PathVariable(value = "uid") Long uid) {
+		return cservice.editForDean(rid, uid);
 	}
-	
+
 	@GetMapping("/Commented/EditByDugs/{rid},{uid}")
-	public boolean editForDUGS(@PathVariable(value="rid") Request rid, @PathVariable(value="uid") Long uid) {
-	return cservice.editForDugs(rid, uid);
+	public boolean editForDUGS(@PathVariable(value = "rid") Request rid, @PathVariable(value = "uid") Long uid) {
+		return cservice.editForDugs(rid, uid);
 	}
-	
+
 }

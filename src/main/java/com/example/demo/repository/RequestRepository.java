@@ -29,7 +29,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		
 		
 		//new req for academic adv
-		@Query(value = " SELECT distinct(r.rid),r.status,r.entered_date,r.is_send_to_fac_board,r.annex_path,r.type,r.std_user_id,r.fac_meeting1_mid,"
+		@Query(value = " SELECT distinct(r.rid),r.status,r.entered_date,r.is_send_to_fac_board,r.annex_path,r.type,r.std_user_id,r.fac_meeting1_id,"
 				+ "r.decision,0 AS clazz_\r\n"
 				+ "		FROM request r\r\n"
 				+ "		WHERE  r.rid not in(SELECT r.rid\r\n"
@@ -52,7 +52,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		
 		
 		//new req for dean
-		@Query(value = " select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.std_user_id,s.decision,s.fac_meeting1_mid"
+		@Query(value = " select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.std_user_id,s.decision,s.fac_meeting1_id"
 				+ "		,0 AS clazz_\r\n"
 				+ "		from request s, commented c, facmember f\r\n"
 				+ "		where s.rid= c.rid and c.fac_id=f.user_id and is_hod=true and is_forwarded=true and s.rid not in \r\n"
@@ -60,7 +60,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		List<Request> findnewRequestForDean(@Param("uid") FACMember uid);
 		
 		//new req for dean
-		@Query(value = "select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.decision,s.fac_meeting1_mid,s.std_user_id,0 AS clazz_\r\n"
+		@Query(value = "select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.decision,s.fac_meeting1_id,s.std_user_id,0 AS clazz_\r\n"
 				+ "		from request s, commented c, facmember f\r\n"
 				+ "		where s.rid= c.rid and c.fac_id=f.user_id and is_dean=true and is_forwarded=true and s.rid not in \r\n"
 				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid)", nativeQuery = true)
@@ -68,14 +68,14 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		
 		
 		//past req for AR
-		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_mid,r.is_send_to_fac_board,"
+		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_id,r.is_send_to_fac_board,"
 				+ "r.status,r.std_user_id,r.type,0 AS clazz_\r\n"
 				+ "from commented c, request r,facmember f\r\n"
 				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true", nativeQuery = true)
 		List<Request> findPastRequestForAR();
 	
 		//New req for AR
-		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_mid,r.is_send_to_fac_board,"
+		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_id,r.is_send_to_fac_board,"
 				+ "r.status,r.std_user_id,r.type,0 AS clazz_\r\n"
 				+ "from commented c, request r,facmember f\r\n"
 				+ "where c.rid=r.rid and c.fac_id=f.user_id and c.is_forwarded=true and f.is_dugs=true and r.rid not in\r\n"
