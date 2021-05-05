@@ -60,4 +60,12 @@ public class AttendService {
 		return this.repository.getByfacmeeting_date(date);
 
 	}
+	
+	public List<Attend> getByfacmeetingIdAndAttendance(Integer meetingId,String attendence){
+		return this.repository.getByfacmeeting_idAndAttendence(meetingId, attendence);
+	}
+	
+	public List<Attend> getByfacmeeting_idAndApologyIsNotNull(Integer facId){
+		return this.repository.getByfacmeeting_idAndApologyIsNotNull(facId);
+	}
 }

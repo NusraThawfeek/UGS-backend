@@ -34,6 +34,11 @@ public class FACMeeting {
 	private String location;
 	private String AgendaLink;
 	private String MinuteLink1;
+	private String agendaItem;
+	private String priliminaries;
+	private String mattersAriseMeeting;
+	private String deciForMatteds;
+	private String decissionBy;
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
