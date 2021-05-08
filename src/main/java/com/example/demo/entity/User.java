@@ -44,8 +44,8 @@ public class User {
 	@NotBlank
 	private String nameToBeAppeared;
 	
-	@NotBlank
-	private String nameTitle;
+//	@NotBlank
+//	private String nameTitle;
 	
 	@NotBlank
 	@Email
