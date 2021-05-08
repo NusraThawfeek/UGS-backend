@@ -47,10 +47,14 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/*").permitAll()
-		.antMatchers("/*/*").permitAll()
-		.antMatchers("/*/*/*").permitAll()
-		.antMatchers("/*/*/*/*").permitAll()
+
+		.antMatchers("/all/**").permitAll()
+		.antMatchers("/admin/**","/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
+//		.antMatchers("/*").permitAll()
+//		.antMatchers("/*/*").permitAll()
+//		.antMatchers("/*/*/*").permitAll()
+//		.antMatchers("/*/*/*/*").permitAll()
+
 		.antMatchers("/all/login").permitAll()
 	
 		
@@ -58,7 +62,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/admin/register/fac").permitAll()
 		
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
-		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").permitAll()
+		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").hasAnyAuthority("ROLE_STUDENT","ROLE_FAC")
 		.antMatchers("/pastrequest/getallleaverequest").permitAll()
 		.antMatchers("/pastrequest/leaverequest/{sid}").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/updateleaverequest").hasAuthority("ROLE_AR")
@@ -100,7 +104,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/NewReqDean/{uid}").hasAuthority("ROLE_DEAN")
 		.antMatchers("/NewReqDUGS/{uid}").hasAuthority("ROLE_UGS")
 		.antMatchers("/NewReqAR").hasAuthority("ROLE_AR")
-		.antMatchers("/AddRequestToAgenda").hasAuthority("ROLE_AR")
+//		.antMatchers("/AddRequestToAgenda").hasAuthority("ROLE_AR")
 		
 		
 		.antMatchers("/StudentReqByIndexNo/{indexNo}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
@@ -129,7 +133,17 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/attendance/create").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/getByMeetingId/{meetingId}").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/getByMeetingDate/{date}").hasAuthority("ROLE_AR")
-		.antMatchers("/facmembers").permitAll()
+	
+		
+		.antMatchers("/getrequestbyrid/{rid}").permitAll()
+		.antMatchers("/meetings/addAgenda").permitAll()
+		.antMatchers("/meetings/addMinute").permitAll() 
+		.antMatchers("/getrequestbyfacid/{facid}").permitAll()
+		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").permitAll()
+		.antMatchers("/attendance/apology/{meetingId}").permitAll() 
+		.antMatchers("/meetings/upcoming").permitAll()
+		.antMatchers("/meetings/pastMeeting").permitAll()
+		.antMatchers("/request/addToAgenda").permitAll()
 		
 
 		.anyRequest().authenticated()

@@ -9,4 +9,8 @@ public interface AttendRepository extends JpaRepository<Attend, Integer> {
 	List<Attend> getByfacmeeting_id(Integer id);
 
 	List<Attend> getByfacmeeting_date(Date date);
+	
+	List<Attend> getByfacmeeting_idAndAttendence(Integer facId,String attendence);
+	
+	List<Attend> getByfacmeeting_idAndApologyIsNotNull(Integer facId);
 }

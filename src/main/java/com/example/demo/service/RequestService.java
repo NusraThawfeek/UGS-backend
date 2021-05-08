@@ -3,9 +3,10 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.Request;
 import com.example.demo.entity.Student;
@@ -19,6 +20,9 @@ public class RequestService {
 
 	@Autowired
 	private StudentService service;
+	
+	@Autowired
+	private FACMeetingService facservice;
 
 	public Request getRequest(int rid) {
 		return repository.findById(rid).orElse(null);
@@ -66,13 +70,27 @@ public class RequestService {
 		// TODO Auto-generated method stub
 		return repository.findByindexNo(indexNo);
 	}
-
-	public Request updateAddToAgenda(Request r) {
-		
-		Request req=getRequest(r.getRid());
-		req.setIsSendToFacBoard(r.getIsSendToFacBoard());
-		return repository.save(req);
+	
+	public List<Request> getRequestByFacid(int fid) {
+		return repository.findByFacMeeting1(facservice.getMeeting(fid));
 	}
+
+// Commented by Priya	
+//	public Request updateAddToAgenda(Request r) {
+//		
+//		Request req=getRequest(r.getRid());
+//		req.setIsSendToFacBoard(r.getIsSendToFacBoard());
+//		return repository.save(req);
+//	}
+	
+	public ResponseEntity<?> updateIsSentToFACBoard(Request request) {
+		Request rs=repository.findById(request.getRid()).orElse(null);
+		FACMeeting fm1=facservice.findUpcomingMeeting();
+		rs.setFacMeeting1(fm1);
+		rs.setIsSendToFacBoard(request.getIsSendToFacBoard());
+		Request res=repository.save(rs);
+		return ResponseEntity.ok(res);
+		}
 
 	public List<Request> getNewReqAR() {
 		// TODO Auto-generated method stub

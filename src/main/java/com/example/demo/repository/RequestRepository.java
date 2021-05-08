@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.Request;
 import com.example.demo.entity.Student;
@@ -83,6 +84,8 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 				+ "from commented c, request r,facmember f\r\n"
 				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true)", nativeQuery = true)
 		List<Request> findNewRequestForAR();
+		
+		List<Request> findByFacMeeting1(FACMeeting facid);
 		
 		
 }

@@ -53,4 +53,15 @@ public class AttendController {
 
 		return this.service.getByFacMeetingDate(date);
 	}
+	
+	
+	@GetMapping(path = "/attendance/getByAttendance/{meetingId}/{attendance}")
+	public List<Attend> getByAttendance(@PathVariable("meetingId") Integer meetingId, @PathVariable("attendance") String attendance) {
+		return this.service.getByfacmeetingIdAndAttendance(meetingId, attendance);
+	}
+	
+	@GetMapping(path = "/attendance/apology/{meetingId}")
+	public List<Attend> getByfacmeeting_idAndApologyIsNotNull(@PathVariable("meetingId") Integer meetingId) {
+		return this.service.getByfacmeeting_idAndApologyIsNotNull(meetingId);
+	}
 }

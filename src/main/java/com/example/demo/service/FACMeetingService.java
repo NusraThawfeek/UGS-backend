@@ -63,15 +63,13 @@ public class FACMeetingService {
 
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
 
-		if (repository.existsById(facMeeting.getId()) == true) {
-			return ResponseEntity.status(404).body(new MessageResponse("Meeting Id Already Exist"));
-		} else {
+	
 
 			FACMeeting newmeeting = repository.save(facMeeting);
 			newmeeting.getId();
 
 			return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
-		}
+		
 
 	}
 
@@ -183,6 +181,33 @@ public class FACMeetingService {
 			}
 		}
 
+	}
+	
+	public ResponseEntity<?> updateAgendaItems(FACMeeting facMeeting) {
+		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
+		fm.setAgendaItem(facMeeting.getAgendaItem());
+		fm.setAgendaLink(facMeeting.getAgendaLink());
+		FACMeeting res=repository.save(fm);
+		return ResponseEntity.ok(res);
+		}
+	
+	public ResponseEntity<?> updateMinuteItems(FACMeeting facMeeting) {
+		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
+		fm.setPriliminaries(facMeeting.getPriliminaries());
+		fm.setMattersAriseMeeting(facMeeting.getMattersAriseMeeting());
+		fm.setDeciForMatteds(facMeeting.getDeciForMatteds());
+		fm.setDecissionBy(facMeeting.getDecissionBy());
+		fm.setMinuteLink1(facMeeting.getMinuteLink1());
+		FACMeeting res=repository.save(fm);
+		return ResponseEntity.ok(res);
+	}
+	
+	public FACMeeting findUpcomingMeeting() {
+		return repository.findUpcomingMeeting();
+	}
+	
+	public List<FACMeeting> findPastMeeting() {
+		return repository.pastMeeting();
 	}
 
 }
