@@ -46,9 +46,9 @@ public class FACMember extends User {
 	@OneToMany(mappedBy = "uid",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Commented> comments;
 	 
-//	 @JsonIgnore
-//	 @OneToMany(mappedBy = "academicAdvisor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//	 private List<Student> sid;
+	 @JsonIgnore
+	 @OneToMany(mappedBy = "academicAdvisor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	 private List<Student> sid;
 
 	
 

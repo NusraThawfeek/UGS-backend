@@ -35,7 +35,7 @@ import com.example.demo.utils.JwtUtil;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/all")
 public class LoginController {
 	private static Logger log = Logger.getLogger(LoginController.class);

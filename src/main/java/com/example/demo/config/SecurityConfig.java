@@ -49,6 +49,15 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/all/**").permitAll()
 		.antMatchers("/admin/**","/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
+//		.antMatchers("/*").permitAll()
+//		.antMatchers("/*/*").permitAll()
+//		.antMatchers("/*/*/*").permitAll()
+//		.antMatchers("/*/*/*/*").permitAll()
+		.antMatchers("/all/login").permitAll()
+	
+		
+		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/admin/register/fac").permitAll()
 		
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").hasAnyAuthority("ROLE_STUDENT","ROLE_FAC")
@@ -79,6 +88,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_annex/{rid}").permitAll()
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
+		.antMatchers("/getstudent/{uid}").permitAll()
 
 		.antMatchers("/facmember").permitAll()
 		.antMatchers("/facmember/{facId}").permitAll()
@@ -92,7 +102,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/NewReqDean/{uid}").hasAuthority("ROLE_DEAN")
 		.antMatchers("/NewReqDUGS/{uid}").hasAuthority("ROLE_UGS")
 		.antMatchers("/NewReqAR").hasAuthority("ROLE_AR")
-		.antMatchers("/AddRequestToAgenda").hasAuthority("ROLE_AR")
+//		.antMatchers("/AddRequestToAgenda").hasAuthority("ROLE_AR")
 		
 		
 		.antMatchers("/StudentReqByIndexNo/{indexNo}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
@@ -122,6 +132,16 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/attendance/getByMeetingId/{meetingId}").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/getByMeetingDate/{date}").hasAuthority("ROLE_AR")
 		.antMatchers("/facmembers").permitAll()
+		
+		.antMatchers("/getrequestbyrid/{rid}").permitAll()
+		.antMatchers("/meetings/addAgenda").permitAll()
+		.antMatchers("/meetings/addMinute").permitAll() 
+		.antMatchers("/getrequestbyfacid/{facid}").permitAll()
+		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").permitAll()
+		.antMatchers("/attendance/apology/{meetingId}").permitAll() 
+		.antMatchers("/meetings/upcoming").permitAll()
+		.antMatchers("/meetings/pastMeeting").permitAll()
+		.antMatchers("/request/addToAgenda").permitAll()
 		
 
 		.anyRequest().authenticated()

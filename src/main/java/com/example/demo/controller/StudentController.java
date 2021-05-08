@@ -36,5 +36,10 @@ public class StudentController {
 	public Optional<Student> findByindexNo(@PathVariable String indexNo) {
 		return service.findByindexNo(indexNo);
 	}
+	
+	@GetMapping("/getstudent/{uid}")
+	public Student getStudent(@PathVariable long uid) {
+		return service.getStudent(uid);
+	}
 
 }
