@@ -137,6 +137,9 @@ public class FACMeetingService {
 	}
 
 	public void scmail(FACMeeting facMeeting, String email) {
+		if(facMeeting.getAgendaLink()==null) {
+				facMeeting.setAgendaLink("http://localhost:3000/view-agenda/"+facMeeting.getId());
+			}
 
 		MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
 		mMap.add("emailTo", email);
