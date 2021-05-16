@@ -112,18 +112,35 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/Commented/EditByDugs/{rid},{uid}").hasAuthority("ROLE_UGS")
 		
 
-		.antMatchers("/meetings").hasAuthority("ROLE_AR")
-		.antMatchers("/meetings/get").hasAuthority("ROLE_AR")
-		.antMatchers("/meetings/{id}").hasAuthority("ROLE_AR")
-		.antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
-		.antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
-		.antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
-		.antMatchers("/subcomittee/statusupdate/{id}").hasAuthority("ROLE_AR")
-		.antMatchers("/attendance/create").hasAuthority("ROLE_AR")
-		.antMatchers("/attendance/getByMeetingId/{meetingId}").hasAuthority("ROLE_AR")
-		.antMatchers("/attendance/getByMeetingDate/{date}").hasAuthority("ROLE_AR")
-		.antMatchers("/facmembers").permitAll()
-		
+				
+				/*
+				 * .antMatchers("/meetings").hasAuthority("ROLE_AR")
+				 * .antMatchers("/meetings/get").hasAuthority("ROLE_AR")
+				 * .antMatchers("/meetings/{id}").hasAuthority("ROLE_AR")
+				 * .antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
+				 * .antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
+				 * .antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
+				 * .antMatchers("/subcomittee/statusupdate/{id}").hasAuthority("ROLE_AR")
+				 * .antMatchers("/attendance/create").hasAuthority("ROLE_AR")
+				 * .antMatchers("/attendance/getByMeetingId/{meetingId}").hasAuthority(
+				 * "ROLE_AR")
+				 * .antMatchers("/attendance/getByMeetingDate/{date}").hasAuthority("ROLE_AR")
+				 * .antMatchers("/facmembers").permitAll()
+				 */
+				 
+				
+				  .antMatchers("/meetings").permitAll()
+				  .antMatchers("/meetings/get").permitAll()
+				  .antMatchers("/meetings/{id}").permitAll()
+				  .antMatchers("/meetings/mail/{id}").permitAll()
+				  .antMatchers("/subcomittee/**").permitAll()
+				  .antMatchers("/subcomittee/fileupload/{id}").permitAll()
+				  .antMatchers("/subcomittee/statusupdate/{id}").permitAll()
+				  .antMatchers("/attendance/create").permitAll()
+				  .antMatchers("/attendance/getByMeetingId/{meetingId}").permitAll()
+				  .antMatchers("/attendance/getByMeetingDate/{date}").permitAll()
+				  .antMatchers("/facmembers").permitAll()
+				 
 
 		.anyRequest().authenticated()
 		.and()

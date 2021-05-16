@@ -42,15 +42,27 @@ public class FACMeetingService {
 		this.facmemberservice = facmemberservice;
 
 	}
+	public void passwordMail(String email,int password) {
 
-	public FACMeeting postMeeting(Date meetingDate, String meetingTime, String location) {
+		MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
+		mMap.add("emailTo", email);
+		mMap.add("emailFrom", "teamaliens.b18it@gmail.com");
+		mMap.add("emailSubject", "Account Credentials");
+		mMap.add("emailContent","Your password is "+ password);
+				
+		mailController.sendmail(mMap);
 
-		FACMeeting meeting = new FACMeeting(meetingDate, meetingTime, location);
-
-		meetingEmailService.sendEmail("mifmilan@gmail.com", "test project", "topic");
-
-		return repository.save(meeting);
 	}
+	/*
+	 * public FACMeeting postMeeting(Date meetingDate, String meetingTime, String
+	 * location) {
+	 * 
+	 * FACMeeting meeting = new FACMeeting(meetingDate, meetingTime, location);
+	 * 
+	 * meetingEmailService.sendEmail("mifmilan@gmail.com", "test project", "topic");
+	 * 
+	 * return repository.save(meeting); }
+	 */
 
 	public FACMeeting getMeeting(int facMeetingId) {
 		return repository.findById(facMeetingId).orElse(null);
@@ -63,16 +75,10 @@ public class FACMeetingService {
 
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
 
-		if (repository.existsById(facMeeting.getId()) == true) {
-			return ResponseEntity.status(404).body(new MessageResponse("Meeting Id Already Exist"));
-		} else {
+		FACMeeting newmeeting = repository.save(facMeeting);
+		newmeeting.getId();
 
-			FACMeeting newmeeting = repository.save(facMeeting);
-			newmeeting.getId();
-
-			return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
-		}
-
+		return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
 	}
 
 	public List<FACMeeting> getAll() {
@@ -146,8 +152,8 @@ public class FACMeetingService {
 		mMap.add("emailSubject", "FAC Meeting");
 		mMap.add("emailContent",
 				"FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation() + "\n"
-						+ "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: " + facMeeting.getMeetingTime()
-						+ "\nLink: " + facMeeting.getAgendaLink());
+						+ "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
+						+ facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
 
 		mailController.sendmail(mMap);
 

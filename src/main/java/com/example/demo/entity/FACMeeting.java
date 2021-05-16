@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "fac_meeting")
 public class FACMeeting {
@@ -34,8 +32,7 @@ public class FACMeeting {
 	private String location;
 	private String AgendaLink;
 	private String MinuteLink1;
-	
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
 	private List<Memo> memos;
 
@@ -45,11 +42,9 @@ public class FACMeeting {
 	@OneToMany(mappedBy = "facmeeting")
 	@JsonIgnore
 	private List<Attend> attends;
-	
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AssistentRegistrar assistantRegistrar;
-
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "createdFacMeeting")
 	private List<SubComittee> createSubCommitee;
@@ -64,6 +59,56 @@ public class FACMeeting {
 		this.meetingTime = meetingTime;
 	}
 
-	
+	public FACMeeting() {
+
+	}
+
+	public java.sql.Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getMeetingTime() {
+		return meetingTime;
+	}
+
+	public void setMeetingTime(String meetingTime) {
+		this.meetingTime = meetingTime;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getAgendaLink() {
+		return AgendaLink;
+	}
+
+	public void setAgendaLink(String agendaLink) {
+		AgendaLink = agendaLink;
+	}
+
+	public String getMinuteLink1() {
+		return MinuteLink1;
+	}
+
+	public void setMinuteLink1(String minuteLink1) {
+		MinuteLink1 = minuteLink1;
+	}
 
 }

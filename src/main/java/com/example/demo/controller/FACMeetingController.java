@@ -53,9 +53,12 @@ public class FACMeetingController {
 		return service.sendmail(id, mail);
 	}
 
-	@PostMapping("/postmeeting")
-	public FACMeeting postMeeting(@RequestParam Date meetingDate,
-			@RequestParam @DateTimeFormat(pattern = "HH:mm") String meetingTime, @RequestParam String location) {
-		return service.postMeeting(meetingDate, meetingTime, location);
-	}
+	/*
+	 * @PostMapping("/postmeeting") public FACMeeting postMeeting(@RequestParam Date
+	 * meetingDate,
+	 * 
+	 * @RequestParam @DateTimeFormat(pattern = "HH:mm") String
+	 * meetingTime, @RequestParam String location) { return
+	 * service.postMeeting(meetingDate, meetingTime, location); }
+	 */
 }

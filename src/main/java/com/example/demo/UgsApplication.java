@@ -57,7 +57,7 @@ public class UgsApplication implements CommandLineRunner{
 		 * roleRepo.save(fac_member);
 		 * 
 		 * 
-		 * // Insert 5 FAC MEMBERS temporarily // FAC NO:1 FACMember fac1 = new
+		 * // Insert 5 // FAC MEMBERS temporarily // FAC NO:1 FACMember fac1 = new
 		 * FACMember(); fac1.setTitle("Mr"); fac1.setFirstName("B.H");
 		 * fac1.setLastName("Sudantha"); fac1.setNameToBeAppeared("MR. SUDANTHA B.H.");
 		 * fac1.setEmail("184160D@gmail.com"); fac1.setContactNo("0758989898");
@@ -112,7 +112,8 @@ public class UgsApplication implements CommandLineRunner{
 		 * 
 		 * 
 		 * List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
-		 */		
+		 */
+		 		
 //		for(FACMember acad: allAcademicAdvisors) {
 //			System.out.println(acad.toString());
 //		}
