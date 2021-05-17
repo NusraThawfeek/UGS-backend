@@ -38,5 +38,8 @@ public class Attend {
 		this.attendence = attendence;
 		this.apology = apology;
 	}
+public Attend() {
+		
+	}
 	
 }

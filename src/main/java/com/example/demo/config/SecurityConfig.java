@@ -58,11 +58,9 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/getrequestbyrid/{rid}").permitAll()
 		.antMatchers("/meetings/upcoming").permitAll()
 		.antMatchers("/meetings/pastMeeting").permitAll()
-		.antMatchers("/meetings/addAgenda").hasAuthority("ROLE_AR")
-		.antMatchers("/meetings/addMinute").hasAuthority("ROLE_AR")
-		.antMatchers("/getrequestbyfacid/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
-		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
-		.antMatchers("/attendance/apology/{meetingId}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/getrequestbyfacid/{facid}").permitAll()
+		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").permitAll()
+		.antMatchers("/attendance/apology/{meetingId}").permitAll()
 		
 		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_ADMIN")
 		.antMatchers("/admin/register/fac").permitAll()
@@ -131,7 +129,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 
 		.antMatchers("/meetings").hasAuthority("ROLE_AR")
 		.antMatchers("/meetings/get").hasAuthority("ROLE_AR")
-		.antMatchers("/meetings/{id}").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/{id}").hasAnyAuthority("ROLE_UGS","ROLE_AR","ROLE_FAC_MEMBER")
 		.antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
 		.antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
 		.antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
@@ -142,7 +140,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/facmembers").permitAll()
 		
 		
-//		.antMatchers("/request/addToAgenda").permitAll()
+		.antMatchers("/meetings/addAgenda").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/addMinute").hasAuthority("ROLE_AR")
 		
 
 		.anyRequest().authenticated()
