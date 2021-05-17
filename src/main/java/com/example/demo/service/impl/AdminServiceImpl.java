@@ -126,7 +126,6 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 			student.setContactNo(oneStudent.getContactNo());
 			student.setBatchYear(oneStudent.getBatchYear());
 			student.setCourseTitle(oneStudent.getCourseTitle());
-			student.setLevelSemester(oneStudent.getLevelSemester());
 			student.setIndexNo(oneStudent.getIndexNo());
 			Set<Roles> roles = new HashSet<Roles>();
 			Roles stdRole = roleRepo.findByName(MRoles.ROLE_STUDENT).get();

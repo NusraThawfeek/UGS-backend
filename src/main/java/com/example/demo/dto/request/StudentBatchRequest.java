@@ -30,6 +30,4 @@ public class StudentBatchRequest {
 	private String batchYear;
 	@NotBlank
 	private String courseTitle;
-	@NotBlank
-	private String levelSemester;
 }
