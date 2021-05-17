@@ -75,22 +75,13 @@ public class RequestService {
 		return repository.findByFacMeeting1(facservice.getMeeting(fid));
 	}
 
-// Commented by Priya	
-//	public Request updateAddToAgenda(Request r) {
-//		
-//		Request req=getRequest(r.getRid());
-//		req.setIsSendToFacBoard(r.getIsSendToFacBoard());
-//		return repository.save(req);
-//	}
-	
-	public ResponseEntity<?> updateIsSentToFACBoard(Request request) {
-		Request rs=repository.findById(request.getRid()).orElse(null);
-		FACMeeting fm1=facservice.findUpcomingMeeting();
-		rs.setFacMeeting1(fm1);
-		rs.setIsSendToFacBoard(request.getIsSendToFacBoard());
-		Request res=repository.save(rs);
-		return ResponseEntity.ok(res);
-		}
+	public Request updateAddToAgenda(Request r) {
+		Request req=getRequest(r.getRid());
+		FACMeeting fm1=facservice.findUpcomingMeeting();    
+		req.setIsSendToFacBoard(r.getIsSendToFacBoard());
+		req.setFacMeeting1(fm1);							
+		return repository.save(req);
+	}
 
 	public List<Request> getNewReqAR() {
 		// TODO Auto-generated method stub

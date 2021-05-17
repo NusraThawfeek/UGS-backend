@@ -53,7 +53,20 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 //		.antMatchers("/*/*").permitAll()
 //		.antMatchers("/*/*/*").permitAll()
 //		.antMatchers("/*/*/*/*").permitAll()
+
 		.antMatchers("/admin/**","/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
+
+		.antMatchers("/all/login").permitAll()
+		
+		.antMatchers("/getrequestbyrid/{rid}").permitAll()
+		.antMatchers("/meetings/upcoming").permitAll()
+		.antMatchers("/meetings/pastMeeting").permitAll()
+		.antMatchers("/meetings/addAgenda").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/addMinute").hasAuthority("ROLE_AR")
+		.antMatchers("/getrequestbyfacid/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/attendance/apology/{meetingId}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+
 		
 
 		.antMatchers("/all/login").permitAll()
@@ -105,10 +118,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/facmember/{facId}").permitAll()
 		
 		
-		.antMatchers("/PastReq/{uid}").hasAnyAuthority("ROLE_AR","ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR","ROLE_FAC_MEMBER")
+		.antMatchers("/PastReq/{uid}").hasAnyAuthority("ROLE_AR","ROLE_DUGS","ROLE_DEAN","ROLE_HOD","ROLE_ACADEMICADVISOR")
 		.antMatchers("/PastReqAR").hasAuthority("ROLE_AR")
 		.antMatchers("/NewReqAcademicAdvisor/{uid}").hasAuthority("ROLE_ACADEMICADVISOR")
-		.antMatchers("/NewReqHOD/{uid}").hasAnyAuthority("ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM")
+		.antMatchers("/NewReqHOD/{uid}").hasAnyAuthority("ROLE_HOD")
 		.antMatchers("/PastReqAR").hasAuthority("ROLE_AR")
 		.antMatchers("/NewReqDean/{uid}").hasAuthority("ROLE_DEAN")
 		.antMatchers("/NewReqDUGS/{uid}").hasAuthority("ROLE_DUGS")
@@ -121,20 +134,20 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/Student").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
 		
 		
-		.antMatchers("/Commented/Request/{rid}").hasAnyAuthority("ROLE_AR","ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR","ROLE_FAC_MEMBER")
+		.antMatchers("/Commented/Request/{rid}").hasAnyAuthority("ROLE_AR","ROLE_DUGS","ROLE_DEAN","ROLE_HOD","ROLE_ACADEMICADVISOR")
 		
-		.antMatchers("/Commented/update").hasAnyAuthority("ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR")
-		.antMatchers("/Commented/RequestbyIds/{rid},{uid}").hasAnyAuthority("ROLE_DUGS","ROLE_DEAN","ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM","ROLE_ACADEMICADVISOR")
+		.antMatchers("/Commented/update").hasAnyAuthority("ROLE_DUGS","ROLE_DEAN","ROLE_HOD","ROLE_ACADEMICADVISOR")
+		.antMatchers("/Commented/RequestbyIds/{rid},{uid}").hasAnyAuthority("ROLE_DUGS","ROLE_DEAN","ROLE_HOD","ROLE_ACADEMICADVISOR")
 		
 		.antMatchers("/Commented/EditByAcademicAdvisor/{rid},{uid}").hasAuthority("ROLE_ACADEMICADVISOR")
-		.antMatchers("/Commented/EditByHOD/{rid},{uid}").hasAnyAuthority("ROLE_HOD_IT","ROLE_HOD_IDS","ROLE_HOD_CM")
+		.antMatchers("/Commented/EditByHOD/{rid},{uid}").hasAnyAuthority("ROLE_HOD")
 		.antMatchers("/Commented/EditByDean/{rid},{uid}").hasAuthority("ROLE_DEAN")
 		.antMatchers("/Commented/EditByDugs/{rid},{uid}").hasAuthority("ROLE_UGS")
 		
 
 		.antMatchers("/meetings").hasAuthority("ROLE_AR")
-		.antMatchers("/meetings/get").hasAnyAuthority("ROLE_AR","ROLE_FAC_MEMBER")
-		.antMatchers("/meetings/{id}").hasAnyAuthority("ROLE_AR","ROLE_FAC_MEMBER")
+		.antMatchers("/meetings/get").permitAll()
+		.antMatchers("/meetings/{id}").permitAll()
 		.antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
 		.antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
 		.antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
@@ -142,10 +155,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/attendance/create").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/getByMeetingId/{meetingId}").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/getByMeetingDate/{date}").hasAuthority("ROLE_AR")
-	
-		
-	
-		
 
 		.anyRequest().authenticated()
 		.and()

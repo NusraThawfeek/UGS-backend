@@ -17,7 +17,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	
 	
 	@Query(value = "select r.rid, r.type,r.entered_date,r.annex_path,r.is_send_to_fac_board,r.decision,r.std_user_id,r.status,\r\n"
-			+ "		r.fac_meeting1_mid,0 AS clazz_ from request r, student s\r\n"
+			+ "		r.fac_meeting1_id,0 AS clazz_ from request r, student s\r\n"
 			+ "	    where r.std_user_id=s.user_id and s.index_no=:indexNo", nativeQuery = true)
 	List<Request> findByindexNo(@Param("indexNo")String indexNo);
 	
@@ -25,7 +25,8 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	//passed req
 		@Query(value = "SELECT *,0 AS clazz_ \r\n"
 				+ "		FROM  commented c,request r\r\n"
-				+ "		WHERE  r.rid=c.rid and c.fac_id=:uid", nativeQuery = true)
+				+ "		WHERE  r.rid=c.rid and c.fac_id=:uid order by r.entered_date desc"
+				, nativeQuery = true)
 		List<Request> findByuid(@Param("uid") FACMember uid);
 		
 		
@@ -35,7 +36,8 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 				+ "		FROM request r\r\n"
 				+ "		WHERE  r.rid not in(SELECT r.rid\r\n"
 				+ "		FROM request r, commented c\r\n"
-				+ "		WHERE  r.rid=c.rid and c.fac_id=:uid)", nativeQuery = true)
+				+ "		WHERE  r.rid=c.rid and c.fac_id=:uid)\r\n"
+				+ "order by entered_date desc ", nativeQuery = true)
 		List<Request> findByuidnew(@Param("uid") FACMember uid);
 		
 		
@@ -57,14 +59,15 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 				+ "		,0 AS clazz_\r\n"
 				+ "		from request s, commented c, facmember f\r\n"
 				+ "		where s.rid= c.rid and c.fac_id=f.user_id and is_hod=true and is_forwarded=true and s.rid not in \r\n"
-				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid)", nativeQuery = true)
+				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid)\r\n"
+				+ "		order by s.entered_date desc", nativeQuery = true)
 		List<Request> findnewRequestForDean(@Param("uid") FACMember uid);
 		
-		//new req for dean
+		//new req for dugs
 		@Query(value = "select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.decision,s.fac_meeting1_id,s.std_user_id,0 AS clazz_\r\n"
 				+ "		from request s, commented c, facmember f\r\n"
 				+ "		where s.rid= c.rid and c.fac_id=f.user_id and is_dean=true and is_forwarded=true and s.rid not in \r\n"
-				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid)", nativeQuery = true)
+				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid) order by s.entered_date desc", nativeQuery = true)
 		List<Request> findnewRequestForDUGS(@Param("uid") FACMember uid);
 		
 		
@@ -72,7 +75,8 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_id,r.is_send_to_fac_board,"
 				+ "r.status,r.std_user_id,r.type,0 AS clazz_\r\n"
 				+ "from commented c, request r,facmember f\r\n"
-				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true", nativeQuery = true)
+				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true\r\n"
+				+ "order by r.entered_date desc", nativeQuery = true)
 		List<Request> findPastRequestForAR();
 	
 		//New req for AR
@@ -82,8 +86,9 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 				+ "where c.rid=r.rid and c.fac_id=f.user_id and c.is_forwarded=true and f.is_dugs=true and r.rid not in\r\n"
 				+ "(select distinct(r.rid) \r\n"
 				+ "from commented c, request r,facmember f\r\n"
-				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true)", nativeQuery = true)
+				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true)  order by r.entered_date desc", nativeQuery = true)
 		List<Request> findNewRequestForAR();
+		
 		
 		List<Request> findByFacMeeting1(FACMeeting facid);
 		

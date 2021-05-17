@@ -105,21 +105,14 @@ public class RequestController {
 		return service.getReqByindexNo(indexNo);
 	}
 	
-//	//commented By Priya
-//	@PutMapping("/AddRequestToAgenda")
-//	public Request addToAgenda(@ModelAttribute Request r) {	
-//		
-//		return service.updateAddToAgenda(r);
-//	}
+	@PutMapping("/AddRequestToAgenda")
+	public Request addToAgenda(@ModelAttribute Request r) {	
+		return service.updateAddToAgenda(r);
+	}
 	
 	@GetMapping("/getrequestbyfacid/{facid}")
 	public List<Request> getRequestByFacid(@PathVariable int facid){
 		return service.getRequestByFacid(facid);
-	}
-	
-	@PutMapping("/request/addToAgenda")
-	public ResponseEntity<?> addToAgenda(@RequestBody Request request) {
-		return service.updateIsSentToFACBoard(request);
 	}
 	
 }

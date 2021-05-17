@@ -35,7 +35,10 @@ public class UgsApplication implements CommandLineRunner {
 	private RolesRepository roleRepo;
 	
 	@Autowired
+
 	private AssistentRegistrarRepository arRepo;
+
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(UgsApplication.class, args);
@@ -47,6 +50,7 @@ public class UgsApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+
 //		System.out.println(encoder.encode("12345678"));
 
 //		Roles student = new Roles(MRoles.ROLE_STUDENT);
@@ -224,10 +228,6 @@ public class UgsApplication implements CommandLineRunner {
 //		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
 
 
-
-		
-		
-//		  List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
 
 //		for(FACMember acad: allAcademicAdvisors) {
 //			System.out.println(acad);
