@@ -35,7 +35,7 @@ import com.example.demo.service.interfaces.IAdminService;
 import com.example.demo.utils.ExcelHelper;
 
 @RestController
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("*")
 @RequestMapping("/admin")
 public class AdminController {
 
