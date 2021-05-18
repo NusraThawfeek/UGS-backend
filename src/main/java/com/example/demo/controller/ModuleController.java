@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,5 +22,10 @@ public class ModuleController {
 	@PostMapping("/addmodule")
 	public Module1 addModule(@RequestBody Module1 module) {
 		return service.postModule(module);
+	}
+	
+	@GetMapping("/getAllModule")
+	public List<Module1> getAllModule(){
+		return service.getAllModule();
 	}
 }

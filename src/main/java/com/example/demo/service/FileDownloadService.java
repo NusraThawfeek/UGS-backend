@@ -12,61 +12,79 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.LateModuleChangeRequest;
+import com.example.demo.entity.Memo;
 import com.example.demo.entity.OtherAppeal;
 import com.example.demo.entity.Request;
 
 @Service
 public class FileDownloadService {
-	
+
 	@Autowired
 	private RequestService requestService;
-	
+
 	@Autowired
 	private LateModuleChangeRequestService lateModuleChangeRequestService;
-	
+
 	@Autowired
 	private OtherAppealService otherAppealService;
 
+	@Autowired
+	private MemoService memoService;
+
 	public void AnnexDownload(HttpServletResponse response, int rid) throws IOException {
-		
+
 		Request request = requestService.getRequest(rid);
-		
+
 		String ext1 = FilenameUtils.getExtension(request.getAnnexPath());
 		String fileName = "request." + ext1;
-		response.setHeader("Content-Disposition", "attachment; filename="+ fileName);
-		
-		
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
 		InputStream inputStream = new FileInputStream(new File(request.getAnnexPath()));
 		int nRead;
 		while ((nRead = inputStream.read()) != -1) {
 			response.getWriter().write(nRead);
 		}
 	}
-	
+
 	public void sgpadownloadLate(HttpServletResponse response, int rid) throws IOException {
-		
+
 		LateModuleChangeRequest request = lateModuleChangeRequestService.getRequest(rid);
-		
+
 		String ext1 = FilenameUtils.getExtension(request.getAnnexPath());
 		String fileName = "SGPA." + ext1;
-		response.setHeader("Content-Disposition", "attachment; filename="+ fileName);
-		
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
 		InputStream inputStream = new FileInputStream(new File(request.getScanCopyOfSgpaPath()));
 		int nRead;
 		while ((nRead = inputStream.read()) != -1) {
 			response.getWriter().write(nRead);
 		}
 	}
-	
+
 	public void sgpadownloadAppeal(HttpServletResponse response, int rid) throws IOException {
-		
+
 		OtherAppeal request = otherAppealService.getRequest(rid);
-		
+
 		String ext1 = FilenameUtils.getExtension(request.getAnnexPath());
 		String fileName = "SGPA." + ext1;
-		response.setHeader("Content-Disposition", "attachment; filename="+ fileName);
-		
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
 		InputStream inputStream = new FileInputStream(new File(request.getScanCopyOfSGPAPath()));
+		int nRead;
+		while ((nRead = inputStream.read()) != -1) {
+			response.getWriter().write(nRead);
+		}
+	}
+
+	public void memoAnnexDownload(HttpServletResponse response, int mid) throws IOException {
+
+		Memo memo = memoService.getMemo(mid);
+
+		String ext1 = FilenameUtils.getExtension(memo.getAnnexPath());
+		String fileName = "memo." + ext1;
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+
+		InputStream inputStream = new FileInputStream(new File(memo.getAnnexPath()));
 		int nRead;
 		while ((nRead = inputStream.read()) != -1) {
 			response.getWriter().write(nRead);

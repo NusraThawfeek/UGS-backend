@@ -18,9 +18,8 @@ import com.example.demo.repository.AttendRepository;
 import com.example.demo.service.AttendService;
 
 
-
+@CrossOrigin(origins = "*")
 @RestController
-@CrossOrigin("*")
 public class AttendController {
 
 	@Autowired

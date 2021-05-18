@@ -48,11 +48,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.csrf().disable()
 		.authorizeRequests()
 
-		.antMatchers("/all/**").permitAll()
-//		.antMatchers("/*").permitAll()
-//		.antMatchers("/*/*").permitAll()
-//		.antMatchers("/*/*/*").permitAll()
-//		.antMatchers("/*/*/*/*").permitAll()
+		.antMatchers("/*").permitAll()
+		.antMatchers("/*/*").permitAll()
+		.antMatchers("/*/*/*").permitAll()
+		.antMatchers("/*/*/*/*").permitAll()
 
 		.antMatchers("/admin/**","/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
 
@@ -72,10 +71,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").permitAll()
 		.antMatchers("/attendance/apology/{meetingId}").permitAll()
 
-		
-
+		.antMatchers("/*").permitAll()
+		.antMatchers("/*/*").permitAll()
+		.antMatchers("/*/*/*").permitAll()
+		.antMatchers("/*/*/*/*").permitAll()
 		.antMatchers("/all/login").permitAll()
-		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/admin/register/student/single").hasAuthority("ROLE_UGS")
 		.antMatchers("/admin/register/fac").permitAll()
 		
 		.antMatchers("/getrequestbyrid/{rid}").permitAll()
@@ -91,6 +92,9 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").hasAnyAuthority("ROLE_STUDENT","ROLE_FAC")
 		.antMatchers("/pastrequest/getallleaverequest").permitAll()
+		.antMatchers("/pastrequest/leaverequestbyrid/{rid}").permitAll()
+		.antMatchers("/pastrequest/getallleaverequest").hasAuthority("ROLE_AR")
+		.antMatchers("/decisionleaverequest").hasAuthority("ROLE_AR")
 		.antMatchers("/pastrequest/leaverequest/{sid}").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/updateleaverequest").hasAuthority("ROLE_AR")
 		
@@ -115,6 +119,14 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_sgpa_appeal/{rid}").permitAll()
 		
 		.antMatchers("/request/download_annex/{rid}").permitAll()
+		.antMatchers("/updateSendToFACBoard").hasAuthority("ROLE_FAC_MEMBER")
+		
+		.antMatchers("/postmemo").hasAuthority("ROLE_FAC_MEMBER")
+		.antMatchers("/pastmemo/{mid}").hasAnyAuthority("ROLE_FAC_MEMBER", "ROLE_AR")
+		.antMatchers("/pastallmemo").hasAuthority("ROLE_FAC_MEMBER")
+		.antMatchers("/pastmemobyfacid/{facId}").hasAuthority("ROLE_FAC_MEMBER")
+		.antMatchers("/updatememo").hasAuthority("ROLE_AR")
+		.antMatchers("/memo/download_annex/{mid}").hasAnyAuthority("ROLE_FAC_MEMBER", "ROLE_AR")
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
 		.antMatchers("/getstudent/{uid}").permitAll()

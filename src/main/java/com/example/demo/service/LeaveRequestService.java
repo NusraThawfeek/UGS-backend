@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -118,5 +119,19 @@ public class LeaveRequestService {
 		mailService.decsisionEmail(existingRequest, "http://localhost:3000");
 
 		return existingRequest;
+	}
+	
+	public List<LeaveRequest> getAllLeaveReqForDecision(){
+		List<LeaveRequest> allReq = repository.findAll();
+		
+		List<LeaveRequest> decReq = new ArrayList<>();
+		
+		for(int i = 0; i < allReq.size(); i++) {
+			if((allReq.get(i).getIsSendToFacBoard() == true) && allReq.get(i).getDecision().equals("")) {
+				decReq.add(allReq.get(i));
+			}
+		}
+		
+		return decReq;
 	}
 }

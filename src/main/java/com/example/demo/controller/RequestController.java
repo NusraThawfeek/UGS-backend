@@ -115,4 +115,8 @@ public class RequestController {
 		return service.getRequestByFacid(facid);
 	}
 	
+	@PutMapping("/updateSendToFACBoard")
+	public Request updateSendToFACBoard(@RequestBody Request request) {
+		return service.updateSendToFACBoard(request);
+	}
 }

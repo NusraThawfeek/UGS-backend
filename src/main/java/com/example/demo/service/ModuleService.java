@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,9 @@ public class ModuleService {
 	
 	public Module1 getModuleById(String id) {
 		return repo.findById(id).orElse(null);
+	}
+	
+	public List<Module1> getAllModule(){
+		return repo.findAll();
 	}
 }

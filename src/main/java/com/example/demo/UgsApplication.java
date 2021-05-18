@@ -57,18 +57,18 @@ public class UgsApplication implements CommandLineRunner {
 //		Roles fac_member = new Roles(MRoles.ROLE_FAC_MEMBER);
 //		Roles ugsRole = new Roles(MRoles.ROLE_UGS);
 //		Roles ar1 = new Roles(MRoles.ROLE_AR);
-//		Roles hod_IT = new Roles(MRoles.ROLE_HOD_IT);
 //		Roles dean = new Roles(MRoles.ROLE_DEAN);
 //		Roles dugs = new Roles(MRoles.ROLE_DUGS);
+//		Roles hod = new Roles(MRoles.ROLE_HOD);
 //
 //
 //		roleRepo.save(ar1);
 //		roleRepo.save(ugsRole);
 //		roleRepo.save(student);
 //		roleRepo.save(fac_member);
-//		roleRepo.save(hod_IT);
 //		roleRepo.save(dean);
 //		roleRepo.save(dugs);
+//		roleRepo.save(hod);
 //		
 //		
 ////		Insert  5 FAC MEMBERS temporarily
@@ -141,7 +141,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac4.setDepartment("IT");
 //		fac4.setHod(true);
 //		Set<Roles> rolesFac4 = new HashSet<Roles>();
-//		Roles roleHOD = roleRepo.findByName(MRoles.ROLE_HOD_IT).get();
+//		Roles roleHOD = roleRepo.findByName(MRoles.ROLE_HOD).get();
 //		rolesFac4.add(roleAcaAd);
 //		rolesFac4.add(roleHOD);
 //		fac4.setRoles(rolesFac4);
@@ -168,7 +168,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac5.setDean(true);
 //		fac5.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac5);
-		
+//		
 //		// FAC NO:6 DUGS
 //		FACMember fac6 = new FACMember(); 
 //		fac6.setTitle("Mrs");
@@ -189,7 +189,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac6.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac6);	
 //		
-		
+//		
 //		
 //		UgsStaff ugs = new UgsStaff();
 //		ugs.setFirstName("Malith");
