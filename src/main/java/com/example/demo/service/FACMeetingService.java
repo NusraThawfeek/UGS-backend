@@ -40,7 +40,6 @@ public class FACMeetingService {
 		this.repository = repository;
 		this.mailController = mailController;
 		this.facmemberservice = facmemberservice;
-
 	}
 
 	public FACMeeting postMeeting(Date meetingDate, String meetingTime, String location) {

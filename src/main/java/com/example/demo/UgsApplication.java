@@ -211,7 +211,7 @@ public class UgsApplication implements CommandLineRunner {
 //		AssistentRegistrar ar = new AssistentRegistrar();
 //		ar.setFirstName("Sarath");
 //		ar.setLastName("fernando");
-//		ar.setNameToBeAppeared("S.Fernando");
+//		ar.setNameToBeAppeared("Mr S.Fernando");
 //		ar.setEmail("sarath@gmail.com");
 //		ar.setContactNo("778366330");
 //		ar.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
@@ -225,13 +225,13 @@ public class UgsApplication implements CommandLineRunner {
 //
 //		arRepo.save(ar);	
 //
-//		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
-
-
-
-//		for(FACMember acad: allAcademicAdvisors) {
-//			System.out.println(acad);
-//		}
+////		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
+//
+//
+//
+////		for(FACMember acad: allAcademicAdvisors) {
+////			System.out.println(acad);
+////		}
 		
 		
 	}

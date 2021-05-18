@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.Memo;
 import com.example.demo.service.FileDownloadService;
+import com.example.demo.entity.Request;
 import com.example.demo.service.MemoService;
 
 @RestController
@@ -60,5 +61,10 @@ public class MemoController {
 	@PutMapping("/updatememo")
 	public Memo updateDecision(@RequestBody Memo memo) throws UnsupportedEncodingException, MessagingException {
 		return service.updateDecision(memo);
+	}
+
+	@GetMapping("/getMemobyfacid/{facid}")
+	public List<Memo> getMemoByFacMeeting(@PathVariable int facid){
+		return service.getMemoByFacMeeting(facid);
 	}
 }

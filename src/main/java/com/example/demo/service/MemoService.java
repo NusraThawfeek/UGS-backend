@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.Memo;
+import com.example.demo.entity.Request;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.MemoRepository;
 
@@ -25,13 +26,14 @@ public class MemoService {
 
 	@Autowired
 	private MemoRepository repo;
-	
+
 	@Autowired
 	private FACMemberService facService;
-	
+
 	@Autowired
 	private DecisionMailService mailService;
-	
+	private FACMeetingService facMeetingService;
+
 	public Memo postMemo(int facid, String description1, MultipartFile annex) {
 		
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
@@ -66,27 +68,31 @@ public class MemoService {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
 	}
-	
+
 	public Memo getMemo(int mid) {
 		return repo.findById(mid).orElse(null);
 	}
-	
-	public List<Memo> getAllMemo(){
+
+	public List<Memo> getAllMemo() {
 		return repo.findAll();
 	}
-	
-	public List<Memo> getMemoByFacId(int facId){
+
+	public List<Memo> getMemoByFacId(int facId) {
 		return repo.findByFacMember(facService.getFACMember(facId));
 	}
-	
+
 	public Memo updateDecision(Memo memo) throws UnsupportedEncodingException, MessagingException {
 		Memo existMemo = repo.findById(memo.getMid()).orElse(null);
-		
+
 		existMemo.setDecision(memo.getDecision());
-		
+
 		repo.save(existMemo);
 		mailService.decisionMemoEmail(existMemo, "http://localhost:3000");
-		
+
 		return existMemo;
+	}
+
+	public List<Memo> getMemoByFacMeeting(int fid) {
+		return repo.findByfacMeeting(facMeetingService.getMeeting(fid));
 	}
 }
