@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.Memo;
+import com.example.demo.entity.Request;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.MemoRepository;
 
@@ -26,6 +27,10 @@ public class MemoService {
 	@Autowired
 	private FACMemberService facService;
 	
+	@Autowired
+	private FACMeetingService facMeetingService;
+	
+	
 	public Memo postMemo(int facid, String description1, MultipartFile annex) {
 		
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
@@ -35,12 +40,14 @@ public class MemoService {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
             
+//            File convertFile = new File("D:\\L2S1\\Industry based project\\GitHub\\main1\\src\\main\\resources\\static\\Upload\\annex\\"+annex.getOriginalFilename());
             File convertFile = new File("E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload Annex\\Memo\\"+annex.getOriginalFilename());
     		convertFile.createNewFile();
     		FileOutputStream fout = new FileOutputStream(convertFile);
     		fout.write(annex.getBytes());
     		fout.close();
     		
+//    		String filePath = "D:\\L2S1\\Industry based project\\GitHub\\main1\\src\\main\\resources\\static\\Upload\\\\annex\\"+annex.getOriginalFilename();
     		String filePath = "E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload Annex\\Memo\\"+annex.getOriginalFilename();
     		
     		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -64,5 +71,8 @@ public class MemoService {
 	
 	public List<Memo> getMemoByFacId(int facId){
 		return repo.findByFacMember(facService.getFACMember(facId));
+	}
+	public List<Memo> getMemoByFacMeeting(int fid) {
+		return repo.findByfacMeeting(facMeetingService.getMeeting(fid));
 	}
 }

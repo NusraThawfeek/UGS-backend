@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.Memo;
+import com.example.demo.entity.Request;
 import com.example.demo.service.MemoService;
 
 @RestController
@@ -39,5 +40,10 @@ public class MemoController {
 	@GetMapping("/pastmemobyfacid/{facId}")
 	public List<Memo> getMemoByFacId(@PathVariable int facId){
 		return service.getMemoByFacId(facId);
+	}
+	
+	@GetMapping("/getMemobyfacid/{facid}")
+	public List<Memo> getMemoByFacMeeting(@PathVariable int facid){
+		return service.getMemoByFacMeeting(facid);
 	}
 }

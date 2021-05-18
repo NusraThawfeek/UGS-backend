@@ -57,7 +57,7 @@ public class UgsApplication implements CommandLineRunner {
 //		Roles fac_member = new Roles(MRoles.ROLE_FAC_MEMBER);
 //		Roles ugsRole = new Roles(MRoles.ROLE_UGS);
 //		Roles ar1 = new Roles(MRoles.ROLE_AR);
-//		Roles hod_IT = new Roles(MRoles.ROLE_HOD_IT);
+//		Roles hod_IT = new Roles(MRoles.ROLE_HOD);
 //		Roles dean = new Roles(MRoles.ROLE_DEAN);
 //		Roles dugs = new Roles(MRoles.ROLE_DUGS);
 //
@@ -141,7 +141,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac4.setDepartment("IT");
 //		fac4.setHod(true);
 //		Set<Roles> rolesFac4 = new HashSet<Roles>();
-//		Roles roleHOD = roleRepo.findByName(MRoles.ROLE_HOD_IT).get();
+//		Roles roleHOD = roleRepo.findByName(MRoles.ROLE_HOD).get();
 //		rolesFac4.add(roleAcaAd);
 //		rolesFac4.add(roleHOD);
 //		fac4.setRoles(rolesFac4);
@@ -168,7 +168,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac5.setDean(true);
 //		fac5.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac5);
-		
+//		
 //		// FAC NO:6 DUGS
 //		FACMember fac6 = new FACMember(); 
 //		fac6.setTitle("Mrs");
@@ -189,7 +189,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac6.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac6);	
 //		
-		
+//		
 //		
 //		UgsStaff ugs = new UgsStaff();
 //		ugs.setFirstName("Malith");
@@ -211,7 +211,7 @@ public class UgsApplication implements CommandLineRunner {
 //		AssistentRegistrar ar = new AssistentRegistrar();
 //		ar.setFirstName("Sarath");
 //		ar.setLastName("fernando");
-//		ar.setNameToBeAppeared("S.Fernando");
+//		ar.setNameToBeAppeared("Mr S.Fernando");
 //		ar.setEmail("sarath@gmail.com");
 //		ar.setContactNo("778366330");
 //		ar.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
@@ -225,13 +225,13 @@ public class UgsApplication implements CommandLineRunner {
 //
 //		arRepo.save(ar);	
 //
-//		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
-
-
-
-//		for(FACMember acad: allAcademicAdvisors) {
-//			System.out.println(acad);
-//		}
+////		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
+//
+//
+//
+////		for(FACMember acad: allAcademicAdvisors) {
+////			System.out.println(acad);
+////		}
 		
 		
 	}
