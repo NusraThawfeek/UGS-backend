@@ -32,6 +32,8 @@ public class MemoService {
 
 	@Autowired
 	private DecisionMailService mailService;
+	
+	@Autowired
 	private FACMeetingService facMeetingService;
 
 	public Memo postMemo(int facid, String description1, MultipartFile annex) {
