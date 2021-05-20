@@ -42,27 +42,15 @@ public class FACMeetingService {
 		this.facmemberservice = facmemberservice;
 
 	}
-	public void passwordMail(String email,int password) {
 
-		MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
-		mMap.add("emailTo", email);
-		mMap.add("emailFrom", "teamaliens.b18it@gmail.com");
-		mMap.add("emailSubject", "Account Credentials");
-		mMap.add("emailContent","Your password is "+ password);
-				
-		mailController.sendmail(mMap);
+	public FACMeeting postMeeting(Date meetingDate, String meetingTime, String location) {
 
+		FACMeeting meeting = new FACMeeting(meetingDate, meetingTime, location);
+
+		meetingEmailService.sendEmail("mifmilan@gmail.com", "test project", "topic");
+
+		return repository.save(meeting);
 	}
-	/*
-	 * public FACMeeting postMeeting(Date meetingDate, String meetingTime, String
-	 * location) {
-	 * 
-	 * FACMeeting meeting = new FACMeeting(meetingDate, meetingTime, location);
-	 * 
-	 * meetingEmailService.sendEmail("mifmilan@gmail.com", "test project", "topic");
-	 * 
-	 * return repository.save(meeting); }
-	 */
 
 	public FACMeeting getMeeting(int facMeetingId) {
 		return repository.findById(facMeetingId).orElse(null);
@@ -75,10 +63,14 @@ public class FACMeetingService {
 
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
 
-		FACMeeting newmeeting = repository.save(facMeeting);
-		newmeeting.getId();
+	
 
-		return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
+			FACMeeting newmeeting = repository.save(facMeeting);
+			newmeeting.getId();
+
+			return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
+		
+
 	}
 
 	public List<FACMeeting> getAll() {
@@ -145,6 +137,9 @@ public class FACMeetingService {
 	}
 
 	public void scmail(FACMeeting facMeeting, String email) {
+		if(facMeeting.getAgendaLink()==null) {
+				facMeeting.setAgendaLink("http://localhost:3000/view-agenda/"+facMeeting.getId());
+			}
 
 		MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
 		mMap.add("emailTo", email);
@@ -152,8 +147,8 @@ public class FACMeetingService {
 		mMap.add("emailSubject", "FAC Meeting");
 		mMap.add("emailContent",
 				"FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation() + "\n"
-						+ "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-						+ facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+						+ "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: " + facMeeting.getMeetingTime()
+						+ "\nLink: " + facMeeting.getAgendaLink());
 
 		mailController.sendmail(mMap);
 
@@ -189,6 +184,33 @@ public class FACMeetingService {
 			}
 		}
 
+	}
+	
+	public ResponseEntity<?> updateAgendaItems(FACMeeting facMeeting) {
+		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
+		fm.setAgendaItem(facMeeting.getAgendaItem());
+		fm.setAgendaLink(facMeeting.getAgendaLink());
+		FACMeeting res=repository.save(fm);
+		return ResponseEntity.ok(res);
+		}
+	
+	public ResponseEntity<?> updateMinuteItems(FACMeeting facMeeting) {
+		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
+		fm.setPriliminaries(facMeeting.getPriliminaries());
+		fm.setMattersAriseMeeting(facMeeting.getMattersAriseMeeting());
+		fm.setDeciForMatteds(facMeeting.getDeciForMatteds());
+		fm.setDecissionBy(facMeeting.getDecissionBy());
+		fm.setMinuteLink1(facMeeting.getMinuteLink1());
+		FACMeeting res=repository.save(fm);
+		return ResponseEntity.ok(res);
+	}
+	
+	public FACMeeting findUpcomingMeeting() {
+		return repository.findUpcomingMeeting();
+	}
+	
+	public List<FACMeeting> findPastMeeting() {
+		return repository.pastMeeting();
 	}
 
 }

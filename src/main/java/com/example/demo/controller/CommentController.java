@@ -64,7 +64,7 @@ public class CommentController {
 	
 	
 	@PutMapping("/Commented/update")
-	public Commented updateComment(@ModelAttribute Commented c) {	
+	public Commented updateComment(@ModelAttribute Commented c) throws UnsupportedEncodingException, MessagingException {	
 	
 		return cservice.updateComment(c);
 	}

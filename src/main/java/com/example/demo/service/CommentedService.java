@@ -21,8 +21,6 @@ import com.example.demo.repository.FACMemberRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.UserRepository;
 
-
-
 @Service
 public class CommentedService {
 
@@ -43,11 +41,9 @@ public class CommentedService {
 
 	@Autowired
 	private RequestService sservice;
-	
+
 	@Autowired
 	private DecisionMailService mailService;
-
-	
 
 	public Commented getByRidAndUid(Request rid, FACMember uid) {
 		// TODO Auto-generated method stub
@@ -59,8 +55,39 @@ public class CommentedService {
 		return crepo.findById(cid).orElse(null);
 	}
 
-	public Commented updateComment(Commented c) {
+	public Commented updateComment(Commented c) throws UnsupportedEncodingException, MessagingException {
 		Commented comment = getComment(c.getCid());
+		if ((comment.isIsForwarded() == false) && (c.isIsForwarded() == true)) {
+			if (c.getUid().isAcademicAdvisor() == true) {
+				// find department
+				String dep = c.getUid().getDepartment();
+
+				// hod email by dep
+				FACMember f = getHod(dep);
+				mailService.newRequest(f, "HOD", c.getRid().getStd());
+
+			}
+			if (c.getUid().isHod() == true) {
+
+				FACMember f = frepo.findByIsDean(true);
+				mailService.newRequest(f, "Dean", c.getRid().getStd());
+			}
+
+			if (c.getUid().isDean() == true) {
+
+				FACMember f = frepo.findByIsDugs(true);
+				mailService.newRequest(f, "DUGS", c.getRid().getStd());
+			}
+
+			if (c.getUid().isDugs() == true) {
+
+				Optional<Roles> role = rolesrepo.findByName(MRoles.ROLE_AR);
+				AssistentRegistrar ar = urepo.findByRoles(role);
+
+				mailService.newRequest(ar, "AR", c.getRid().getStd());
+
+			}
+		}
 		comment.setDescription(c.getDescription());
 		comment.setIsForwarded(c.isIsForwarded());
 		comment.setIsRecomended(c.isIsRecomended());
@@ -84,30 +111,30 @@ public class CommentedService {
 
 				// hod email by dep
 				FACMember f = getHod(dep);
-				mailService.newRequest(f,"HOD", c.getRid().getStd());
-				
+				mailService.newRequest(f, "HOD", c.getRid().getStd());
+
 			}
 			if (c.getUid().isHod() == true) {
 
 				FACMember f = frepo.findByIsDean(true);
-				mailService.newRequest(f,"Dean", c.getRid().getStd());
+				mailService.newRequest(f, "Dean", c.getRid().getStd());
 			}
-			
+
 			if (c.getUid().isDean() == true) {
 
 				FACMember f = frepo.findByIsDugs(true);
-				mailService.newRequest(f,"DUGS", c.getRid().getStd());
+				mailService.newRequest(f, "DUGS", c.getRid().getStd());
 			}
-			
+
 			if (c.getUid().isDugs() == true) {
 
 				Optional<Roles> role = rolesrepo.findByName(MRoles.ROLE_AR);
 				AssistentRegistrar ar = urepo.findByRoles(role);
-				
-				mailService.newRequest(ar,"AR", c.getRid().getStd());
-				
+
+				mailService.newRequest(ar, "AR", c.getRid().getStd());
+
 			}
-			
+
 		}
 
 		return comment;
@@ -163,21 +190,16 @@ public class CommentedService {
 
 	public boolean editForDugs(Request rid, Long id) {
 
-		if(frepo.findById(id).get().isDugs()) {
-			if(rid.getIsSendToFacBoard()) {
+		if (frepo.findById(id).get().isDugs()) {
+			if (rid.getIsSendToFacBoard()) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
-		}
-		else {
+		} else {
 			return false;
 		}
-		
-		
+
 	}
-
-
 
 }

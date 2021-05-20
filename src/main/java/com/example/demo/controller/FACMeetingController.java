@@ -53,12 +53,29 @@ public class FACMeetingController {
 		return service.sendmail(id, mail);
 	}
 
-	/*
-	 * @PostMapping("/postmeeting") public FACMeeting postMeeting(@RequestParam Date
-	 * meetingDate,
-	 * 
-	 * @RequestParam @DateTimeFormat(pattern = "HH:mm") String
-	 * meetingTime, @RequestParam String location) { return
-	 * service.postMeeting(meetingDate, meetingTime, location); }
-	 */
+	@PostMapping("/postmeeting")
+	public FACMeeting postMeeting(@RequestParam Date meetingDate,
+			@RequestParam @DateTimeFormat(pattern = "HH:mm") String meetingTime, @RequestParam String location) {
+		return service.postMeeting(meetingDate, meetingTime, location);
+	}
+	
+	@PutMapping("/meetings/addAgenda")
+	public ResponseEntity<?> updateAgendaItems( @RequestBody FACMeeting facMeeting) {
+		return service.updateAgendaItems(facMeeting);
+	}
+	
+	@PutMapping("/meetings/addMinute")
+	public ResponseEntity<?> updateMinuteItems(@RequestBody FACMeeting facMeeting) {
+		return service.updateMinuteItems(facMeeting);
+	}
+	
+	@GetMapping(path = "/meetings/upcoming")
+	public FACMeeting findUpcomingMeeting() {
+		return service.findUpcomingMeeting();
+	}
+	
+	@GetMapping(path = "/meetings/pastMeeting")
+	public List<FACMeeting> findPastMeeting() {
+		return service.findPastMeeting();
+	}
 }

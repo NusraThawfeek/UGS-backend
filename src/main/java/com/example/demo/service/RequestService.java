@@ -3,9 +3,10 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.Request;
 import com.example.demo.entity.Student;
@@ -19,6 +20,9 @@ public class RequestService {
 
 	@Autowired
 	private StudentService service;
+	
+	@Autowired
+	private FACMeetingService facservice;
 
 	public Request getRequest(int rid) {
 		return repository.findById(rid).orElse(null);
@@ -66,11 +70,16 @@ public class RequestService {
 		// TODO Auto-generated method stub
 		return repository.findByindexNo(indexNo);
 	}
+	
+	public List<Request> getRequestByFacid(int fid) {
+		return repository.findByFacMeeting1(facservice.getMeeting(fid));
+	}
 
 	public Request updateAddToAgenda(Request r) {
-		
 		Request req=getRequest(r.getRid());
+		FACMeeting fm1=facservice.findUpcomingMeeting();    
 		req.setIsSendToFacBoard(r.getIsSendToFacBoard());
+		req.setFacMeeting1(fm1);							
 		return repository.save(req);
 	}
 

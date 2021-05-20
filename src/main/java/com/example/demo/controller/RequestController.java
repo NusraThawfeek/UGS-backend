@@ -6,11 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -105,7 +107,12 @@ public class RequestController {
 	
 	@PutMapping("/AddRequestToAgenda")
 	public Request addToAgenda(@ModelAttribute Request r) {	
-		
 		return service.updateAddToAgenda(r);
 	}
+	
+	@GetMapping("/getrequestbyfacid/{facid}")
+	public List<Request> getRequestByFacid(@PathVariable int facid){
+		return service.getRequestByFacid(facid);
+	}
+	
 }

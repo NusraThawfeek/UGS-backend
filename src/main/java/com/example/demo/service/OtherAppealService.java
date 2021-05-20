@@ -69,8 +69,8 @@ public class OtherAppealService {
 			fout2.write(sgpa.getBytes());
 			fout2.close();
 
-			String sgpaPath = "E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\sgpa\\"
-					+ datetime + sgpa.getOriginalFilename();
+			String sgpaPath = "E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\sgpa\\" +
+					"FAC-"+ datetime + sgpa.getOriginalFilename();
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date enteredDate = new Date();
