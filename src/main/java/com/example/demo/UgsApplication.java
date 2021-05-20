@@ -60,7 +60,7 @@ public class UgsApplication implements CommandLineRunner {
 //		Roles dean = new Roles(MRoles.ROLE_DEAN);
 //		Roles dugs = new Roles(MRoles.ROLE_DUGS);
 //		Roles hod = new Roles(MRoles.ROLE_HOD);
-//
+//		Roles acadamicAdvisor = new Roles(MRoles.ROLE_ACADEMICADVISOR);
 //
 //		roleRepo.save(ar1);
 //		roleRepo.save(ugsRole);
@@ -69,35 +69,43 @@ public class UgsApplication implements CommandLineRunner {
 //		roleRepo.save(dean);
 //		roleRepo.save(dugs);
 //		roleRepo.save(hod);
+//		roleRepo.save(acadamicAdvisor);
 //		
+//		Roles roleFacMember = roleRepo.findByName(MRoles.ROLE_FAC_MEMBER).get();
+//		Roles roleAcaAd = roleRepo.findByName(MRoles.ROLE_ACADEMICADVISOR).get();
+//		Roles roleHOD = roleRepo.findByName(MRoles.ROLE_HOD).get();
+//		Roles roleDEAN = roleRepo.findByName(MRoles.ROLE_DEAN).get();
+//		Roles roleDUGS = roleRepo.findByName(MRoles.ROLE_DUGS).get();
+//		Roles roleAR = roleRepo.findByName(MRoles.ROLE_AR).get();
+//		Roles roleUgs = roleRepo.findByName(MRoles.ROLE_UGS).get();
 //		
-////		Insert  5 FAC MEMBERS temporarily
-//// FAC NO:1
+//		// Insert  5 FAC MEMBERS temporarily
+//		// FAC NO:1
 //		FACMember fac1 = new FACMember();
 //		fac1.setTitle("Mr");
 //		fac1.setFirstName("B.H");
-//		fac1.setLastName("Sudantha");
-//		fac1.setNameToBeAppeared("MR. SUDANTHA B.H.");
+//		fac1.setLastName("Amila");
+//		fac1.setNameToBeAppeared("MR. Amila B.H.");
 //		fac1.setEmail("184160D@gmail.com");
 //		fac1.setContactNo("0758989898");
 //		fac1.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac1.setDepartment("IT");
 //		fac1.setAcademicAdvisor(true);
 //		Set<Roles> rolesFac1 = new HashSet<Roles>();
-//		Roles roleAcaAd = roleRepo.findByName(MRoles.ROLE_FAC_MEMBER).get();
 //		rolesFac1.add(roleAcaAd);
+//		rolesFac1.add(roleFacMember);
 //		fac1.setRoles(rolesFac1);
 //		fac1.setAcademicAdvisor(true);
 //		fac1.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac1);
-////		
-//////FAC NO:		2
+//		
+//		//FAC NO: 2
 //		FACMember fac2 = new FACMember();
 //
 //		fac2.setTitle("Mr");
 //		fac2.setFirstName("S.C");
-//		fac2.setLastName(" Premaratne");
-//		fac2.setNameToBeAppeared( "Mr. S.C. Premaratne");
+//		fac2.setLastName("Prem");
+//		fac2.setNameToBeAppeared( "Mr. S.C. Prem");
 //		fac2.setEmail("184161D@gmail.com");
 //		fac2.setContactNo("0758989898");
 //		fac2.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
@@ -105,6 +113,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac2.setAcademicAdvisor(true);
 //		Set<Roles> rolesFac2 = new HashSet<Roles>();
 //		rolesFac2.add(roleAcaAd);
+//		rolesFac2.add(roleFacMember);
 //		fac2.setRoles(rolesFac2);
 //		fac2.setAcademicAdvisor(true);
 //		fac2.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
@@ -115,17 +124,16 @@ public class UgsApplication implements CommandLineRunner {
 //		FACMember fac3 = new FACMember(); 
 //		fac3.setTitle("Mr");
 //		fac3.setFirstName("M.F.M.");
-//		fac3.setLastName("FIRDHOUS");
-//		fac3.setNameToBeAppeared("DR. FIRDHOUS M.F.M.");
+//		fac3.setLastName("Mohamed");
+//		fac3.setNameToBeAppeared("DR. Mohamed M.F.M.");
 //		fac3.setEmail("184162D@gmail.com");
 //		fac3.setContactNo("0758989898");
 //		fac3.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac3.setDepartment("IT");
-//		fac3.setAcademicAdvisor(true);
+//		fac3.setOnlyLecturer(true);
 //		Set<Roles> rolesFac3 = new HashSet<Roles>();
-//		rolesFac3.add(roleAcaAd);
+//		rolesFac3.add(roleFacMember);
 //		fac3.setRoles(rolesFac3);
-//		fac3.setAcademicAdvisor(true);
 //		fac3.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac3);
 //
@@ -133,19 +141,16 @@ public class UgsApplication implements CommandLineRunner {
 //		FACMember fac4 = new FACMember(); 
 //		fac4.setTitle("Mr");
 //		fac4.setFirstName("M.Z.M.");
-//		fac4.setLastName("SUPUN");
-//		fac4.setNameToBeAppeared("DR. SUPUN M.Z.M.");
+//		fac4.setLastName("Sathyan");
+//		fac4.setNameToBeAppeared("DR. Sathyan M.Z.M.");
 //		fac4.setEmail("184163D@gmail.com");
 //		fac4.setContactNo("0758989898");
 //		fac4.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac4.setDepartment("IT");
 //		fac4.setHod(true);
 //		Set<Roles> rolesFac4 = new HashSet<Roles>();
-//		Roles roleHOD = roleRepo.findByName(MRoles.ROLE_HOD).get();
-//		rolesFac4.add(roleAcaAd);
 //		rolesFac4.add(roleHOD);
 //		fac4.setRoles(rolesFac4);
-//		fac4.setHod(true);
 //		fac4.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac4);
 //		
@@ -161,11 +166,8 @@ public class UgsApplication implements CommandLineRunner {
 //		fac5.setDepartment("IT");
 //		fac5.setDean(true);
 //		Set<Roles> rolesFac5 = new HashSet<Roles>();
-//		Roles roleDEAN = roleRepo.findByName(MRoles.ROLE_DEAN).get();
-//		rolesFac5.add(roleAcaAd);
 //		rolesFac5.add(roleDEAN);
 //		fac5.setRoles(rolesFac5);
-//		fac5.setDean(true);
 //		fac5.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac5);
 //		
@@ -179,35 +181,27 @@ public class UgsApplication implements CommandLineRunner {
 //		fac6.setContactNo("0758989898");
 //		fac6.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac6.setDepartment("IT");
-//		fac6.setHod(true);
-//		Set<Roles> rolesFac6 = new HashSet<Roles>();
-//		Roles roleDUGS = roleRepo.findByName(MRoles.ROLE_DUGS).get();
-//		rolesFac6.add(roleDUGS);
-//		rolesFac6.add(roleAcaAd);
-//		fac6.setRoles(rolesFac6);
 //		fac6.setDugs(true);
+//		Set<Roles> rolesFac6 = new HashSet<Roles>();
+//		rolesFac6.add(roleDUGS);
+//		fac6.setRoles(rolesFac6);
 //		fac6.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac6);	
 //		
-//		
-//		
+//		// UGS staff
 //		UgsStaff ugs = new UgsStaff();
 //		ugs.setFirstName("Malith");
 //		ugs.setLastName("fernando");
 //		ugs.setNameToBeAppeared("M.Fernando");
-//		ugs.setEmail("fayaz@gmail.com");
+//		ugs.setEmail("malith@gmail.com");
 //		ugs.setContactNo("778366330");
 //		ugs.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//
 //		Set<Roles> roles = new HashSet<Roles>();
-//		Roles roleUgs = roleRepo.findByName(MRoles.ROLE_UGS).get();
-//
 //		roles.add(roleUgs);
-//
 //		ugs.setRoles(roles);
-//
 //		repo.save(ugs);
 //		
+//		// AR
 //		AssistentRegistrar ar = new AssistentRegistrar();
 //		ar.setFirstName("Sarath");
 //		ar.setLastName("fernando");
@@ -215,24 +209,10 @@ public class UgsApplication implements CommandLineRunner {
 //		ar.setEmail("sarath@gmail.com");
 //		ar.setContactNo("778366330");
 //		ar.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//
 //		Set<Roles> rolesAR = new HashSet<Roles>();
-//		Roles roleAR = roleRepo.findByName(MRoles.ROLE_AR).get();
-//
 //		rolesAR.add(roleAR);
-//
 //		ar.setRoles(rolesAR);
-//
 //		arRepo.save(ar);	
-//
-////		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
-//
-//
-//
-////		for(FACMember acad: allAcademicAdvisors) {
-////			System.out.println(acad);
-////		}
-		
 		
 	}
 
