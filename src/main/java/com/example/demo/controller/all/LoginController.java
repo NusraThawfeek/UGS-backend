@@ -47,6 +47,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<UserDetailsResponse> loginUser(@Valid @RequestBody LoginRequest request) {
+		
 		log.info("Login method at com.itfac.ugs.controllers.all.LoginController called with username "
 				+ request.getUsername());
 		String token = util.generateToken(request.getUsername());
@@ -55,6 +56,7 @@ public class LoginController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+	
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		return ResponseEntity

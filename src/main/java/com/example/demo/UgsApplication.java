@@ -50,9 +50,9 @@ public class UgsApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-
-//		System.out.println(encoder.encode("12345678"));
-
+//
+//	System.out.println(encoder.encode("12345678"));
+//
 //		Roles student = new Roles(MRoles.ROLE_STUDENT);
 //		Roles fac_member = new Roles(MRoles.ROLE_FAC_MEMBER);
 //		Roles ugsRole = new Roles(MRoles.ROLE_UGS);
@@ -69,10 +69,8 @@ public class UgsApplication implements CommandLineRunner {
 //		roleRepo.save(dean);
 //		roleRepo.save(dugs);
 //		roleRepo.save(hod);
-//		
-//		
-////		Insert  5 FAC MEMBERS temporarily
-//// FAC NO:1
+//
+// FAC NO:1
 //		FACMember fac1 = new FACMember();
 //		fac1.setTitle("Mr");
 //		fac1.setFirstName("B.H");
@@ -90,8 +88,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac1.setAcademicAdvisor(true);
 //		fac1.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac1);
-////		
-//////FAC NO:		2
+//FAC NO:		2
 //		FACMember fac2 = new FACMember();
 //
 //		fac2.setTitle("Mr");
@@ -111,8 +108,8 @@ public class UgsApplication implements CommandLineRunner {
 //		frepo.save(fac2);
 //
 //
-//		// FAC NO: 3 
-//		FACMember fac3 = new FACMember(); 
+// FAC NO: 3
+//		FACMember fac3 = new FACMember();
 //		fac3.setTitle("Mr");
 //		fac3.setFirstName("M.F.M.");
 //		fac3.setLastName("FIRDHOUS");
@@ -129,8 +126,8 @@ public class UgsApplication implements CommandLineRunner {
 //		fac3.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac3);
 //
-//		// FAC NO: 4 HOD
-//		FACMember fac4 = new FACMember(); 
+// FAC NO: 4 HOD
+//		FACMember fac4 = new FACMember();
 //		fac4.setTitle("Mr");
 //		fac4.setFirstName("M.Z.M.");
 //		fac4.setLastName("SUPUN");
@@ -148,9 +145,9 @@ public class UgsApplication implements CommandLineRunner {
 //		fac4.setHod(true);
 //		fac4.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac4);
-//		
-//		// FAC NO:5 DEAN
-//		FACMember fac5 = new FACMember(); 
+//
+// FAC NO:5 DEAN
+//		FACMember fac5 = new FACMember();
 //		fac5.setTitle("Mr");
 //		fac5.setFirstName("M.L.M.");
 //		fac5.setLastName("THARAKA");
@@ -168,29 +165,27 @@ public class UgsApplication implements CommandLineRunner {
 //		fac5.setDean(true);
 //		fac5.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac5);
-//		
-//		// FAC NO:6 DUGS
-//		FACMember fac6 = new FACMember(); 
-//		fac6.setTitle("Mrs");
-//		fac6.setFirstName("M.G.L.K.");
-//		fac6.setLastName("DHEVI");
-//		fac6.setNameToBeAppeared("DR. DHEVI M.G.L.K.");
-//		fac6.setEmail("184165D@gmail.com");
-//		fac6.setContactNo("0758989898");
-//		fac6.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//		fac6.setDepartment("IT");
-//		fac6.setHod(true);
-//		Set<Roles> rolesFac6 = new HashSet<Roles>();
-//		Roles roleDUGS = roleRepo.findByName(MRoles.ROLE_DUGS).get();
-//		rolesFac6.add(roleDUGS);
-//		rolesFac6.add(roleAcaAd);
-//		fac6.setRoles(rolesFac6);
-//		fac6.setDugs(true);
-//		fac6.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
-//		frepo.save(fac6);	
-//		
-//		
-//		
+//
+//FAC NO:6 DUGS
+	FACMember fac6 = new FACMember();
+		fac6.setTitle("Mrs");
+		fac6.setFirstName("M.G.L.K.");
+		fac6.setLastName("DHEVI");
+		fac6.setNameToBeAppeared("DR. DHEVI M.G.L.K.");
+		fac6.setEmail("184165D@gmail.com");
+		fac6.setContactNo("0758989898");
+		fac6.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
+		fac6.setDepartment("IT");
+		fac6.setDugs(true);
+		Set<Roles> rolesFac6 = new HashSet<Roles>();
+		Roles roleDUGS = roleRepo.findByName(MRoles.ROLE_DUGS).get();
+		rolesFac6.add(roleDUGS);
+		rolesFac6.add(roleAcaAd);
+		fac6.setRoles(rolesFac6);
+		fac6.setDugs(true);
+		fac6.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
+		frepo.save(fac6);
+//
 //		UgsStaff ugs = new UgsStaff();
 //		ugs.setFirstName("Malith");
 //		ugs.setLastName("fernando");
@@ -207,7 +202,7 @@ public class UgsApplication implements CommandLineRunner {
 //		ugs.setRoles(roles);
 //
 //		repo.save(ugs);
-//		
+//
 //		AssistentRegistrar ar = new AssistentRegistrar();
 //		ar.setFirstName("Sarath");
 //		ar.setLastName("fernando");
@@ -223,15 +218,8 @@ public class UgsApplication implements CommandLineRunner {
 //
 //		ar.setRoles(rolesAR);
 //
-//		arRepo.save(ar);	
-//
-////		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
-//
-//
-//
-////		for(FACMember acad: allAcademicAdvisors) {
-////			System.out.println(acad);
-////		}
+//		arRepo.save(ar);
+
 		
 		
 	}
