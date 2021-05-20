@@ -22,7 +22,7 @@ public class JwtUtil {
 			.setSubject(username)
 			.setIssuer("UGS@IT")
 			.setIssuedAt(new Date(System.currentTimeMillis()))
-			.setExpiration(new Date(System.currentTimeMillis()+ TimeUnit.MINUTES.toMillis(10)))
+			.setExpiration(new Date(System.currentTimeMillis()+ TimeUnit.HOURS.toMillis(24)))
 			.signWith(SignatureAlgorithm.HS256, secret_key.getBytes())
 			.compact();
 	}

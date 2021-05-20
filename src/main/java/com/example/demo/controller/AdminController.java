@@ -32,7 +32,7 @@ import com.example.demo.service.interfaces.IAdminService;
 import com.example.demo.utils.ExcelHelper;
 
 @RestController
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("*")
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -72,6 +72,19 @@ public class AdminController {
 		return ResponseEntity.ok(users);
 
 	}
+	
+	@RequestMapping(value="/register/student/batch/check-header") 
+	public ResponseEntity<List<String>> checkFileHeader(@RequestPart("file") MultipartFile file) {
+		List<String> rowHeaders;
+		try {
+			 rowHeaders = helper.getFileHeading(file.getInputStream());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to store excel data: " + e.getMessage());
+		}
+				
+		return ResponseEntity.ok(rowHeaders);
+	}
+	
 	
 	@PostMapping("/register/student/batch/saveAll")
 	public ResponseEntity<String> saveAllUsers(@RequestBody List<StudentBatchRequest> students){
@@ -125,7 +138,6 @@ public class AdminController {
 		res.setCourseTitle(student.getCourseTitle());
 		res.setEmail(student.getEmail());
 		res.setIndexNo(student.getIndexNo());
-		res.setLevelSemester(student.getLevelSemester());
 		return ResponseEntity.ok(res);
 	}
 	

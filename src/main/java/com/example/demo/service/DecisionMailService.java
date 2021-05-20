@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.FACMember;
+import com.example.demo.entity.Memo;
 import com.example.demo.entity.Request;
 import com.example.demo.entity.Student;
 import com.example.demo.entity.User;
@@ -47,6 +48,41 @@ public class DecisionMailService {
 	     
 	    content = content.replace("[[name]]", student.getIndexNo());
 	    String verifyURL = siteURL + "/pastrequest/past_leave_request/" + request.getRid();
+	     
+	    content = content.replace("[[URL]]", verifyURL);
+	     
+	    helper.setText(content, true);
+	     
+	    mailSender.send(message);
+	     
+	}
+	
+	public void decisionMemoEmail(Memo memo, String siteURL)
+	        throws MessagingException, UnsupportedEncodingException {
+		
+		FACMember facMember = memo.getFacMember();
+		
+	    String toAddress = facMember.getEmail();
+	    String fromAddress = "mhdrazan200@gmail.com";
+	    String senderName = "Dr. Supunmali Ahangama";
+	    String subject = "Decsision added for your request";
+	    String content = "Dear [[name]],<br>"
+	            + "Please click the link below to view your request status:<br>"
+	            + "<h3><a href=\"[[URL]]\" target=\"_self\">Click</a></h3>"
+	            + "Thank you,<br>"
+	            + "Director/Undergraduate Studies, <br>"
+	            + "Faculty of Information Technology,<br>"
+	            + "University of Moratuwa";
+	     
+	    MimeMessage message = mailSender.createMimeMessage();
+	    MimeMessageHelper helper = new MimeMessageHelper(message);
+	     
+	    helper.setFrom(fromAddress, senderName);
+	    helper.setTo(toAddress);
+	    helper.setSubject(subject);
+	     
+	    content = content.replace("[[name]]", facMember.getNameToBeAppeared());
+	    String verifyURL = siteURL + "/pastrequest/past_leave_request/" + memo.getMid();
 	     
 	    content = content.replace("[[URL]]", verifyURL);
 	     

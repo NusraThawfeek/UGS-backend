@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -41,11 +42,8 @@ public class Student extends User {
 	@OneToMany(mappedBy="std",fetch = FetchType.LAZY)
 	private Set<Request> req;
 	
+	
+	@JoinColumn(name="academicAdvisor")
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false,name="fac_member_user_id")
 	private FACMember academicAdvisor;
-	
-
-	
-
 }

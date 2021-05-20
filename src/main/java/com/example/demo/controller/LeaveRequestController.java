@@ -63,4 +63,9 @@ public class LeaveRequestController {
         String siteURL = request.getRequestURL().toString();
         return siteURL.replace(request.getServletPath(), "");
     }
+	
+	@GetMapping("/decisionleaverequest")
+	public List<LeaveRequest> getAllLeaveReqForDecision(){
+		return service.getAllLeaveReqForDecision();
+	}
 }

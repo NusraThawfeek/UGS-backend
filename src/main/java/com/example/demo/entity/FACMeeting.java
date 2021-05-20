@@ -42,9 +42,11 @@ public class FACMeeting {
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
+	@JsonIgnore
 	private List<Memo> memos;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting1")
+	@JsonIgnore
 	private List<Request> requests;
 
 	@OneToMany(mappedBy = "facmeeting")

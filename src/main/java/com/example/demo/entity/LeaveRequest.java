@@ -13,7 +13,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
 
 
 //@Data
@@ -21,8 +20,6 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table
 @PrimaryKeyJoinColumn
-
-//@SuperBuilder
 
 public class LeaveRequest extends Request {
 

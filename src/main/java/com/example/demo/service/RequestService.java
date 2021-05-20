@@ -92,4 +92,11 @@ public class RequestService {
 		// TODO Auto-generated method stub
 		return repository.findPastRequestForAR();
 	}
+	
+	public Request updateSendToFACBoard(Request request) {
+		Request existingRequest = getRequest(request.getRid());
+		existingRequest.setIsSendToFacBoard(request.getIsSendToFacBoard());
+		repository.save(existingRequest);
+		return existingRequest;
+	}
 }

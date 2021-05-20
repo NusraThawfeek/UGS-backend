@@ -21,7 +21,7 @@ public interface FACMeetingRepository extends JpaRepository<FACMeeting, Integer>
 
 	FACMeeting findFirstByOrderByIdDesc();
 	
-	@Query(value= "select * from fac_meeting fc where fc.date> CURDATE() and fc.matters_arise_meeting is null", nativeQuery = true)
+	@Query(value= "select * from fac_meeting fc where fc.date>CURDATE()   and fc.matters_arise_meeting is null", nativeQuery = true)
 	FACMeeting findUpcomingMeeting();
 	
 	@Query(value= "select * from fac_meeting where date<= CURDATE() order by id desc", nativeQuery = true)

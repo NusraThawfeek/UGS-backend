@@ -36,6 +36,7 @@ public class Request {
 	private boolean isSendToFacBoard;
 	private String type;
 	private String status;
+
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="std_user_id",nullable = false)

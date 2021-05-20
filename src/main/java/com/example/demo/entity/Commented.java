@@ -24,7 +24,7 @@ public class Commented {
 	@EmbeddedId
     private CommentKey cid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("FACId")
     @JoinColumn(name = "FAC_Id")
     private FACMember uid;

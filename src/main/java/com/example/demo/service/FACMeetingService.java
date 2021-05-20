@@ -40,7 +40,6 @@ public class FACMeetingService {
 		this.repository = repository;
 		this.mailController = mailController;
 		this.facmemberservice = facmemberservice;
-
 	}
 
 	public FACMeeting postMeeting(Date meetingDate, String meetingTime, String location) {
@@ -62,15 +61,11 @@ public class FACMeetingService {
 	}
 
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
-
-	
-
 			FACMeeting newmeeting = repository.save(facMeeting);
 			newmeeting.getId();
 
 			return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
 		
-
 	}
 
 	public List<FACMeeting> getAll() {
@@ -147,8 +142,8 @@ public class FACMeetingService {
 		mMap.add("emailSubject", "FAC Meeting");
 		mMap.add("emailContent",
 				"FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation() + "\n"
-						+ "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: " + facMeeting.getMeetingTime()
-						+ "\nLink: " + facMeeting.getAgendaLink());
+						+ "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
+						+ facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
 
 		mailController.sendmail(mMap);
 

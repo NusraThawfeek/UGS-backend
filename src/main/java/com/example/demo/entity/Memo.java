@@ -12,9 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table
 public class Memo {
@@ -26,6 +23,7 @@ public class Memo {
 	private String annexPath;
 	private Date enteredDate = new Date();
 	private String decision;
+	private boolean isSendToFacMeeting;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -42,6 +40,7 @@ public class Memo {
 		this.enteredDate = enteredDate;
 		this.facMember = facMember;
 		this.decision  = decision;
+		this.isSendToFacMeeting = false;
 	}
 
 	public Memo() {
@@ -103,8 +102,13 @@ public class Memo {
 	public void setDecision(String decision) {
 		this.decision = decision;
 	}
-	
-	
-	
+
+	public boolean getIsSendToFacMeeting() {
+		return isSendToFacMeeting;
+	}
+
+	public void setSendToFacMeeting(boolean isSendToFacMeeting) {
+		this.isSendToFacMeeting = isSendToFacMeeting;
+	}
 	
 }
