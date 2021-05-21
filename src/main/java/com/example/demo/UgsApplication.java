@@ -93,7 +93,6 @@ public class UgsApplication implements CommandLineRunner {
 //		fac1.setAcademicAdvisor(true);
 //		Set<Roles> rolesFac1 = new HashSet<Roles>();
 //		rolesFac1.add(roleAcaAd);
-//		rolesFac1.add(roleFacMember);
 //		fac1.setRoles(rolesFac1);
 //		fac1.setAcademicAdvisor(true);
 //		fac1.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
@@ -113,7 +112,6 @@ public class UgsApplication implements CommandLineRunner {
 //		fac2.setAcademicAdvisor(true);
 //		Set<Roles> rolesFac2 = new HashSet<Roles>();
 //		rolesFac2.add(roleAcaAd);
-//		rolesFac2.add(roleFacMember);
 //		fac2.setRoles(rolesFac2);
 //		fac2.setAcademicAdvisor(true);
 //		fac2.setLectureGradeLevel("SENIOR LECTURER GRADE 1");

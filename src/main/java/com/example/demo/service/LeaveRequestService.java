@@ -33,7 +33,7 @@ public class LeaveRequestService {
 
 	@Autowired
 	private StudentService studentService;
-	
+
 	@Autowired
 	private DecisionMailService mailService;
 
@@ -64,19 +64,18 @@ public class LeaveRequestService {
 
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date enteredDate = new Date();
-			
+
 			int overseasDays = totalDays - localDays;
 			int vacationDays = totalDays - semesterDays;
 
 			LeaveRequest req = new LeaveRequest(filePath, "", enteredDate, false, leaveType, purpose, from, to,
-					localDays, overseasDays, totalDays,
-					semesterDays, vacationDays, reason, studentService.getStudent(sid), "Leave");
+					localDays, overseasDays, totalDays, semesterDays, vacationDays, reason,
+					studentService.getStudent(sid), "Leave");
 
-			Student std=studentService.getStudent(sid);
-    		
-    		mailService.newRequest(std.getAcademicAdvisor(),"AcademicAdvisor", std);
+			Student std = studentService.getStudent(sid);
+
+			mailService.newRequest(std.getAcademicAdvisor(), "AcademicAdvisor", std);
 			return repository.save(req);
-		
 
 		} catch (IOException ex) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
@@ -88,7 +87,17 @@ public class LeaveRequestService {
 	}
 
 	public List<LeaveRequest> getAllRequest() {
-		return repository.findAll();
+		List<LeaveRequest> allReq = repository.findAll();
+
+		List<LeaveRequest> decReq = new ArrayList<>();
+
+		for (int i = 0; i < allReq.size(); i++) {
+			if ((allReq.get(i).getIsSendToFacBoard() == true) && allReq.get(i).getDecision().equals("")) {
+				decReq.add(allReq.get(i));
+			}
+		}
+
+		return decReq;
 	}
 
 	public List<LeaveRequest> pastLeaveRequest(int sid) {
@@ -102,9 +111,9 @@ public class LeaveRequestService {
 
 		existingRequest.setStatus(request.getStatus());
 		existingRequest.setDecision(request.getDecision());
-		
+
 		Student student = existingRequest.getStd();
-		
+
 		if (existingRequest.getLeaveType().equals("Long Duration")) {
 			student.setLongTermBal(student.getLongTermBal() - existingRequest.getTotalDays());
 		}
@@ -115,23 +124,23 @@ public class LeaveRequestService {
 		}
 
 		repository.save(existingRequest);
-		
+
 		mailService.decsisionEmail(existingRequest, "http://localhost:3000");
 
 		return existingRequest;
 	}
-	
-	public List<LeaveRequest> getAllLeaveReqForDecision(){
+
+	public List<LeaveRequest> getAllLeaveReqForDecision() {
 		List<LeaveRequest> allReq = repository.findAll();
-		
+
 		List<LeaveRequest> decReq = new ArrayList<>();
-		
-		for(int i = 0; i < allReq.size(); i++) {
-			if((allReq.get(i).getIsSendToFacBoard() == true) && allReq.get(i).getDecision().equals("")) {
+
+		for (int i = 0; i < allReq.size(); i++) {
+			if ((allReq.get(i).getIsSendToFacBoard() == true) && allReq.get(i).getDecision().equals("")) {
 				decReq.add(allReq.get(i));
 			}
 		}
-		
+
 		return decReq;
 	}
 }
