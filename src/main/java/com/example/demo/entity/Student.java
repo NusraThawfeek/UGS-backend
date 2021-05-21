@@ -42,8 +42,12 @@ public class Student extends User {
 	@OneToMany(mappedBy="std",fetch = FetchType.LAZY)
 	private Set<Request> req;
 	
+<<<<<<< HEAD
 	
 	@JoinColumn(name="academicAdvisor")
+=======
+>>>>>>> b5707d6b49d41f1c20a5d0aaba109525e33371d9
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "acadamicAdvisor")
 	private FACMember academicAdvisor;
 }

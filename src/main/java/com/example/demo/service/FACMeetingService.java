@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
@@ -17,10 +18,14 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.FACMember;
+import com.example.demo.entity.MRoles;
+import com.example.demo.entity.Roles;
 import com.example.demo.repository.FACMeetingRepository;
-
+import com.example.demo.repository.RolesRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.controller.MailController;
 
 import com.example.demo.payload.MessageResponse;
@@ -35,20 +40,17 @@ public class FACMeetingService {
 	@Autowired
 	private MeetingEmailService meetingEmailService;
 
+	@Autowired
+	UserRepository urepo;
+
+	@Autowired
+	RolesRepository rolesrepo;
+
 	public FACMeetingService(FACMeetingRepository repository, MailController mailController,
 			FACMemberService facmemberservice) {
 		this.repository = repository;
 		this.mailController = mailController;
 		this.facmemberservice = facmemberservice;
-	}
-
-	public FACMeeting postMeeting(Date meetingDate, String meetingTime, String location) {
-
-		FACMeeting meeting = new FACMeeting(meetingDate, meetingTime, location);
-
-		meetingEmailService.sendEmail("mifmilan@gmail.com", "test project", "topic");
-
-		return repository.save(meeting);
 	}
 
 	public FACMeeting getMeeting(int facMeetingId) {
@@ -61,11 +63,16 @@ public class FACMeetingService {
 	}
 
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
-			FACMeeting newmeeting = repository.save(facMeeting);
-			newmeeting.getId();
 
-			return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
+		Optional<Roles> role = rolesrepo.findByName(MRoles.ROLE_AR);
+		AssistentRegistrar ar = urepo.findByRoles(role);
 		
+		facMeeting.setAssistantRegistrar(ar);
+		
+		repository.save(facMeeting);
+
+		return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
+
 	}
 
 	public List<FACMeeting> getAll() {
@@ -132,9 +139,9 @@ public class FACMeetingService {
 	}
 
 	public void scmail(FACMeeting facMeeting, String email) {
-		if(facMeeting.getAgendaLink()==null) {
-				facMeeting.setAgendaLink("http://localhost:3000/view-agenda/"+facMeeting.getId());
-			}
+		if (facMeeting.getAgendaLink() == null) {
+			facMeeting.setAgendaLink("http://localhost:3000/view-agenda/" + facMeeting.getId());
+		}
 
 		MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
 		mMap.add("emailTo", email);
@@ -180,15 +187,15 @@ public class FACMeetingService {
 		}
 
 	}
-	
+
 	public ResponseEntity<?> updateAgendaItems(FACMeeting facMeeting) {
 		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
 		fm.setAgendaItem(facMeeting.getAgendaItem());
 		fm.setAgendaLink(facMeeting.getAgendaLink());
-		FACMeeting res=repository.save(fm);
+		FACMeeting res = repository.save(fm);
 		return ResponseEntity.ok(res);
-		}
-	
+	}
+
 	public ResponseEntity<?> updateMinuteItems(FACMeeting facMeeting) {
 		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
 		fm.setPriliminaries(facMeeting.getPriliminaries());
@@ -196,14 +203,14 @@ public class FACMeetingService {
 		fm.setDeciForMatteds(facMeeting.getDeciForMatteds());
 		fm.setDecissionBy(facMeeting.getDecissionBy());
 		fm.setMinuteLink1(facMeeting.getMinuteLink1());
-		FACMeeting res=repository.save(fm);
+		FACMeeting res = repository.save(fm);
 		return ResponseEntity.ok(res);
 	}
-	
+
 	public FACMeeting findUpcomingMeeting() {
 		return repository.findUpcomingMeeting();
 	}
-	
+
 	public List<FACMeeting> findPastMeeting() {
 		return repository.pastMeeting();
 	}
