@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.entity.LeaveRequest;
 import com.example.demo.entity.OtherAppeal;
 import com.example.demo.entity.Student;
 import com.example.demo.exception.FileStorageException;
@@ -62,8 +62,8 @@ public class OtherAppealService {
 
 			String filePath = "E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\annex\\" + "FAC-" + datetime + annex.getOriginalFilename();
 
-			File convertFileSgpa = new File("E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\sgpa\\"
-							+ datetime + sgpa.getOriginalFilename());
+			File convertFileSgpa = new File("E:\\Spring Boot\\ugs\\src\\main\\resources\\static\\Upload\\sgpa\\" + 
+					"FAC-" + datetime + sgpa.getOriginalFilename());
 			convertFile.createNewFile();
 			FileOutputStream fout2 = new FileOutputStream(convertFileSgpa);
 			fout2.write(sgpa.getBytes());
@@ -91,9 +91,19 @@ public class OtherAppealService {
 		return repo.findById(rid).orElse(null);
 	}
 	
-	@GetMapping("/pastrequest/getallappeal")
 	public List<OtherAppeal> getAllOtherAppeal(){
-		return repo.findAll();
+		
+		List<OtherAppeal> allReq = repo.findAll();
+
+		List<OtherAppeal> decReq = new ArrayList<>();
+
+		for (int i = 0; i < allReq.size(); i++) {
+			if ((allReq.get(i).getIsSendToFacBoard() == true) && allReq.get(i).getDecision().equals("")) {
+				decReq.add(allReq.get(i));
+			}
+		}
+
+		return decReq;
 	}
 	
 	public List<OtherAppeal> pastOtherAppeal(int sid) {

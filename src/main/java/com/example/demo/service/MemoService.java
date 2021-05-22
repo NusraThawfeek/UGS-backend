@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.mail.MessagingException;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.entity.Memo;
-import com.example.demo.entity.Request;
+import com.example.demo.entity.OtherAppeal;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.MemoRepository;
 
@@ -72,9 +73,26 @@ public class MemoService {
         return repo.findById(mid).orElse(null);
     }
 
-    public List<Memo> getAllMemo() {
-        return repo.findAll();
-    }
+
+//    public List<Memo> getAllMemo() {
+//        return repo.findAll();
+//    }
+
+	public List<Memo> getAllMemo() {
+		
+		List<Memo> allReq = repo.findAll();
+
+		List<Memo> decReq = new ArrayList<>();
+
+		for (int i = 0; i < allReq.size(); i++) {
+			if ((allReq.get(i).getIsSendToFacMeeting() == true) && allReq.get(i).getDecision().equals("")) {
+				decReq.add(allReq.get(i));
+			}
+		}
+
+		return decReq;
+	}
+
 
     public List<Memo> getMemoByFacId(int facId) {
         return repo.findByFacMember(facService.getFACMember(facId));

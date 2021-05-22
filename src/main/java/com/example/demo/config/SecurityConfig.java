@@ -97,6 +97,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/memo/download_annex/{mid}").hasAnyAuthority("ROLE_FAC_MEMBER", "ROLE_AR")
 		
 		.antMatchers("/addmodule").hasAuthority("ROLE_UGS")
+		.antMatchers("/getAllModule").hasAuthority("ROLE_UGS")
 		.antMatchers("/getstudent/{uid}").permitAll()
 
 		.antMatchers("/facmember").permitAll()

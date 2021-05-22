@@ -107,7 +107,7 @@ public class Memo {
 		return isSendToFacMeeting;
 	}
 
-	public void setSendToFacMeeting(boolean isSendToFacMeeting) {
+	public void setIsSendToFacMeeting(boolean isSendToFacMeeting) {
 		this.isSendToFacMeeting = isSendToFacMeeting;
 	}
 	
