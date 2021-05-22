@@ -41,11 +41,10 @@ public class User {
 //	MNM SHAJA 
 	@NotBlank
 	private String nameToBeAppeared;
-	
+
 
 //	@NotBlank
 //	private String nameTitle
-	
 	@NotBlank
 	@Email
 	private String email;
