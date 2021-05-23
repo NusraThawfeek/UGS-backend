@@ -122,7 +122,18 @@ public class LateModuleChangeRequestService {
 	}
 	
 	public List<LateModuleChangeRequest> getAllLateModuleChangeRequest(){
-		return lateModuleChangeRequestRepository.findAll();
+		
+		List<LateModuleChangeRequest> allReq = lateModuleChangeRequestRepository.findAll();
+
+		List<LateModuleChangeRequest> decReq = new ArrayList<>();
+
+		for (int i = 0; i < allReq.size(); i++) {
+			if ((allReq.get(i).getIsSendToFacBoard() == true) && allReq.get(i).getDecision().equals("")) {
+				decReq.add(allReq.get(i));
+			}
+		}
+
+		return decReq;
 	}
 
 	public List<LateModuleChangeRequest> pastLateModuleChangeRequest(int sid) {
