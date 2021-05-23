@@ -50,48 +50,42 @@ public class UgsApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+	
 
-//		System.out.println(encoder.encode("12345678"));
+		Roles student = new Roles(MRoles.ROLE_STUDENT);
+		Roles fac_member = new Roles(MRoles.ROLE_FAC_MEMBER);
+		Roles ugsRole = new Roles(MRoles.ROLE_UGS);
+		Roles ar1 = new Roles(MRoles.ROLE_AR);
+//		Roles hod_IT = new Roles(MRoles.ROLE_HOD_IT);
+		Roles dean = new Roles(MRoles.ROLE_DEAN);
+		Roles dugs = new Roles(MRoles.ROLE_DUGS);
+		roleRepo.save(ar1);
+		roleRepo.save(ugsRole);
+		roleRepo.save(student);
+		roleRepo.save(fac_member);
+//		roleRepo.save(hod_IT);
+		roleRepo.save(dean);
+		roleRepo.save(dugs);
 
-//		Roles student = new Roles(MRoles.ROLE_STUDENT);
-//		Roles fac_member = new Roles(MRoles.ROLE_FAC_MEMBER);
-//		Roles ugsRole = new Roles(MRoles.ROLE_UGS);
-//		Roles ar1 = new Roles(MRoles.ROLE_AR);
-//		Roles dean = new Roles(MRoles.ROLE_DEAN);
-//		Roles dugs = new Roles(MRoles.ROLE_DUGS);
-//		Roles hod = new Roles(MRoles.ROLE_HOD);
-//
-//
-//		roleRepo.save(ar1);
-//		roleRepo.save(ugsRole);
-//		roleRepo.save(student);
-//		roleRepo.save(fac_member);
-//		roleRepo.save(dean);
-//		roleRepo.save(dugs);
-//		roleRepo.save(hod);
-//		
-//		
-////		Insert  5 FAC MEMBERS temporarily
-//// FAC NO:1
-//		FACMember fac1 = new FACMember();
-//		fac1.setTitle("Mr");
-//		fac1.setFirstName("B.H");
-//		fac1.setLastName("Sudantha");
-//		fac1.setNameToBeAppeared("MR. SUDANTHA B.H.");
-//		fac1.setEmail("184160D@gmail.com");
-//		fac1.setContactNo("0758989898");
-//		fac1.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//		fac1.setDepartment("IT");
-//		fac1.setAcademicAdvisor(true);
-//		Set<Roles> rolesFac1 = new HashSet<Roles>();
-//		Roles roleAcaAd = roleRepo.findByName(MRoles.ROLE_FAC_MEMBER).get();
-//		rolesFac1.add(roleAcaAd);
-//		fac1.setRoles(rolesFac1);
-//		fac1.setAcademicAdvisor(true);
-//		fac1.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
-//		frepo.save(fac1);
-////		
-//////FAC NO:		2
+//		Insert  5 FAC MEMBERS temporarily
+// FAC NO:1
+		FACMember fac1 = new FACMember();
+		fac1.setTitle("Mr");
+		fac1.setFirstName("B.H");
+		fac1.setLastName("Sudantha");
+		fac1.setNameToBeAppeared("MR. SUDANTHA B.H.");
+		fac1.setEmail("184160D@gmail.com");
+		fac1.setContactNo("0758989898");
+		fac1.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
+		fac1.setDepartment("IT");
+		fac1.setAcademicAdvisor(true);
+		Set<Roles> rolesFac1 = new HashSet<Roles>();
+		Roles roleAcaAd = roleRepo.findByName(MRoles.ROLE_FAC_MEMBER).get();
+		rolesFac1.add(roleAcaAd);
+		fac1.setRoles(rolesFac1);
+		fac1.setAcademicAdvisor(true);
+		fac1.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
+		frepo.save(fac1);
 //		FACMember fac2 = new FACMember();
 //
 //		fac2.setTitle("Mr");
@@ -191,22 +185,22 @@ public class UgsApplication implements CommandLineRunner {
 //		
 //		
 //		
-//		UgsStaff ugs = new UgsStaff();
-//		ugs.setFirstName("Malith");
-//		ugs.setLastName("fernando");
-//		ugs.setNameToBeAppeared("M.Fernando");
-//		ugs.setEmail("fayaz@gmail.com");
-//		ugs.setContactNo("778366330");
-//		ugs.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
+		UgsStaff ugs = new UgsStaff();
+		ugs.setFirstName("Malith");
+		ugs.setLastName("fernando");
+		ugs.setNameToBeAppeared("M.Fernando");
+		ugs.setEmail("fayaz@gmail.com");
+		ugs.setContactNo("778366330");
+		ugs.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //
-//		Set<Roles> roles = new HashSet<Roles>();
-//		Roles roleUgs = roleRepo.findByName(MRoles.ROLE_UGS).get();
+		Set<Roles> roles = new HashSet<Roles>();
+		Roles roleUgs = roleRepo.findByName(MRoles.ROLE_UGS).get();
 //
-//		roles.add(roleUgs);
+		roles.add(roleUgs);
 //
-//		ugs.setRoles(roles);
+		ugs.setRoles(roles);
 //
-//		repo.save(ugs);
+		repo.save(ugs);
 //		
 //		AssistentRegistrar ar = new AssistentRegistrar();
 //		ar.setFirstName("Sarath");
@@ -225,13 +219,7 @@ public class UgsApplication implements CommandLineRunner {
 //
 //		arRepo.save(ar);	
 //
-////		List<FACMember> allAcademicAdvisors = frepo.findAllByIsAcademicAdvisor(true);
-//
-//
-//
-////		for(FACMember acad: allAcademicAdvisors) {
-////			System.out.println(acad);
-////		}
+
 		
 		
 	}
