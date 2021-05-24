@@ -140,8 +140,7 @@ public class CommentedService {
 			}
 
 		}
-		
-		if(c.isIsRejected()) {
+			if(c.isIsRejected()) {
 			Request r= sservice.getRequest(c.getRid().getRid());
 		
 			r.setDecision("Rejected");
