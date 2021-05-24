@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.sql.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,14 +29,6 @@ public class AttendController {
 		this.service=service;
 		this.attendancerepo=attendancerepo;
 	}
-	/*
-	 * @PostMapping("/postattend") public Attend postAttend(@RequestParam int
-	 * facMemberId, @RequestParam int facMeetingId,
-	 * 
-	 * @RequestParam boolean attendence, @RequestParam String apology) {
-	 * 
-	 * return service.postAttend(facMemberId, facMeetingId, attendence, apology); }
-	 */
 
 	@PostMapping(path = "/attendance/create")
 	public ResponseEntity<?> create(@RequestBody List<Attend> attendance) {

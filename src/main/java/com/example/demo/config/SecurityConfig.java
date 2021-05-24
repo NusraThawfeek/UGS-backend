@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import com.example.demo.filter.SecurityFilter;
 
 
@@ -149,10 +148,13 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/meetings/pastMeeting").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/meetings/addAgenda").hasAuthority("ROLE_AR")
 		.antMatchers("/meetings/addMinute").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/addMeetingMatters").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
+		.antMatchers("/meetings/addMinuteByDugs").hasAuthority("ROLE_DUGS")
 		.antMatchers("/getrequestbyfacid/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/getMemobyfacid/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/attendance/apology/{meetingId}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/meetings/getMattersByFacId/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 
 		.anyRequest().authenticated()
 		.and()

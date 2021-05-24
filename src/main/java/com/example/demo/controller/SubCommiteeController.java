@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.SubComittee;
 import com.example.demo.service.SubCommiteeService;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 public class SubCommiteeController {

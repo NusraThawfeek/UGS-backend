@@ -63,6 +63,11 @@ public class FACMeetingController {
 		return service.updateMinuteItems(facMeeting);
 	}
 	
+	@PutMapping("/meetings/addMinuteByDugs")
+	public ResponseEntity<?> updateMinuteItemsByDugs(@RequestBody FACMeeting facMeeting) {
+		return service.updateMinuteItemsByDugs(facMeeting);
+	}
+	
 	@GetMapping(path = "/meetings/upcoming")
 	public FACMeeting findUpcomingMeeting() {
 		return service.findUpcomingMeeting();
