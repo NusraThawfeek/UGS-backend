@@ -3,16 +3,14 @@ package com.example.demo.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.SubComittee;
 import com.example.demo.repository.SubCommiteeRepository;
-
 import com.example.demo.payload.MessageResponse;
+
 @Service
 public class SubCommiteeService {
 
@@ -36,7 +34,6 @@ public class SubCommiteeService {
 //	}
 	public SubCommiteeService(SubCommiteeRepository repository) {
 		this.repository = repository;
-
 	}
 
 	public ResponseEntity<?> create(SubComittee subcomittee) {
@@ -49,7 +46,6 @@ public class SubCommiteeService {
 	}
 
 	public ResponseEntity<?> uploadFile(Long id, SubComittee fileName) {
-
 		SubComittee subcomitee = repository.findById(id).orElseThrow();
 		subcomitee.setSubcomitteefileName(fileName.getSubcomitteefileName());
 		SubComittee res = repository.save(subcomitee);
@@ -62,4 +58,5 @@ public class SubCommiteeService {
 		SubComittee res = repository.save(sm);
 		return ResponseEntity.ok(res);
 	}
+	
 }

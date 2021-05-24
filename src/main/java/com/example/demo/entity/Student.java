@@ -42,7 +42,10 @@ public class Student extends User {
 	@OneToMany(mappedBy="std",fetch = FetchType.LAZY)
 	private Set<Request> req;
 	
+
+
+	
+	@JoinColumn(name="academicAdvisor")
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "acadamicAdvisor")
 	private FACMember academicAdvisor;
 }

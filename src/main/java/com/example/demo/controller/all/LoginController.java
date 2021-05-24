@@ -4,9 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.dto.request.ForgotUsernameOrPasswordRequest;
 import com.example.demo.dto.request.LoginRequest;
 import com.example.demo.dto.response.UserDetailsResponse;
@@ -50,6 +47,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<UserDetailsResponse> loginUser(@Valid @RequestBody LoginRequest request) {
+		
 		log.info("Login method at com.itfac.ugs.controllers.all.LoginController called with username "
 				+ request.getUsername());
 		String token = util.generateToken(request.getUsername());
@@ -58,6 +56,7 @@ public class LoginController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+	
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		return ResponseEntity
