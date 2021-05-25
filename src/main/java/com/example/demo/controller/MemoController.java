@@ -67,4 +67,9 @@ public class MemoController {
 	public List<Memo> getMemoByFacMeeting(@PathVariable int facid){
 		return service.getMemoByFacMeeting(facid);
 	}
+	
+	@GetMapping("/getallnewmemo")
+	public List<Memo> getAllNewMemo() {
+		return service.getAllNewMemo();
+	}
 }

@@ -143,6 +143,7 @@ public class CommentedService {
 			if(c.isIsRejected()) {
 			Request r= sservice.getRequest(c.getRid().getRid());
 		
+			r.setStatus("Rejected");
 			r.setDecision("Rejected");
 			rrepo.save(r);
 			
