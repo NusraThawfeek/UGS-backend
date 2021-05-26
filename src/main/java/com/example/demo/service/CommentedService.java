@@ -18,6 +18,7 @@ import com.example.demo.entity.Roles;
 import com.example.demo.repository.AssistentRegistrarRepository;
 import com.example.demo.repository.CommentedRepository;
 import com.example.demo.repository.FACMemberRepository;
+import com.example.demo.repository.RequestRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.UserRepository;
 
@@ -35,6 +36,9 @@ public class CommentedService {
 
 	@Autowired
 	UserRepository urepo;
+	
+	@Autowired
+	RequestRepository rrepo;
 
 	@Autowired
 	RolesRepository rolesrepo;
@@ -136,7 +140,14 @@ public class CommentedService {
 			}
 
 		}
-
+		
+		if(c.isIsRejected()) {
+			Request r= sservice.getRequest(c.getRid().getRid());
+		
+			r.setDecision("Rejected");
+			rrepo.save(r);
+			
+		}
 		return comment;
 
 	}

@@ -51,6 +51,7 @@ public class UserDetailsImpl implements UserDetails {
 
 		return new UserDetailsImpl(user.getUserId(),user.getEmail(), user.getPassword(), authorities,user.getNameToBeAppeared());
 	}
+	
 	@Override
 	public String getPassword() {
 		return this.password;

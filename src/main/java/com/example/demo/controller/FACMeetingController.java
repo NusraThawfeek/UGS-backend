@@ -52,12 +52,6 @@ public class FACMeetingController {
 	public ResponseEntity<?> sendmail(@PathVariable("id") Integer id, @RequestParam String[] mail) {
 		return service.sendmail(id, mail);
 	}
-
-	@PostMapping("/postmeeting")
-	public FACMeeting postMeeting(@RequestParam Date meetingDate,
-			@RequestParam @DateTimeFormat(pattern = "HH:mm") String meetingTime, @RequestParam String location) {
-		return service.postMeeting(meetingDate, meetingTime, location);
-	}
 	
 	@PutMapping("/meetings/addAgenda")
 	public ResponseEntity<?> updateAgendaItems( @RequestBody FACMeeting facMeeting) {
@@ -67,6 +61,11 @@ public class FACMeetingController {
 	@PutMapping("/meetings/addMinute")
 	public ResponseEntity<?> updateMinuteItems(@RequestBody FACMeeting facMeeting) {
 		return service.updateMinuteItems(facMeeting);
+	}
+	
+	@PutMapping("/meetings/addMinuteByDugs")
+	public ResponseEntity<?> updateMinuteItemsByDugs(@RequestBody FACMeeting facMeeting) {
+		return service.updateMinuteItemsByDugs(facMeeting);
 	}
 	
 	@GetMapping(path = "/meetings/upcoming")
