@@ -19,6 +19,7 @@ public class Memo {
 	@Id
 	@GeneratedValue
 	private int mid;
+	private String title;
 	private String description1;
 	private String annexPath;
 	private Date enteredDate = new Date();
@@ -33,8 +34,9 @@ public class Memo {
 	private FACMeeting facMeeting; 
 	
 
-	public Memo(String description1, String annexPath, Date enteredDate, FACMember facMember, String decision) {
+	public Memo(String description1, String title, String annexPath, Date enteredDate, FACMember facMember, String decision) {
 		super();
+		this.title = title;
 		this.description1 = description1;
 		this.annexPath = annexPath;
 		this.enteredDate = enteredDate;
@@ -53,6 +55,18 @@ public class Memo {
 
 	public void setMid(int mid) {
 		this.mid = mid;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setSendToFacMeeting(boolean isSendToFacMeeting) {
+		this.isSendToFacMeeting = isSendToFacMeeting;
 	}
 
 	public String getDescription1() {

@@ -34,8 +34,8 @@ public class MemoController {
 	private FileDownloadService fileDownloadService;
 	
 	@PostMapping("/postmemo")
-	public Memo postMemo(@RequestParam int facid, @RequestParam String description1, @RequestParam MultipartFile annex) {
-		return service.postMemo(facid, description1, annex);
+	public Memo postMemo(@RequestParam int facid, @RequestParam String title, @RequestParam String description1, @RequestParam MultipartFile annex) {
+		return service.postMemo(facid, title, description1, annex);
 	}
 	
 	@GetMapping("/pastmemo/{mid}")

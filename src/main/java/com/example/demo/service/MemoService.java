@@ -34,7 +34,7 @@ public class MemoService {
 	@Autowired
 	private FACMeetingService facMeetingService;
 
-	public Memo postMemo(int facid, String description1, MultipartFile annex) {
+	public Memo postMemo(int facid, String title, String description1, MultipartFile annex) {
 
 		String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
 
@@ -61,7 +61,7 @@ public class MemoService {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date enteredDate = new Date();
 
-			Memo memo = new Memo(description1, filePath, enteredDate, facService.getFACMember(facid), "");
+			Memo memo = new Memo(description1, title, filePath, enteredDate, facService.getFACMember(facid), "");
 			return repo.save(memo);
 
 		} catch (IOException ex) {
