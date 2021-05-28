@@ -36,7 +36,7 @@ public class CommentedService {
 
 	@Autowired
 	UserRepository urepo;
-	
+
 	@Autowired
 	RequestRepository rrepo;
 
@@ -126,28 +126,20 @@ public class CommentedService {
 
 			if (c.getUid().isDean() == true) {
 
-				FACMember f = frepo.findByIsDugs(true);
-				mailService.newRequest(f, "DUGS", c.getRid().getStd());
-			}
-
-			if (c.getUid().isDugs() == true) {
-
 				Optional<Roles> role = rolesrepo.findByName(MRoles.ROLE_AR);
 				AssistentRegistrar ar = urepo.findByRoles(role);
 
 				mailService.newRequest(ar, "AR", c.getRid().getStd());
-
 			}
 
 		}
-		
-		if(c.isIsRejected()) {
-			Request r= sservice.getRequest(c.getRid().getRid());
-		
+		if (c.isIsRejected()) {
+			Request r = sservice.getRequest(c.getRid().getRid());
+
 			r.setStatus("Rejected");
 			r.setDecision("Rejected");
 			rrepo.save(r);
-			
+
 		}
 		return comment;
 
@@ -187,11 +179,10 @@ public class CommentedService {
 
 	public boolean editForDean(Request rid, Long id) {
 
-		FACMember f = frepo.findByIsDugs(true);
+		// FACMember f = frepo.findByIsDugs(true);
 
 		if (frepo.findById(id).get().isDean()) {
-
-			if ((getByRidAndUid(rid, f) != null)) {
+			if (rid.getIsSendToFacBoard()) {
 				return false;
 			} else {
 				return true;

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,6 +49,11 @@ public class MemoController {
 		return service.getAllMemo();
 	}
 	
+	@GetMapping("/getallmemo")
+	public List<Memo> getAllMemoDean(){
+		return service.getAllMemoDean();
+	}
+	
 	@GetMapping("/pastmemobyfacid/{facId}")
 	public List<Memo> getMemoByFacId(@PathVariable int facId){
 		return service.getMemoByFacId(facId);
@@ -57,6 +63,7 @@ public class MemoController {
 	public void memoAnnexDownload(HttpServletResponse response, @PathVariable int mid) throws IOException{
 		fileDownloadService.memoAnnexDownload(response, mid);
 	}
+	
 	
 	@PutMapping("/updatememo")
 	public Memo updateDecision(@RequestBody Memo memo) throws UnsupportedEncodingException, MessagingException {
@@ -68,8 +75,24 @@ public class MemoController {
 		return service.getMemoByFacMeeting(facid);
 	}
 	
-	@GetMapping("/getallnewmemo")
+	@GetMapping("/getallnewmemoAR")
 	public List<Memo> getAllNewMemo() {
 		return service.getAllNewMemo();
 	}
+	
+	@GetMapping("/getallnewmemoDean")
+	public List<Memo> getAllNewMemoDean() {
+		return service.getAllNewMemoDean();
+	}
+	
+	@PutMapping("/updateDean")
+	public Memo updateDean(@ModelAttribute Memo memo) {
+		return service.updateDean(memo);
+	}
+	@PutMapping("/updateAR")
+	public Memo updateAR(@ModelAttribute Memo memo) {
+		return service.updateAR(memo);
+	}
+	
+	
 }

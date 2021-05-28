@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.Memo;
 import com.example.demo.entity.OtherAppeal;
 import com.example.demo.exception.FileStorageException;
@@ -73,9 +75,9 @@ public class MemoService {
 		return repo.findById(mid).orElse(null);
 	}
 
-//    public List<Memo> getAllMemo() {
-//        return repo.findAll();
-//    }
+	public List<Memo> getAllMemoDean() {
+		return repo.findAll();
+	}
 
 	public List<Memo> getAllMemo() {
 
@@ -111,7 +113,7 @@ public class MemoService {
 		return repo.findByfacMeeting(facMeetingService.getMeeting(fid));
 	}
 
-	// To Nuzra 
+	// ForAr
 	public List<Memo> getAllNewMemo() {
 
 		List<Memo> allReq = repo.findAll();
@@ -119,11 +121,49 @@ public class MemoService {
 		List<Memo> decReq = new ArrayList<>();
 
 		for (int i = 0; i < allReq.size(); i++) {
-			if ((allReq.get(i).getIsSendToFacMeeting() == false) && allReq.get(i).getDecision().equals("")) {
+			if ((allReq.get(i).getIsSendToFacMeeting() == false) && allReq.get(i).getDecision().equals("")
+					&& (allReq.get(i).getIsAccepted() == true)) {
 				decReq.add(allReq.get(i));
 			}
 		}
 
 		return decReq;
 	}
+
+	// For Dean
+	public List<Memo> getAllNewMemoDean() {
+
+		List<Memo> allReq = repo.findAll();
+
+		List<Memo> decReq = new ArrayList<>();
+
+		for (int i = 0; i < allReq.size(); i++) {
+			if ((allReq.get(i).getIsAccepted() == false) && (allReq.get(i).getIsRejected() == false)) {
+				decReq.add(allReq.get(i));
+			}
+		}
+
+		return decReq;
+	}
+
+	public Memo updateDean(Memo memo) {
+		Memo m = repo.findById(memo.getMid()).orElse(null);
+		m.setIsAccepted(memo.getIsAccepted());
+		m.setIsRejected(memo.getIsRejected());
+		if(memo.getIsRejected()==true) {
+			m.setDecision("Rejected");
+		}
+
+		return repo.save(m);
+	}
+
+	public Memo updateAR(Memo memo) {
+		Memo m = repo.findById(memo.getMid()).orElse(null);
+		FACMeeting fm1=facMeetingService.findUpcomingMeeting();
+		
+		m.setIsSendToFacMeeting(memo.getIsSendToFacMeeting());
+		m.setFacMeeting(fm1);
+		return repo.save(m);
+	}
+
 }

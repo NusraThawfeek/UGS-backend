@@ -80,11 +80,11 @@ public class RequestController {
 		return service.getNewReqDean(uid);
 	}
 	
-	@GetMapping("/NewReqDUGS/{uid}")
-	public List<Request> getNewDUGS(@PathVariable FACMember uid) {
-		
-		return service.getNewReqDUGS(uid);
-	}
+//	@GetMapping("/NewReqDUGS/{uid}")
+//	public List<Request> getNewDUGS(@PathVariable FACMember uid) {
+//		
+//		return service.getNewReqDUGS(uid);
+//	}
 	
 	@GetMapping("/NewReqAR")
 	public List<Request> getNewAR() {

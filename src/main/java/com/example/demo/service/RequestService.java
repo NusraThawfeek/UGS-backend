@@ -56,10 +56,10 @@ public class RequestService {
 		return repository.findnewRequestForDean(uid);
 	}
 	
-	public List<Request> getNewReqDUGS(FACMember uid) {
-		
-		return repository.findnewRequestForDUGS(uid);
-	}
+//	public List<Request> getNewReqDUGS(FACMember uid) {
+//		
+//		return repository.findnewRequestForDUGS(uid);
+//	}
 	
 	public List<Request> getReqByStudentId(Student sid) {
 		// TODO Auto-generated method stub

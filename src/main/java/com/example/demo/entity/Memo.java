@@ -25,6 +25,9 @@ public class Memo {
 	private Date enteredDate = new Date();
 	private String decision;
 	private boolean isSendToFacMeeting;
+	private boolean isAccepted;
+	private boolean isRejected;
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -43,10 +46,21 @@ public class Memo {
 		this.facMember = facMember;
 		this.decision  = decision;
 		this.isSendToFacMeeting = false;
+		this.isAccepted=false;
+		this.isRejected=false;
+		
 	}
 
 	public Memo() {
 		super();
+	}
+
+	public boolean getIsRejected() {
+		return isRejected;
+	}
+
+	public void setIsRejected(boolean isRejected) {
+		this.isRejected = isRejected;
 	}
 
 	public int getMid() {
@@ -124,5 +138,14 @@ public class Memo {
 	public void setIsSendToFacMeeting(boolean isSendToFacMeeting) {
 		this.isSendToFacMeeting = isSendToFacMeeting;
 	}
+
+	public boolean getIsAccepted() {
+		return isAccepted;
+	}
+
+	public void setIsAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+	
 	
 }
