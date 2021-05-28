@@ -89,6 +89,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/request/download_annex/{rid}").permitAll()
 		.antMatchers("/updateSendToFACBoard").hasAuthority("ROLE_FAC_MEMBER")
 		
+		.antMatchers("/getallnewmemoAR").hasAuthority("ROLE_AR")
+		.antMatchers("/getallnewmemoDean").hasAuthority("ROLE_DEAN")
+		.antMatchers("/getallmemo").hasAuthority("ROLE_DEAN")
+		.antMatchers("/updateDean").hasAuthority("ROLE_DEAN")
+		.antMatchers("/updateAR").hasAuthority("ROLE_AR")
+		
 		.antMatchers("/postmemo").hasAuthority("ROLE_FAC_MEMBER")
 		.antMatchers("/pastmemo/{mid}").hasAnyAuthority("ROLE_FAC_MEMBER", "ROLE_AR")
 		.antMatchers("/pastallmemo").hasAuthority("ROLE_FAC_MEMBER")
