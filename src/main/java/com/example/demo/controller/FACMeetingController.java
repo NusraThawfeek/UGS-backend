@@ -4,7 +4,6 @@ package com.example.demo.controller;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,21 +50,6 @@ public class FACMeetingController {
 	@PostMapping(path = "/meetings/mail/{id}")
 	public ResponseEntity<?> sendmail(@PathVariable("id") Integer id, @RequestParam String[] mail) {
 		return service.sendmail(id, mail);
-	}
-	
-	@PutMapping("/meetings/addAgenda")
-	public ResponseEntity<?> updateAgendaItems( @RequestBody FACMeeting facMeeting) {
-		return service.updateAgendaItems(facMeeting);
-	}
-	
-	@PutMapping("/meetings/addMinute")
-	public ResponseEntity<?> updateMinuteItems(@RequestBody FACMeeting facMeeting) {
-		return service.updateMinuteItems(facMeeting);
-	}
-	
-	@PutMapping("/meetings/addMinuteByDugs")
-	public ResponseEntity<?> updateMinuteItemsByDugs(@RequestBody FACMeeting facMeeting) {
-		return service.updateMinuteItemsByDugs(facMeeting);
 	}
 	
 	@GetMapping(path = "/meetings/upcoming")
