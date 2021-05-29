@@ -9,5 +9,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 public class AssistentRegistrar extends User {
-	
+	private String title;
 }

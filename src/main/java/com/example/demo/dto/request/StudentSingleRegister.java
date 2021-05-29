@@ -24,7 +24,6 @@ public class StudentSingleRegister {
 	@NotBlank
 	private String nameToBeAppeared;
 
-	@NotBlank
 	private String contactNumber;
 	@NotBlank
 	private String batch;

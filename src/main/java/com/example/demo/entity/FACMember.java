@@ -23,7 +23,6 @@ public class FACMember extends User {
 	@NotBlank
 	private String department;
 	
-	@NotBlank
 	private String lectureGradeLevel;
 	
 	
@@ -50,7 +49,8 @@ public class FACMember extends User {
 	 @OneToMany(mappedBy = "academicAdvisor",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	 private List<Student> sid;
 
-	
+//	Contact Number Extension
+	 private int extCode;
 
 	public FACMember() {
 		this.isAcademicAdvisor = false;

@@ -48,11 +48,15 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		// Shaja
 		.antMatchers("/all/login").permitAll()
-		.antMatchers("/admin/register/student/batch/saveAll").hasAuthority("ROLE_UGS")
-		.antMatchers("/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
-		.antMatchers("/admin/student/getUserInfo/**").hasAuthority("ROLE_STUDENT")
-		.antMatchers("/admin/fac/getUserInfo/**").hasAuthority("ROLE_FAC_MEMBER")
-		.antMatchers("/admin/ar/getUserInfo/**").hasAuthority("ROLE_AR")
+		.antMatchers("/admin/register/**").hasAuthority("ROLE_UGS")
+		.antMatchers("/ugs/getUserInfo").hasAuthority("ROLE_UGS")
+		.antMatchers("/student/getUserInfo/**").hasAuthority("ROLE_STUDENT")
+		.antMatchers("/fac/getUserInfo/**").hasAuthority("ROLE_FAC_MEMBER")
+		.antMatchers("/ar/getUserInfo/**").hasAuthority("ROLE_AR")
+//		.antMatchers("/admin/register/fac").hasAuthority("ROLE_UGS")
+//		.antMatchers("/admin/register/ar").hasAuthority("ROLE_UGS")
+//		.antMatchers("/admin/register/ugs").hasAuthority("ROLE_UGS")
+		
 		
 		.antMatchers("/*").permitAll()
 		.antMatchers("/*/*").permitAll()

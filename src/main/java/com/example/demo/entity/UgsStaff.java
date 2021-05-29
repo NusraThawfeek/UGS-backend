@@ -11,5 +11,5 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class UgsStaff extends User {
 
-	
+	private String title;
 }

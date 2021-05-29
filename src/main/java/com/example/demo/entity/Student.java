@@ -27,6 +27,8 @@ public class Student extends User {
 	// index no is unique for everyone
 	@NotBlank
 	private String indexNo;
+	
+//	B18,B19,......
 	@NotBlank
 	private String batchYear;
 	@NotBlank
