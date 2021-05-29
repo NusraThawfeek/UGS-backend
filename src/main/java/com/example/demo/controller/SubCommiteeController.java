@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import com.example.demo.entity.Attend;
+import com.example.demo.entity.FACMeeting;
+import com.example.demo.repository.SubCommiteeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,34 +23,38 @@ import com.example.demo.service.SubCommiteeService;
 @RestController
 public class SubCommiteeController {
 
-	@Autowired
-	private SubCommiteeService service;
-	
-//	@PostMapping("/apppointsubcommitee")
-//	public SubComittee postSubCommitee(String purpose, String discripition1, int leaderId, int facMemberId[]) {
-//		return service.postSubCommitee(purpose, discripition1, leaderId, facMemberId);
-//	}
-	public SubCommiteeController(SubCommiteeService service) {
-		this.service = service;
-	}
+    @Autowired
+    private SubCommiteeService service;
+    private SubCommiteeRepository repository;
 
-	@PostMapping(path = "/subcomittee")
-	public ResponseEntity<?> create(@RequestBody SubComittee subcomittee) {
-		return service.create(subcomittee);
-	}
+    public SubCommiteeController(SubCommiteeService service, SubCommiteeRepository repository) {
+        this.service = service;
+        this.repository = repository;
+    }
 
-	@GetMapping(path = "/subcomittee/get")
-	public List<SubComittee> getAll() {
-		return service.getAll();
-	}
+    @PostMapping(path = "/subcomittee")
+    public ResponseEntity<?> create(@RequestBody SubComittee subcomittee) {
+        return service.create(subcomittee);
+    }
 
-	@PostMapping(path = "/subcomittee/fileupload/{id}")
-	public ResponseEntity<?> uploadFile(@PathVariable(value = "id") Long id, @RequestBody SubComittee subcomittee) {
-		return service.uploadFile(id, subcomittee);
-	}
+    @GetMapping(path = "/subcomittee/get")
+    public List<SubComittee> getAll() {
+        return service.getAll();
+    }
 
-	@PutMapping(path = "/subcomittee/statusupdate/{id}")
-	public ResponseEntity<?> updateStatus(@PathVariable(value = "id") Long id, @RequestBody SubComittee subcomittee) {
-		return service.updateStatus(id, subcomittee);
-	}
+    @PostMapping(path = "/subcomittee/fileupload/{id}")
+    public ResponseEntity<?> uploadFile(@PathVariable(value = "id") Long id, @RequestBody SubComittee subcomittee) {
+        return service.uploadFile(id, subcomittee);
+    }
+
+    @PutMapping(path = "/subcomittee/statusupdate/{id}")
+    public ResponseEntity<?> updateStatus(@PathVariable(value = "id") Long id, @RequestBody SubComittee subcomittee) {
+        return service.updateStatus(id, subcomittee);
+    }
+
+    @GetMapping(path = "/subcomittee/{id}")
+    public SubComittee getSubComitteebyId(@PathVariable("id") Long id) {
+        return this.service.getBySubcomitteeId(id);
+    }
+
 }

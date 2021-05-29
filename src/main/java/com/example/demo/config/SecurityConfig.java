@@ -129,13 +129,15 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/Commented/EditByDugs/{rid},{uid}").hasAuthority("ROLE_UGS")
 		
 		//Fayaz
-		.antMatchers("/meetings").hasAuthority("ROLE_AR")
+				.antMatchers("/locations/get").permitAll()
+		.antMatchers("/meetings").permitAll()
 		.antMatchers("/meetings/get").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
 		.antMatchers("/meetings/{id}").hasAuthority("ROLE_AR")				//update meeting
 		.antMatchers("/meetings/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")  //get meeting by id
 
 		.antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
 		.antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
+				.antMatchers("/subcomittee/{id}").permitAll()
 		.antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
 		.antMatchers("/subcomittee/statusupdate/{id}").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/create").hasAuthority("ROLE_AR")
@@ -148,10 +150,13 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/meetings/pastMeeting").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/meetings/addAgenda").hasAuthority("ROLE_AR")
 		.antMatchers("/meetings/addMinute").hasAuthority("ROLE_AR")
+		.antMatchers("/meetings/addMeetingMatters").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
+		.antMatchers("/meetings/addMinuteByDugs").hasAuthority("ROLE_DUGS")
 		.antMatchers("/getrequestbyfacid/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/getMemobyfacid/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/attendance/getByAttendance/{meetingId}/{attendance}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/attendance/apology/{meetingId}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/meetings/getMattersByFacId/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 
 		.anyRequest().authenticated()
 		.and()

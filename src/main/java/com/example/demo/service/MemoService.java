@@ -30,11 +30,12 @@ public class MemoService {
 
     @Autowired
     private DecisionMailService mailService;
-
+    
     @Autowired
     private FACMeetingService facMeetingService;
 
     public Memo postMemo(int facid, String description1, MultipartFile annex) {
+
 
         String fileName = StringUtils.cleanPath(annex.getOriginalFilename());
 
@@ -72,6 +73,7 @@ public class MemoService {
     public Memo getMemo(int mid) {
         return repo.findById(mid).orElse(null);
     }
+
 
 
 //    public List<Memo> getAllMemo() {
@@ -113,3 +115,4 @@ public class MemoService {
         return repo.findByfacMeeting(facMeetingService.getMeeting(fid));
     }
 }
+

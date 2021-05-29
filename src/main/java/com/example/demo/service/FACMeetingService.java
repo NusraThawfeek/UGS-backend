@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import com.example.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.demo.entity.AssistentRegistrar;
-import com.example.demo.entity.FACMeeting;
-import com.example.demo.entity.FACMember;
-import com.example.demo.entity.MRoles;
-import com.example.demo.entity.Roles;
 import com.example.demo.repository.FACMeetingRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.UserRepository;
@@ -47,11 +42,15 @@ public class FACMeetingService {
     @Autowired
     RolesRepository rolesrepo;
 
+    @Autowired
+    private LocationService service;
+
     public FACMeetingService(FACMeetingRepository repository, MailController mailController,
-                             FACMemberService facmemberservice) {
+                             FACMemberService facmemberservice, LocationService service) {
         this.repository = repository;
         this.mailController = mailController;
         this.facmemberservice = facmemberservice;
+        this.service = service;
     }
 
     public FACMeeting getMeeting(int facMeetingId) {
@@ -94,11 +93,19 @@ public class FACMeetingService {
             if (Id.equals(facmetid) && Id.equals(facMeeting.getId())) {
 
                 FACMeeting factoUpdate = repository.getByMeetingIDS(facmetid);
-                factoUpdate.setId(id);
-                factoUpdate.setLocation(facMeeting.getLocation());
-                factoUpdate.setDate(facMeeting.getDate());
-                factoUpdate.setMeetingTime(facMeeting.getMeetingTime());
-
+                if (facMeeting.getMeetingLink() != null) {
+                    factoUpdate.setId(id);
+                    factoUpdate.setDate(facMeeting.getDate());
+                    factoUpdate.setMeetingTime(facMeeting.getMeetingTime());
+                    factoUpdate.setMeetingLink(facMeeting.getMeetingLink());
+                } else {
+                    factoUpdate.setId(id);
+                    factoUpdate.setMeetingLink(facMeeting.getMeetingLink());
+                    Location l = service.getById(facMeeting.getLocation().getId());
+                    factoUpdate.setLocation(l);
+                    factoUpdate.setDate(facMeeting.getDate());
+                    factoUpdate.setMeetingTime(facMeeting.getMeetingTime());
+                }
                 facResponse = repository.save(factoUpdate);
 //                mail(factoUpdate); //uncomment this line for send email for successful update
                 return ResponseEntity.ok("SuccessFully Updated");
@@ -130,10 +137,18 @@ public class FACMeetingService {
         mMap.add("emailTo", email);
         mMap.add("emailFrom", "teamaliens.b18it@gmail.com");
         mMap.add("emailSubject", "FAC Meeting");
-        mMap.add("emailContent",
-                "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation() + "\n"
-                        + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                        + facMeeting.getMeetingTime());
+        if (facMeeting.getMeetingLink() != null) {
+            mMap.add("emailContent",
+                    "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Link: " + facMeeting.getMeetingLink() + "\n"
+                            + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
+                            + facMeeting.getMeetingTime());
+        } else {
+            mMap.add("emailContent",
+                    "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation().getLocationName() + "\n"
+                            + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
+                            + facMeeting.getMeetingTime());
+        }
+
 
         mailController.sendmail(mMap);
 
@@ -148,10 +163,17 @@ public class FACMeetingService {
         mMap.add("emailTo", email);
         mMap.add("emailFrom", "teamaliens.b18it@gmail.com");
         mMap.add("emailSubject", "FAC Meeting");
-        mMap.add("emailContent",
-                "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation() + "\n"
-                        + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                        + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+        if (facMeeting.getMeetingLink() != null) {
+            mMap.add("emailContent",
+                    "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Link: " + facMeeting.getMeetingLink() + "\n"
+                            + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
+                            + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+        } else {
+            mMap.add("emailContent",
+                    "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation().getLocationName() + "\n"
+                            + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
+                            + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+        }
 
         mailController.sendmail(mMap);
 
@@ -200,10 +222,18 @@ public class FACMeetingService {
     public ResponseEntity<?> updateMinuteItems(FACMeeting facMeeting) {
         FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
         fm.setPriliminaries(facMeeting.getPriliminaries());
-        fm.setMattersAriseMeeting(facMeeting.getMattersAriseMeeting());
-        fm.setDeciForMatteds(facMeeting.getDeciForMatteds());
-        fm.setDecissionBy(facMeeting.getDecissionBy());
         fm.setMinuteLink1(facMeeting.getMinuteLink1());
+        FACMeeting res = repository.save(fm);
+        return ResponseEntity.ok(res);
+    }
+
+    public ResponseEntity<?> updateMinuteItemsByDugs(FACMeeting facMeeting) {
+        FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
+        if (fm.getPriliminaries() != null) {
+            fm.setPriliminaries(fm.getPriliminaries() + "," + facMeeting.getPriliminaries());
+        } else {
+            fm.setPriliminaries(facMeeting.getPriliminaries());
+        }
         FACMeeting res = repository.save(fm);
         return ResponseEntity.ok(res);
     }

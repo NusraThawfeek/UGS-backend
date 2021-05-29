@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import java.sql.Date;
 import java.util.List;
 import javax.persistence.*;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -18,18 +19,14 @@ public class FACMeeting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy/mm/dd")
     private Date date;
     private String meetingTime;
-
-    private String location;
+    private String meetingLink;
     private String AgendaLink;
     private String MinuteLink1;
     private String agendaItem;
     private String priliminaries;
-    private String mattersAriseMeeting;
-    private String deciForMatteds;
-    private String decissionBy;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
     @JsonIgnore
@@ -39,9 +36,13 @@ public class FACMeeting {
     @JsonIgnore
     private List<Request> requests;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facmeeting")
+    @OneToMany(mappedBy = "facmeeting")
     @JsonIgnore
     private List<Attend> attends;
+
+    @OneToMany(mappedBy = "facmeeting")
+    @JsonIgnore
+    private List<Matters> matters;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private AssistentRegistrar assistantRegistrar;
@@ -52,12 +53,16 @@ public class FACMeeting {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportSubmittedFacMeeting")
     private List<SubComittee> reportSubmittedSubCommitee;
 
-    public FACMeeting(Date date, String meetingTime, String location) {
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "location_id1", referencedColumnName = "id")
+    private Location location;
+
+    public FACMeeting(Date date, String meetingTime, String meetingLink, Location location) {
         super();
         this.date = date;
-        this.location = location;
         this.meetingTime = meetingTime;
+        this.meetingLink = meetingLink;
+        this.location = location;
     }
-
 
 }

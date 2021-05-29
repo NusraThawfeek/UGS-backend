@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.entity.FACMeeting;
 
-
-
 public interface FACMeetingRepository extends JpaRepository<FACMeeting, Integer> {
 	FACMeeting getById(Integer Id);
 
@@ -21,7 +19,7 @@ public interface FACMeetingRepository extends JpaRepository<FACMeeting, Integer>
 
 	FACMeeting findFirstByOrderByIdDesc();
 	
-	@Query(value= "select * from fac_meeting fc where fc.date>CURDATE()   and fc.matters_arise_meeting is null", nativeQuery = true)
+	@Query(value= "select * from fac_meeting fc where fc.date>CURDATE() and fc.minute_link1 is null", nativeQuery = true)
 	FACMeeting findUpcomingMeeting();
 	
 	@Query(value= "select * from fac_meeting where date <= CURDATE() order by id desc", nativeQuery = true)
