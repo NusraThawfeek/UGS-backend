@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +30,8 @@ import com.example.demo.entity.UgsStaff;
 import com.example.demo.service.interfaces.IAdminService;
 import com.example.demo.utils.ExcelHelper;
 
+
+//Rest API start with  /admin/*
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/admin")
@@ -44,6 +45,7 @@ public class AdminController {
 	@Autowired
 	private IAdminService service;
 
+//	Single Student Registration
 	@PostMapping("/register/student/single")
 	public ResponseEntity<String> registerSingleStudent(@Valid @RequestBody StudentSingleRegister registerStudent) {
 		log.info("Registration of Single Student called, Index:" + registerStudent.getIndexNumber());
@@ -55,7 +57,22 @@ public class AdminController {
 		}
 	}
 
-//	TODO: register multiple student user
+//Multiple Student Regstration 
+
+//	Check Header --> 
+	@RequestMapping(value="/register/student/batch/check-header") 
+	public ResponseEntity<List<String>> checkFileHeader(@RequestPart("file") MultipartFile file) {
+		List<String> rowHeaders;
+		try {
+			 rowHeaders = helper.getFileHeading(file.getInputStream());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to store excel data: " + e.getMessage());
+		}
+				
+		return ResponseEntity.ok(rowHeaders);
+	}
+	
+//	upload File --> 
 	@PostMapping("/register/student/batch/upload")
 	public ResponseEntity<List<StudentBatchRequest>> registerBatchStudent(@RequestPart("file") MultipartFile file) {
 		log.info("Registration of batch students called");
@@ -72,24 +89,11 @@ public class AdminController {
 		return ResponseEntity.ok(users);
 
 	}
-	
-	@RequestMapping(value="/register/student/batch/check-header") 
-	public ResponseEntity<List<String>> checkFileHeader(@RequestPart("file") MultipartFile file) {
-		List<String> rowHeaders;
-		try {
-			 rowHeaders = helper.getFileHeading(file.getInputStream());
-		} catch (IOException e) {
-			throw new RuntimeException("fail to store excel data: " + e.getMessage());
-		}
-				
-		return ResponseEntity.ok(rowHeaders);
-	}
-	
-	
+//	Register all students in the sent array by frontEnd
 	@PostMapping("/register/student/batch/saveAll")
-	public ResponseEntity<String> saveAllUsers(@RequestBody List<StudentBatchRequest> students){
-		int size = service.saveAll(students);
-		return ResponseEntity.ok("No of Students registered: " + size);
+	public ResponseEntity<List<Object>> saveAllUsers(@RequestBody List<StudentBatchRequest> students){
+		List<Object> response = service.saveAll(students);
+		return ResponseEntity.ok(response);
 	}
 
 //	TODO: register FAC members user

@@ -33,7 +33,7 @@ public interface IAdminService {
 
 	String saveUGS(UgsStaff ugs);
 
-	int saveAll(List<StudentBatchRequest> students);
+	List<Object> saveAll(List<StudentBatchRequest> students);
 	
 	List<FACMember> getAllAcademicAdvisors();
 //	TODO: add repo method to get the academic advisors

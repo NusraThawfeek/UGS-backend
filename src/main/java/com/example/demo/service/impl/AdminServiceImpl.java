@@ -1,11 +1,12 @@
 package com.example.demo.service.impl;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -103,16 +104,22 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 	}
 
 	@Override
-	public int saveAll(List<StudentBatchRequest> students) {
-//		user already exists scenario what should happen do we send the results or highlight them in frontEnd
+	public List<Object> saveAll(List<StudentBatchRequest> students) {
+		List<Object> response = new ArrayList<>();
+//		Hashmap to store registered user's in "index" : "Success" pair
+		 HashMap<String, String> registeredUser = new HashMap<String, String>();
+		 
+//		HashMap to store with already exists message
+		 HashMap<String, String> alreadyExists = new HashMap<String, String>();
 		for (int i = 0; i < students.size(); i++) {
 			StudentBatchRequest oneStudent = students.get(i);
-			if (userRepo.existsByEmail(oneStudent.getEmail())) {
-				return i;
-			}
+//			if (userRepo.existsByEmail(oneStudent.getEmail())) {
+//				alreadyExists.put(oneStudent.getIndexNo(), "Already exist user");
+//			}
 
 			if (studentRepo.existsByIndexNo(oneStudent.getIndexNo())) {
-				return i;
+				alreadyExists.put(oneStudent.getIndexNo(), "Already exist user");
+				continue;
 			}
 
 			Student student = new Student();
@@ -137,9 +144,12 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 						+ "Please use the following password to log in to the system " + "\n " + password + "\n"
 						+ "Please be kind to change the password soon after your first login";
 				email.sendEmail(student.getEmail(), "One Time Login Password", message);
+				registeredUser.put(savedStudent.getIndexNo(), "Success");
 			}
 		}
-		return students.size();
+		response.add(alreadyExists);
+		response.add(registeredUser);
+		return response;
 	}
 
 	@Override
