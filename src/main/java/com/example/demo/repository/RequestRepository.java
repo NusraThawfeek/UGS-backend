@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.FACMember;
+import com.example.demo.entity.Matters;
 import com.example.demo.entity.Request;
 import com.example.demo.entity.Student;
 
@@ -91,6 +92,9 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		
 		
 		List<Request> findByFacMeeting1(FACMeeting facid);
+		
+		@Query(value = "select * from request r where r.fac_meeting1_id=?1 and r.decision is not null", nativeQuery = true)
+		List<Request> findRequestWithDecision(Integer id);
 		
 		
 }

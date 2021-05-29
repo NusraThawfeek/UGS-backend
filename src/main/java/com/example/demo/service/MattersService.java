@@ -57,6 +57,9 @@ public void submitAgendaDecision(int Id[], String deci[], String deci_by[]) {
 		repo.save(matter);
 	}
 }
+public List<Matters> getAgendaWithoutDecission(int id){
+	return this.repo.findAgendaWithoutDecision(id);
+}
 
 
 
