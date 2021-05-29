@@ -23,7 +23,8 @@ import com.example.demo.repository.UgsStaffRepository;
 @SpringBootApplication
 @EnableScheduling
 public class UgsApplication implements CommandLineRunner {
-    @Autowired
+
+   @Autowired
     private UgsStaffRepository repo;
 
     @Autowired
@@ -34,7 +35,6 @@ public class UgsApplication implements CommandLineRunner {
     private RolesRepository roleRepo;
 
     @Autowired
-
     private AssistentRegistrarRepository arRepo;
 
     public static void main(String[] args) {
@@ -47,6 +47,7 @@ public class UgsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
 
 
 //	System.out.println(encoder.encode("12345678"));
@@ -218,7 +219,8 @@ public class UgsApplication implements CommandLineRunner {
 //		arRepo.save(ar);
 
 
-
+	
     }
 
 }
+

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.Memo;
 import com.example.demo.entity.OtherAppeal;
+import com.example.demo.entity.Request;
 import com.example.demo.exception.FileStorageException;
 import com.example.demo.repository.MemoRepository;
 
@@ -164,6 +165,9 @@ public class MemoService {
 		m.setIsSendToFacMeeting(memo.getIsSendToFacMeeting());
 		m.setFacMeeting(fm1);
 		return repo.save(m);
+	}
+	public List<Memo> findRequestWithDecision(Integer id){
+		return repo.findMemoWithDecision(id);
 	}
 
 }

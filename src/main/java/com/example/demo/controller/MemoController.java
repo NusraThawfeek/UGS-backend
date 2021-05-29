@@ -93,6 +93,9 @@ public class MemoController {
 	public Memo updateAR(@ModelAttribute Memo memo) {
 		return service.updateAR(memo);
 	}
-	
+	@GetMapping("/getMemoWithDecision/{facid}")
+	public List<Memo> findRequestWithDecision(@PathVariable int facid){
+		return service.findRequestWithDecision(facid);
+	}
 	
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.request.ChangePasswordRequest;
+import com.example.demo.dto.request.FACRequest;
+import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.dto.response.AcademicAdvisorListResponse;
@@ -31,9 +32,11 @@ import com.example.demo.entity.UgsStaff;
 import com.example.demo.service.interfaces.IAdminService;
 import com.example.demo.utils.ExcelHelper;
 
+
+//Rest API start with  /admin/*
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/admin")
+//@RequestMapping("/admin")
 public class AdminController {
 
 	private static Logger log = Logger.getLogger(AdminController.class);
@@ -44,7 +47,8 @@ public class AdminController {
 	@Autowired
 	private IAdminService service;
 
-	@PostMapping("/register/student/single")
+//	Single Student Registration
+	@PostMapping("/admin/register/student/single")
 	public ResponseEntity<String> registerSingleStudent(@Valid @RequestBody StudentSingleRegister registerStudent) {
 		log.info("Registration of Single Student called, Index:" + registerStudent.getIndexNumber());
 		String index = service.saveStudent(registerStudent);
@@ -55,8 +59,23 @@ public class AdminController {
 		}
 	}
 
-//	TODO: register multiple student user
-	@PostMapping("/register/student/batch/upload")
+//Multiple Student Regstration 
+
+//	Check Header --> 
+	@RequestMapping(value="/admin/register/student/batch/check-header") 
+	public ResponseEntity<List<String>> checkFileHeader(@RequestPart("file") MultipartFile file) {
+		List<String> rowHeaders;
+		try {
+			 rowHeaders = helper.getFileHeading(file.getInputStream());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to store excel data: " + e.getMessage());
+		}
+				
+		return ResponseEntity.ok(rowHeaders);
+	}
+	
+//	upload File --> 
+	@PostMapping("/admin/register/student/batch/upload")
 	public ResponseEntity<List<StudentBatchRequest>> registerBatchStudent(@RequestPart("file") MultipartFile file) {
 		log.info("Registration of batch students called");
 		List<StudentBatchRequest> users;
@@ -72,60 +91,43 @@ public class AdminController {
 		return ResponseEntity.ok(users);
 
 	}
-	
-	@RequestMapping(value="/register/student/batch/check-header") 
-	public ResponseEntity<List<String>> checkFileHeader(@RequestPart("file") MultipartFile file) {
-		List<String> rowHeaders;
-		try {
-			 rowHeaders = helper.getFileHeading(file.getInputStream());
-		} catch (IOException e) {
-			throw new RuntimeException("fail to store excel data: " + e.getMessage());
-		}
-				
-		return ResponseEntity.ok(rowHeaders);
-	}
-	
-	
-	@PostMapping("/register/student/batch/saveAll")
-	public ResponseEntity<String> saveAllUsers(@RequestBody List<StudentBatchRequest> students){
-		int size = service.saveAll(students);
-		return ResponseEntity.ok("No of Students registered: " + size);
+//	Register all students in the sent array by frontEnd
+	@PostMapping("/admin/register/student/batch/saveAll")
+	public ResponseEntity<List<Object>> saveAllUsers(@RequestBody List<StudentBatchRequest> students){
+		List<Object> response = service.saveAll(students);
+		return ResponseEntity.ok(response);
 	}
 
-//	TODO: register FAC members user
-	@PostMapping("/register/fac")
-	public ResponseEntity<String> registerFAC(@RequestBody FACMember member) {
-		log.info("Registration of FACMember called, Email:" + member.getEmail());
-		String email = service.saveFacMember(member);
+	@PostMapping("/admin/register/fac")
+	public ResponseEntity<String> registerFAC(@RequestBody FACRequest request) {
+		log.info("Registration of FACMember called, Email:" + request.getEmail());
+		String email = service.saveFacMember(request);
 		return ResponseEntity.ok("Registration Completed with  Email: " + email);
 	}
 
-//	TODO: register Assistant registrater user
-	@PostMapping("/register/ar")
-	public ResponseEntity<String> registerAssistantReg(@RequestBody AssistentRegistrar ar) {
-		log.info("Registration of Assistant Registrar called, Email:" + ar.getEmail());
-		String email = service.saveAR(ar);
+	@PostMapping("/admin/register/ar")
+	public ResponseEntity<String> registerAssistantReg(@RequestBody RegistrationRequestAcademic request) {
+		log.info("Registration of Assistant Registrar called, Email:" + request.getEmail());
+		String email = service.saveAR(request);
 		return ResponseEntity.ok("Registration Completed with  Email: " + email);
 	}
 
-//	TODO: register ugs staff user
-	@PostMapping("/register/ugs")
-	public ResponseEntity<String> registerAssistantReg(@RequestBody UgsStaff ugs) {
-		log.info("Registration of FACMember called, Email:" + ugs.getEmail());
-		String email = service.saveUGS(ugs);
+	@PostMapping("/admin/register/ugs")
+	public ResponseEntity<String> registerUgsStaff(@RequestBody RegistrationRequestAcademic request) {
+		log.info("Registration of FACMember called, Email:" + request.getEmail());
+		String email = service.saveUGS(request);
 		return ResponseEntity.ok("Registration Completed with  Email: " + email);
 	}
 	
 	
 //	Get All FAC Members who are Academic Advisors
-	@GetMapping("/academicAdvisors")
+	@GetMapping("/admin/academicAdvisors")
 	public ResponseEntity<AcademicAdvisorListResponse> getAllAcademicAdvisor() {
 		AcademicAdvisorListResponse academicAdvisors = new AcademicAdvisorListResponse();
 		academicAdvisors.setAcademicAdvisors(service.getAllAcademicAdvisors());
 		return ResponseEntity.ok(academicAdvisors);
 	}
 	
-//	For Students TODO:add antMatcher as RoleStudent
 	@GetMapping("/student/getUserInfo/{id}")
 	public ResponseEntity<StudentInformationResponse> getStudentInformation(@PathVariable("id") Long id) {
 		Student student = service.getStudent(id);
@@ -144,26 +146,6 @@ public class AdminController {
 //	For Students TODO:add antMatcher as Role_FAC
 	@GetMapping("/fac/getUserInfo/{id}")
 	public ResponseEntity<FacInformationResponse> getFacInformation(@PathVariable("id") Long id) {
-//		MRoles roleName;
-//
-//		switch(request.getRole()) {
-//		case "ROLE_STUDENT":
-//			roleName = MRoles.ROLE_STUDENT;
-//			break;
-//		case "ROLE_UGS":
-//			roleName = MRoles.ROLE_UGS;
-//			break;
-//		case "ROLE_AR":
-//			roleName = MRoles.ROLE_AR;
-//			break;
-//		case "ROLE_FAC_MEMBER":
-//			roleName = MRoles.ROLE_FAC_MEMBER;
-//			break;
-//		default: 
-//			roleName = null;
-//		}
-//		
-//		Roles role = service.getRole(roleName);
 		FACMember facMember = service.getFacMember(id);
 		FacInformationResponse res  = new FacInformationResponse();
 		res.setFirstName(facMember.getFirstName());
@@ -203,6 +185,11 @@ public class AdminController {
 		else {
 			return ResponseEntity.ok("Sorry Try Again: Old Password may be incorrect");
 		}
+	}
+	@GetMapping("/students/{batch}")
+	public ResponseEntity<List<Student>> getAllBatchStudents(@PathVariable("batch") String batch){
+		
+		return null;
 	}
 	
 	

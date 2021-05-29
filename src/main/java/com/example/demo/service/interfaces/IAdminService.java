@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.dto.request.ChangePasswordRequest;
+import com.example.demo.dto.request.FACRequest;
+import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.entity.AssistentRegistrar;
@@ -27,13 +29,13 @@ public interface IAdminService {
 	
 	Optional<User> findUserByUserName(String email);
 
-	String saveFacMember(FACMember member);
+	String saveFacMember(FACRequest request);
 
-	String saveAR(AssistentRegistrar ar);
+	String saveAR(RegistrationRequestAcademic  request);
 
-	String saveUGS(UgsStaff ugs);
+	String saveUGS(RegistrationRequestAcademic request);
 
-	int saveAll(List<StudentBatchRequest> students);
+	List<Object> saveAll(List<StudentBatchRequest> students);
 	
 	List<FACMember> getAllAcademicAdvisors();
 //	TODO: add repo method to get the academic advisors
@@ -46,7 +48,9 @@ public interface IAdminService {
 	FACMember getFacMember(long id);
 	AssistentRegistrar getAr(long id);
 	UgsStaff getUgsStaff(long id);
-
-
+	
+//	Student
+	List<Student> getAllStudentByBatch(String batch);
+	
 	int updatePassword(ChangePasswordRequest req);
 }
