@@ -99,4 +99,7 @@ public class RequestService {
 		repository.save(existingRequest);
 		return existingRequest;
 	}
+	public List<Request> findRequestWithDecision(Integer id){
+		return repository.findRequestWithDecision(id);
+	}
 }

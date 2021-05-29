@@ -119,4 +119,8 @@ public class RequestController {
 	public Request updateSendToFACBoard(@RequestBody Request request) {
 		return service.updateSendToFACBoard(request);
 	}
+	@GetMapping("/getRequestWithDecision/{facid}")
+	public List<Request> findRequestWithDecision(@PathVariable int facid){
+		return service.findRequestWithDecision(facid);
+	}
 }

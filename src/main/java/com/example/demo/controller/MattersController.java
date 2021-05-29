@@ -46,9 +46,14 @@ public class MattersController {
 	public List<Matters> getAgendaByFacId(@PathVariable("id") Integer meetingId,@PathVariable("agenda") Boolean agenda) {
 		return service.getAgendaByFacMeetingId(meetingId,agenda);
 	}
+	@GetMapping(path = "/meetings/getAgendaWithoutDecision/{id}")
+	public List<Matters> getAgendaWithoutDecission(@PathVariable("id") Integer meetingId) {
+		return service.getAgendaWithoutDecission(meetingId);
+	}
 	@PutMapping("/meetings/addAgendaDecission")
 	public String submitAgendaDecision(@RequestParam int Id[],@RequestParam String deci[],@RequestParam String deci_by[]){
 		service.submitAgendaDecision(Id,deci,deci_by);
 		return "Success";
 	}
+	
 }

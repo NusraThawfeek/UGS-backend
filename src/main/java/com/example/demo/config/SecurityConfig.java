@@ -171,9 +171,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/meetings/addAgendaDecission").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
 		.antMatchers("/meetings/getMattersByFacId/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/meetings/getAgendaByFacId/{id}/{agenda}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/meetings/getAgendaWithoutDecision/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/meetings/getMattersByFacId/{id}/{minute}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/subcomittee/getSubcommiteeBeforeAddMeeting").hasAnyAuthority("ROLE_AR","ROLE_UGS")
 		.antMatchers("/subcomittee/ReportSubmitedIdUpdate").hasAnyAuthority("ROLE_AR","ROLE_UGS")
+		.antMatchers("/getRequestWithDecision/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
+		.antMatchers("/getMemoWithDecision/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		
 
 		.anyRequest().authenticated()
