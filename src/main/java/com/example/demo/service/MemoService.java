@@ -152,7 +152,7 @@ public class MemoService {
 		m.setIsAccepted(memo.getIsAccepted());
 		m.setIsRejected(memo.getIsRejected());
 		if(memo.getIsRejected()==true) {
-			m.setDecision("Rejected");
+			m.setDecision("Rejected by Dean");
 		}
 
 		return repo.save(m);

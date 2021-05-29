@@ -135,9 +135,24 @@ public class CommentedService {
 		}
 		if (c.isIsRejected()) {
 			Request r = sservice.getRequest(c.getRid().getRid());
+			
+			String role = "";
+			
+			if(c.getUid().isAcademicAdvisor()){
+				role = "Acadamic Advisor";
+			}
+			
+			else if(c.getUid().isHod()){
+				role = "HOD";
+			}
+			
+			else if(c.getUid().isDean()){
+				role = "Dean";
+			}
 
 			r.setStatus("Rejected");
-			r.setDecision("Rejected");
+			r.setDecision("Rejected by " + role);
+			mailService.decsisionEmail(r, "http://localhost:3000");
 			rrepo.save(r);
 
 		}
