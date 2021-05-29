@@ -138,6 +138,7 @@ public class CommentedService {
 
 			r.setStatus("Rejected");
 			r.setDecision("Rejected");
+			mailService.decsisionEmail(r, "http://localhost:3000");
 			rrepo.save(r);
 
 		}

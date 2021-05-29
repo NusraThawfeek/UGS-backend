@@ -29,13 +29,13 @@ public class DecisionMailService {
 		
 	    String toAddress = student.getEmail();
 	    String fromAddress = "mhdrazan200@gmail.com";
-	    String senderName = "Dr. Supunmali Ahangama";
+	    String senderName = "UGS division Faculty of Information Technology";
 	    String subject = "Decsision added for your request";
 	    String content = "Dear [[name]],<br>"
 	            + "Please click the link below to view your request status:<br>"
 	            + "<h3><a href=\"[[URL]]\" target=\"_self\">Click</a></h3>"
 	            + "Thank you,<br>"
-	            + "Director/Undergraduate Studies, <br>"
+	            + "Undergraduate Studies, <br>"
 	            + "Faculty of Information Technology,<br>"
 	            + "University of Moratuwa";
 	     
@@ -64,13 +64,13 @@ public class DecisionMailService {
 		
 	    String toAddress = facMember.getEmail();
 	    String fromAddress = "mhdrazan200@gmail.com";
-	    String senderName = "Dr. Supunmali Ahangama";
+	    String senderName = "UGS division Faculty of Information Technology";
 	    String subject = "Decsision added for your request";
 	    String content = "Dear [[name]],<br>"
 	            + "Please click the link below to view your request status:<br>"
 	            + "<h3><a href=\"[[URL]]\" target=\"_self\">Click</a></h3>"
 	            + "Thank you,<br>"
-	            + "Director/Undergraduate Studies, <br>"
+	            + "Undergraduate Studies, <br>"
 	            + "Faculty of Information Technology,<br>"
 	            + "University of Moratuwa";
 	     
@@ -99,14 +99,14 @@ public class DecisionMailService {
 		
 	    String toAddress = member.getEmail();
 	    String fromAddress = "mhdrazan200@gmail.com";
-	    String senderName = "Dr. Supunmali Ahangama";
+	    String senderName = "UGS division Faculty of Information Technology";
 	    String subject = "New Request";
 	    String content = "Dear [[nameFACmember]],<br>"
 	    		+"You have New Requests from [[nameStudent]].<br>"
 	            + "Please click the link below to view New request :<br>"
 	            + "<h3><a href=\"[[URL]]\" target=\"_self\">Click</a></h3>"
 	            + "Thank you,<br>"
-	            + "Director/Undergraduate Studies, <br>"
+	            + "Undergraduate Studies, <br>"
 	            + "Faculty of Information Technology,<br>"
 	            + "University of Moratuwa";
 	     
