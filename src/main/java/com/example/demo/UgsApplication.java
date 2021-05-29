@@ -311,31 +311,6 @@ public class UgsApplication implements CommandLineRunner {
 
 		repo.save(ugs);
 	
-//		AssistentRegistrar ar = new AssistentRegistrar();
-//		ar.setFirstName("Sarath");
-//		ar.setLastName("fernando");
-//		ar.setNameToBeAppeared("Mr S.Fernando");
-//		ar.setEmail("sarath@gmail.com");
-//		ar.setContactNo("778366330");
-//		ar.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//
-//		Set<Roles> rolesAR = new HashSet<Roles>();
-//		Roles roleAR = roleRepo.findByName(MRoles.ROLE_AR).get();
-//
-//		rolesAR.add(roleAR);
-//
-//		ar.setRoles(rolesAR);
-//
-//		arRepo.save(ar);	
-//
-
-
-
-	
-
-		
-
-
     }
 
 }

@@ -6,8 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.entity.FACMeeting;
 import com.example.demo.entity.FACMember;
+import com.example.demo.entity.Matters;
 import com.example.demo.entity.SubComittee;
+import com.example.demo.repository.FACMeetingRepository;
 import com.example.demo.repository.SubCommiteeRepository;
 import com.example.demo.payload.MessageResponse;
 
@@ -19,6 +23,9 @@ public class SubCommiteeService {
 
 	@Autowired
 	private FACMemberService facMemberService;
+	
+	@Autowired
+	private FACMeetingRepository facMeetRepo;
 
 //	public SubComittee postSubCommitee(String purpose, String discripition1, int leaderId, int facMemberId[]) {
 //		Date appointedDate = new Date();
@@ -57,6 +64,18 @@ public class SubCommiteeService {
 		sm.setSubcomitteeStatus(subcomittee.getSubcomitteeStatus());
 		SubComittee res = repository.save(sm);
 		return ResponseEntity.ok(res);
+	}
+	public List<SubComittee> getByfacmeeting_id(Integer meetingId){
+		return this.repository.getByreportSubmittedFacMeeting_id(meetingId);
+	}
+	public List<SubComittee> getSubcomiteeForAddMeeting(){
+		return this.repository.getSubcomiteeForAddMeeting();
+	}
+	public void updateMeetingId(long commiteeId,int meetingId){
+		FACMeeting meeting= facMeetRepo.findById(meetingId).orElse(null);		
+		SubComittee comittee=repository.findById(commiteeId).orElse(null);
+		comittee.setReportSubmittedFacMeeting(meeting);
+		this.repository.save(comittee);
 	}
 	
 }

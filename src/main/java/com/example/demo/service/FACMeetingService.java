@@ -140,9 +140,6 @@ public class FACMeetingService {
     }
 
     public void scmail(FACMeeting facMeeting, String email) {
-        if (facMeeting.getAgendaLink() == null) {
-            facMeeting.setAgendaLink("http://localhost:3000/view-agenda/" + facMeeting.getId());
-        }
 
         MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
         mMap.add("emailTo", email);
@@ -151,7 +148,7 @@ public class FACMeetingService {
         mMap.add("emailContent",
                 "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation() + "\n"
                         + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                        + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+                        + facMeeting.getMeetingTime() + "\nLink: http://localhost:3000/FAC/view-agenda/" + facMeeting.getId());
 
         mailController.sendmail(mMap);
 
@@ -188,32 +185,6 @@ public class FACMeetingService {
         }
 
     }
-
-    public ResponseEntity<?> updateAgendaItems(FACMeeting facMeeting) {
-        FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
-        fm.setAgendaItem(facMeeting.getAgendaItem());
-        fm.setAgendaLink(facMeeting.getAgendaLink());
-        FACMeeting res = repository.save(fm);
-        return ResponseEntity.ok(res);
-    }
-
-    public ResponseEntity<?> updateMinuteItems(FACMeeting facMeeting) {
-		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
-		fm.setPriliminaries(facMeeting.getPriliminaries());
-		fm.setMinuteLink1(facMeeting.getMinuteLink1());
-		FACMeeting res = repository.save(fm);
-		return ResponseEntity.ok(res);
-	}
-	public ResponseEntity<?> updateMinuteItemsByDugs(FACMeeting facMeeting) {
-		FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
-		if(fm.getPriliminaries()!=null) {
-		fm.setPriliminaries(fm.getPriliminaries()+","+facMeeting.getPriliminaries());
-		}else {
-			fm.setPriliminaries(facMeeting.getPriliminaries());
-		}
-		FACMeeting res = repository.save(fm);
-		return ResponseEntity.ok(res);
-	}
 
     public FACMeeting findUpcomingMeeting() {
         return repository.findUpcomingMeeting();

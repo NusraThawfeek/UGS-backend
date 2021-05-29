@@ -63,13 +63,13 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 				+ "		order by s.entered_date desc", nativeQuery = true)
 		List<Request> findnewRequestForDean(@Param("uid") FACMember uid);
 		
-		//new req for dugs
-		@Query(value = "select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.decision,s.fac_meeting1_id,s.std_user_id,0 AS clazz_\r\n"
-				+ "		from request s, commented c, facmember f\r\n"
-				+ "		where s.rid= c.rid and c.fac_id=f.user_id and is_dean=true and is_forwarded=true and s.rid not in \r\n"
-				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid) order by s.entered_date desc", nativeQuery = true)
-		List<Request> findnewRequestForDUGS(@Param("uid") FACMember uid);
-		
+//		//new req for dugs
+//		@Query(value = "select s.rid,s.type,s.annex_path,s.status,s.is_send_to_fac_board,s.entered_date,s.decision,s.fac_meeting1_id,s.std_user_id,0 AS clazz_\r\n"
+//				+ "		from request s, commented c, facmember f\r\n"
+//				+ "		where s.rid= c.rid and c.fac_id=f.user_id and is_dean=true and is_forwarded=true and s.rid not in \r\n"
+//				+ "		(SELECT r.rid FROM request r, commented c WHERE  r.rid=c.rid and c.fac_id=:uid) order by s.entered_date desc", nativeQuery = true)
+//		List<Request> findnewRequestForDUGS(@Param("uid") FACMember uid);
+//		
 		
 		//past req for AR
 		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_id,r.is_send_to_fac_board,"
@@ -83,7 +83,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		@Query(value = "select distinct(r.rid),r.annex_path,r.decision,r.entered_date,r.fac_meeting1_id,r.is_send_to_fac_board,"
 				+ "r.status,r.std_user_id,r.type,0 AS clazz_\r\n"
 				+ "from commented c, request r,facmember f\r\n"
-				+ "where c.rid=r.rid and c.fac_id=f.user_id and c.is_forwarded=true and f.is_dugs=true and r.rid not in\r\n"
+				+ "where c.rid=r.rid and c.fac_id=f.user_id and c.is_forwarded=true and f.is_dean=true and r.rid not in\r\n"
 				+ "(select distinct(r.rid) \r\n"
 				+ "from commented c, request r,facmember f\r\n"
 				+ "where c.rid=r.rid and c.fac_id=f.user_id and r.is_send_to_fac_board=true)  order by r.entered_date desc", nativeQuery = true)

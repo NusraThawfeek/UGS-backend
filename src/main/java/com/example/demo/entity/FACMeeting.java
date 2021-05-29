@@ -21,12 +21,7 @@ public class FACMeeting {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date date;
     private String meetingTime;
-
     private String location;
-	private String AgendaLink;
-	private String MinuteLink1;
-	private String agendaItem;
-	private String priliminaries;	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
 	@JsonIgnore
@@ -44,6 +39,10 @@ public class FACMeeting {
 	@JsonIgnore
 	private List<Matters> matters;
 	
+	@OneToMany(mappedBy = "facmeeting")
+	@JsonIgnore
+	private List<Priliminary> priliminary;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private AssistentRegistrar assistantRegistrar;
 
@@ -52,6 +51,7 @@ public class FACMeeting {
 	private List<SubComittee> createSubCommitee;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "reportSubmittedFacMeeting")
+	@JsonIgnore
 	private List<SubComittee> reportSubmittedSubCommitee;
 
     public FACMeeting(Date date, String meetingTime, String location) {
