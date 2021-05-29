@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Matters {
+public class Priliminary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -20,25 +20,14 @@ public class Matters {
 	@JoinColumn(name = "meetingId")
 	private FACMeeting facmeeting;
 	
-	private String matters;
-	private String decission;
-	private String decissionBy;
-	private Boolean agenda;
-	private Boolean minute;
+	private String priliminary;
 
-	public Matters(FACMeeting facmeeting, String matters, String decission, String decissionBy) {
+	public Priliminary(FACMeeting facmeeting, String priliminary) {
 		super();
 		this.facmeeting = facmeeting;
-		this.matters = matters;
-		this.decission = decission;
-		this.decissionBy=decissionBy;
+		this.priliminary = priliminary;
 	}
-	public Matters(FACMeeting facmeeting, String matters) {
-		super();
-		this.facmeeting = facmeeting;
-		this.matters = matters;
-	}
-public Matters() {
+	public Priliminary() {
 		
 	}
 	

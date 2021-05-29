@@ -48,6 +48,7 @@ public class UgsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+
 //	System.out.println(encoder.encode("12345678"));
 
 //		Roles student = new Roles(MRoles.ROLE_STUDENT);
@@ -215,6 +216,7 @@ public class UgsApplication implements CommandLineRunner {
 //		rolesAR.add(roleAR);
 //		ar.setRoles(rolesAR);
 //		arRepo.save(ar);
+
 
 
     }

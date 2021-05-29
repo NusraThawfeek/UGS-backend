@@ -19,11 +19,15 @@ public class Memo {
 	@Id
 	@GeneratedValue
 	private int mid;
+	private String title;
 	private String description1;
 	private String annexPath;
 	private Date enteredDate = new Date();
 	private String decision;
 	private boolean isSendToFacMeeting;
+	private boolean isAccepted;
+	private boolean isRejected;
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
@@ -33,18 +37,30 @@ public class Memo {
 	private FACMeeting facMeeting; 
 	
 
-	public Memo(String description1, String annexPath, Date enteredDate, FACMember facMember, String decision) {
+	public Memo(String description1, String title, String annexPath, Date enteredDate, FACMember facMember, String decision) {
 		super();
+		this.title = title;
 		this.description1 = description1;
 		this.annexPath = annexPath;
 		this.enteredDate = enteredDate;
 		this.facMember = facMember;
 		this.decision  = decision;
 		this.isSendToFacMeeting = false;
+		this.isAccepted=false;
+		this.isRejected=false;
+		
 	}
 
 	public Memo() {
 		super();
+	}
+
+	public boolean getIsRejected() {
+		return isRejected;
+	}
+
+	public void setIsRejected(boolean isRejected) {
+		this.isRejected = isRejected;
 	}
 
 	public int getMid() {
@@ -53,6 +69,18 @@ public class Memo {
 
 	public void setMid(int mid) {
 		this.mid = mid;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setSendToFacMeeting(boolean isSendToFacMeeting) {
+		this.isSendToFacMeeting = isSendToFacMeeting;
 	}
 
 	public String getDescription1() {
@@ -110,5 +138,14 @@ public class Memo {
 	public void setIsSendToFacMeeting(boolean isSendToFacMeeting) {
 		this.isSendToFacMeeting = isSendToFacMeeting;
 	}
+
+	public boolean getIsAccepted() {
+		return isAccepted;
+	}
+
+	public void setIsAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+	
 	
 }

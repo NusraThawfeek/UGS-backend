@@ -40,12 +40,20 @@ public class FACMeeting {
     @JsonIgnore
     private List<Attend> attends;
 
+
     @OneToMany(mappedBy = "facmeeting")
     @JsonIgnore
     private List<Matters> matters;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
     private AssistentRegistrar assistantRegistrar;
+
+
+    @OneToMany(mappedBy = "facmeeting")
+    @JsonIgnore
+    private List<Priliminary> priliminary;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "createdFacMeeting")
     private List<SubComittee> createSubCommitee;
@@ -53,9 +61,11 @@ public class FACMeeting {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportSubmittedFacMeeting")
     private List<SubComittee> reportSubmittedSubCommitee;
 
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id1", referencedColumnName = "id")
     private Location location;
+
 
     public FACMeeting(Date date, String meetingTime, String meetingLink, Location location) {
         super();

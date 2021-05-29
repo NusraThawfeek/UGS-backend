@@ -8,8 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
+
 
 import com.example.demo.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,14 +154,12 @@ public class FACMeetingService {
     }
 
     public void scmail(FACMeeting facMeeting, String email) {
-        if (facMeeting.getAgendaLink() == null) {
-            facMeeting.setAgendaLink("http://localhost:3000/view-agenda/" + facMeeting.getId());
-        }
 
         MultiValueMap<String, String> mMap = new LinkedMultiValueMap<>();
         mMap.add("emailTo", email);
         mMap.add("emailFrom", "teamaliens.b18it@gmail.com");
         mMap.add("emailSubject", "FAC Meeting");
+
         if (facMeeting.getMeetingLink() != null) {
             mMap.add("emailContent",
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Link: " + facMeeting.getMeetingLink() + "\n"
@@ -172,8 +169,9 @@ public class FACMeetingService {
             mMap.add("emailContent",
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation().getLocationName() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                            + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+                            + facMeeting.getMeetingTime() + "\n Link:http://localhost:3000/FAC/view-agenda/" + facMeeting.getAgendaLink());
         }
+
 
         mailController.sendmail(mMap);
 
@@ -211,6 +209,7 @@ public class FACMeetingService {
 
     }
 
+
     public ResponseEntity<?> updateAgendaItems(FACMeeting facMeeting) {
         FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
         fm.setAgendaItem(facMeeting.getAgendaItem());
@@ -237,6 +236,7 @@ public class FACMeetingService {
         FACMeeting res = repository.save(fm);
         return ResponseEntity.ok(res);
     }
+
 
     public FACMeeting findUpcomingMeeting() {
         return repository.findUpcomingMeeting();

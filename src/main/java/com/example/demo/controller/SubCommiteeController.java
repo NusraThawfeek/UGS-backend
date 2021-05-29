@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Matters;
 import com.example.demo.entity.SubComittee;
 import com.example.demo.service.SubCommiteeService;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class SubCommiteeController {
+
 
     @Autowired
     private SubCommiteeService service;
@@ -55,6 +57,23 @@ public class SubCommiteeController {
     @GetMapping(path = "/subcomittee/{id}")
     public SubComittee getSubComitteebyId(@PathVariable("id") Long id) {
         return this.service.getBySubcomitteeId(id);
+    }
+
+
+    @GetMapping(path = "/subcomittee/getSubcommiteeByFacId/{id}")
+    public List<SubComittee> getSubcommiteeByFacId(@PathVariable("id") Integer meetingId) {
+        return service.getByfacmeeting_id(meetingId);
+    }
+
+    @GetMapping(path = "/subcomittee/getSubcommiteeBeforeAddMeeting")
+    public List<SubComittee> getSubcomiteeForAddMeeting() {
+        return service.getSubcomiteeForAddMeeting();
+    }
+
+    @PutMapping(path = "/subcomittee/ReportSubmitedIdUpdate")
+    public String updateStatus(@RequestParam long commiteeId, @RequestParam int meetingId) {
+        this.service.updateMeetingId(commiteeId, meetingId);
+        return "success";
     }
 
 }
