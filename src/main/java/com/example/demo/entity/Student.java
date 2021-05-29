@@ -31,7 +31,6 @@ public class Student extends User {
 	private String batchYear;
 	@NotBlank
 	private String courseTitle;
-	@NotBlank
 	private String levelSemester;
 
 	private int shortTermBal;

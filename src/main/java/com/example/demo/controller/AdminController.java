@@ -144,26 +144,6 @@ public class AdminController {
 //	For Students TODO:add antMatcher as Role_FAC
 	@GetMapping("/fac/getUserInfo/{id}")
 	public ResponseEntity<FacInformationResponse> getFacInformation(@PathVariable("id") Long id) {
-//		MRoles roleName;
-//
-//		switch(request.getRole()) {
-//		case "ROLE_STUDENT":
-//			roleName = MRoles.ROLE_STUDENT;
-//			break;
-//		case "ROLE_UGS":
-//			roleName = MRoles.ROLE_UGS;
-//			break;
-//		case "ROLE_AR":
-//			roleName = MRoles.ROLE_AR;
-//			break;
-//		case "ROLE_FAC_MEMBER":
-//			roleName = MRoles.ROLE_FAC_MEMBER;
-//			break;
-//		default: 
-//			roleName = null;
-//		}
-//		
-//		Roles role = service.getRole(roleName);
 		FACMember facMember = service.getFacMember(id);
 		FacInformationResponse res  = new FacInformationResponse();
 		res.setFirstName(facMember.getFirstName());
