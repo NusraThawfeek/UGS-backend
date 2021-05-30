@@ -16,11 +16,10 @@ public class Schedule {
 
 	private static final Logger log = LoggerFactory.getLogger(Schedule.class);
 
-	@Scheduled(cron = "0 21 16 * * ?",zone="Asia/Kolkata")
+	@Scheduled(cron = "0 40 20 * * ?",zone="Asia/Kolkata")//minute hour
 	public void sendMail() {
 		facmeetingservice.runmail();
 		System.out.println("methods works");
-		
 	}
 
 }
