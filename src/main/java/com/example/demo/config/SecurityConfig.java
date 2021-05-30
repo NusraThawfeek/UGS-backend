@@ -46,6 +46,12 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 		.authorizeRequests()
+		
+		.antMatchers("/*").permitAll()
+		.antMatchers("/*/*").permitAll()
+		.antMatchers("/*/*/*").permitAll()
+		.antMatchers("/*/*/*/*").permitAll()
+		
 		// Shaja
 		.antMatchers("/all/login").permitAll()
 		.antMatchers("/admin/register/**").hasAuthority("ROLE_UGS")
@@ -56,13 +62,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 //		.antMatchers("/admin/register/fac").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/ar").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/ugs").hasAuthority("ROLE_UGS")
-		
-		
-		.antMatchers("/*").permitAll()
-		.antMatchers("/*/*").permitAll()
-		.antMatchers("/*/*/*").permitAll()
-		.antMatchers("/*/*/*/*").permitAll()
-
 		
 		
 		//Razan

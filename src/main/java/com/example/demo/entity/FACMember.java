@@ -23,7 +23,7 @@ public class FACMember extends User {
     @NotBlank
     private String department;
 
-    @NotBlank
+    
     private String lectureGradeLevel;
 
 
