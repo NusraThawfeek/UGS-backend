@@ -60,6 +60,16 @@ public void submitAgendaDecision(int Id[], String deci[], String deci_by[]) {
 public List<Matters> getAgendaWithoutDecission(int id){
 	return this.repo.findAgendaWithoutDecision(id);
 }
+public void updateMatters(int Id,String matter,String deci,String deci_by) {
+	Matters mtr= repo.findById(Id).orElse(null);
+	mtr.setMatters(matter);
+	mtr.setDecission(deci);
+	mtr.setDecissionBy(deci_by);
+	repo.save(mtr);
+}
+public Matters getMatterById(int id) {
+	return repo.findById(id).orElse(null);
+	}
 
 
 

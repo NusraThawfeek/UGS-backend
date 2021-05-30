@@ -14,6 +14,6 @@ public interface MemoRepository extends JpaRepository<Memo, Integer> {
 
 	List<Memo> findByFacMember(FACMember facMember);
 	List<Memo> findByfacMeeting(FACMeeting facid);
-	@Query(value = "select * from memo r where r.fac_meeting_id=?1 and r.decision is not null", nativeQuery = true)
+	@Query(value = "select * from memo r where r.fac_meeting_id=?1 and (r.decision != '')", nativeQuery = true)
 	List<Memo> findMemoWithDecision(Integer id);
 }

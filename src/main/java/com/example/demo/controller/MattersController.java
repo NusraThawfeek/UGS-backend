@@ -55,5 +55,14 @@ public class MattersController {
 		service.submitAgendaDecision(Id,deci,deci_by);
 		return "Success";
 	}
+	@PutMapping("/meetings/updateMatterByUgs")
+	public String updateMatters(@RequestParam int Id,@RequestParam String matter,@RequestParam String deci,@RequestParam String deci_by) {
+		service.updateMatters(Id, matter, deci, deci_by);
+		return "Success";
+	}
+	@GetMapping(path = "/meetings/getMattersById/{id}")
+	public Matters getMattersById(@PathVariable("id") Integer id) {
+		return service.getMatterById(id);
+	}
 	
 }

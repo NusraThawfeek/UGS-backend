@@ -160,17 +160,19 @@ public class FACMeetingService {
         mMap.add("emailFrom", "teamaliens.b18it@gmail.com");
         mMap.add("emailSubject", "FAC Meeting");
 
+
         if (facMeeting.getMeetingLink() != null) {
             mMap.add("emailContent",
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Link: " + facMeeting.getMeetingLink() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                            + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+                            + facMeeting.getMeetingTime() + "\nLink:http://localhost:3000/All/view-agenda/" + facMeeting.getId());
         } else {
             mMap.add("emailContent",
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation().getLocationName() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                            + facMeeting.getMeetingTime() + "\n Link:http://localhost:3000/FAC/view-agenda/" + facMeeting.getAgendaLink());
+                            + facMeeting.getMeetingTime() + "\n Link:http://localhost:3000/All/view-agenda/" + facMeeting.getId());
         }
+
 
 
         mailController.sendmail(mMap);
@@ -207,34 +209,6 @@ public class FACMeetingService {
             }
         }
 
-    }
-
-
-    public ResponseEntity<?> updateAgendaItems(FACMeeting facMeeting) {
-        FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
-        fm.setAgendaItem(facMeeting.getAgendaItem());
-        fm.setAgendaLink(facMeeting.getAgendaLink());
-        FACMeeting res = repository.save(fm);
-        return ResponseEntity.ok(res);
-    }
-
-    public ResponseEntity<?> updateMinuteItems(FACMeeting facMeeting) {
-        FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
-        fm.setPriliminaries(facMeeting.getPriliminaries());
-        fm.setMinuteLink1(facMeeting.getMinuteLink1());
-        FACMeeting res = repository.save(fm);
-        return ResponseEntity.ok(res);
-    }
-
-    public ResponseEntity<?> updateMinuteItemsByDugs(FACMeeting facMeeting) {
-        FACMeeting fm = repository.findById(facMeeting.getId()).orElse(null);
-        if (fm.getPriliminaries() != null) {
-            fm.setPriliminaries(fm.getPriliminaries() + "," + facMeeting.getPriliminaries());
-        } else {
-            fm.setPriliminaries(facMeeting.getPriliminaries());
-        }
-        FACMeeting res = repository.save(fm);
-        return ResponseEntity.ok(res);
     }
 
 

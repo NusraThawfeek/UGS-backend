@@ -23,10 +23,6 @@ public class FACMeeting {
     private Date date;
     private String meetingTime;
     private String meetingLink;
-    private String AgendaLink;
-    private String MinuteLink1;
-    private String agendaItem;
-    private String priliminaries;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facMeeting")
     @JsonIgnore
