@@ -18,10 +18,10 @@ public class Module1 {
 	@Id
 	private String mcode;
 	private String mtitle;
-	private int credit;
+	private double credits;
 	private String dep;
 	private String semester;
-	
+	private String degreeProgramme;
 	
 	@OneToMany(mappedBy = "module")
     private List<LateChanges> lateModuleChangeRequest;
@@ -29,11 +29,11 @@ public class Module1 {
 	@OneToMany(mappedBy = "module")
     private List<LateChanges> alterModuleRequest;
 
-	public Module1(String mcode, String mtitle, int credit, String dep) {
+	public Module1(String mcode, String mtitle, double credit, String dep) {
 		super();
 		this.mcode = mcode;
 		this.mtitle = mtitle;
-		this.credit = credit;
+		this.credits = credit;
 		this.dep = dep;
 	}
 
@@ -57,14 +57,6 @@ public class Module1 {
 		this.mtitle = mtitle;
 	}
 
-	public int getCredit() {
-		return credit;
-	}
-
-	public void setCredit(int credit) {
-		this.credit = credit;
-	}
-
 	public String getDep() {
 		return dep;
 	}
@@ -80,5 +72,22 @@ public class Module1 {
 	public void setSemester(String semester) {
 		this.semester = semester;
 	}
+
+	public double getCredits() {
+		return credits;
+	}
+
+	public void setCredits(double credits) {
+		this.credits = credits;
+	}
+
+	public String getDegreeProgramme() {
+		return degreeProgramme;
+	}
+
+	public void setDegreeProgramme(String degreeProgramme) {
+		this.degreeProgramme = degreeProgramme;
+	}
+	
 	
 }

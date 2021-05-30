@@ -161,6 +161,10 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 
 	@Override
 	public String saveFacMember(FACRequest request) {
+		if (userRepo.existsByEmail(request.getEmail())) {
+			return null;
+		}
+
 		FACMember member = new FACMember();
 		member.setTitle(request.getTitle());
 		member.setFirstName(request.getFirstName());
@@ -330,12 +334,16 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 
 	@Override
 	public String setModule(ModuleAdd request) {
+		if(moduleRepository.existsById(request.getModuleCode())) {
+			return null;
+		}
 		Module1 module = new Module1();
+		module.setDegreeProgramme(request.getDegreeProgramme());
 		module.setSemester(request.getSemester());
 		module.setDep(request.getDepartment());
 		module.setMcode(request.getModuleCode());
 		module.setMtitle(request.getModuleName());
-		module.setCredit(request.getCredit());
+		module.setCredits(request.getCredits());
 		return moduleRepository.save(module).getMcode();
 	}
 

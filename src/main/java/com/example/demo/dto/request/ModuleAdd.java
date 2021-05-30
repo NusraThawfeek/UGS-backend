@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class ModuleAdd {
+	private String degreeProgramme;
 	private String semester;
 	private String department;
 	private String moduleCode;
 	private String moduleName;
-	private int credit;
+	private double credits;
 	
 }

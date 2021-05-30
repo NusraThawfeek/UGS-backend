@@ -53,6 +53,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/student/getUserInfo/**").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/fac/getUserInfo/**").hasAuthority("ROLE_FAC_MEMBER")
 		.antMatchers("/ar/getUserInfo/**").hasAuthority("ROLE_AR")
+		.antMatchers("/module/add").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/fac").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/ar").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/ugs").hasAuthority("ROLE_UGS")

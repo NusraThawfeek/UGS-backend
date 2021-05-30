@@ -36,7 +36,6 @@ import com.example.demo.entity.UgsStaff;
 import com.example.demo.service.interfaces.IAdminService;
 import com.example.demo.utils.ExcelHelper;
 
-
 //Rest API start with  /admin/*
 @RestController
 @CrossOrigin("*")
@@ -56,9 +55,10 @@ public class AdminController {
 	public ResponseEntity<String> registerSingleStudent(@Valid @RequestBody StudentSingleRegister registerStudent) {
 		log.info("Registration of Single Student called, Index:" + registerStudent.getIndexNumber());
 		String index = service.saveStudent(registerStudent);
-		if(index == null) {
-			return ResponseEntity.ok("User Account Already exists with email or index number\n Email : " + registerStudent.getEmail() + "\n Index Number:  "+registerStudent.getIndexNumber());
-		}else {
+		if (index == null) {
+			return ResponseEntity.badRequest().body(
+					"\"User Account Already exists with email or index number\\n Email : \" + registerStudent.getEmail() + \"\\n Index Number:  \"+registerStudent.getIndexNumber()");
+		} else {
 			return ResponseEntity.ok("Registration Successfull Index Number: " + index);
 		}
 	}
@@ -66,18 +66,18 @@ public class AdminController {
 //Multiple Student Regstration 
 
 //	Check Header --> 
-	@RequestMapping(value="/admin/register/student/batch/check-header") 
+	@RequestMapping(value = "/admin/register/student/batch/check-header")
 	public ResponseEntity<List<String>> checkFileHeader(@RequestPart("file") MultipartFile file) {
 		List<String> rowHeaders;
 		try {
-			 rowHeaders = helper.getFileHeading(file.getInputStream());
+			rowHeaders = helper.getFileHeading(file.getInputStream());
 		} catch (IOException e) {
 			throw new RuntimeException("fail to store excel data: " + e.getMessage());
 		}
-				
+
 		return ResponseEntity.ok(rowHeaders);
 	}
-	
+
 //	upload File --> 
 	@PostMapping("/admin/register/student/batch/upload")
 	public ResponseEntity<List<StudentBatchRequest>> registerBatchStudent(@RequestPart("file") MultipartFile file) {
@@ -95,9 +95,10 @@ public class AdminController {
 		return ResponseEntity.ok(users);
 
 	}
+
 //	Register all students in the sent array by frontEnd
 	@PostMapping("/admin/register/student/batch/saveAll")
-	public ResponseEntity<List<Object>> saveAllUsers(@RequestBody List<StudentBatchRequest> students){
+	public ResponseEntity<List<Object>> saveAllUsers(@RequestBody List<StudentBatchRequest> students) {
 		List<Object> response = service.saveAll(students);
 		return ResponseEntity.ok(response);
 	}
@@ -106,24 +107,35 @@ public class AdminController {
 	public ResponseEntity<String> registerFAC(@RequestBody FACRequest request) {
 		log.info("Registration of FACMember called, Email:" + request.getEmail());
 		String email = service.saveFacMember(request);
-		return ResponseEntity.ok("Registration Completed with  Email: " + email);
+		if(email != null) {
+		return ResponseEntity.ok("Registration Completed with  Email: " + email); }
+		else {
+			return ResponseEntity.badRequest().body("Registration Failed with  Email: " + email + " .User Already exists");
+		}
 	}
 
 	@PostMapping("/admin/register/ar")
 	public ResponseEntity<String> registerAssistantReg(@RequestBody RegistrationRequestAcademic request) {
 		log.info("Registration of Assistant Registrar called, Email:" + request.getEmail());
 		String email = service.saveAR(request);
-		return ResponseEntity.ok("Registration Completed with  Email: " + email);
+		if(email != null) {
+			return ResponseEntity.ok("Registration Completed with  Email: " + email); }
+			else {
+				return ResponseEntity.badRequest().body("Registration Failed with  Email: " + email + " .User Already exists");
+			}
 	}
 
 	@PostMapping("/admin/register/ugs")
 	public ResponseEntity<String> registerUgsStaff(@RequestBody RegistrationRequestAcademic request) {
 		log.info("Registration of FACMember called, Email:" + request.getEmail());
 		String email = service.saveUGS(request);
-		return ResponseEntity.ok("Registration Completed with  Email: " + email);
+		if(email != null) {
+			return ResponseEntity.ok("Registration Completed with  Email: " + email); }
+			else {
+				return ResponseEntity.badRequest().body("Registration Failed with  Email: " + request.getEmail() + " .User Already exists");
+			}
 	}
-	
-	
+
 //	Get All FAC Members who are Academic Advisors
 	@GetMapping("/admin/academicAdvisors")
 	public ResponseEntity<AcademicAdvisorListResponse> getAllAcademicAdvisor() {
@@ -131,11 +143,11 @@ public class AdminController {
 		academicAdvisors.setAcademicAdvisors(service.getAllAcademicAdvisors());
 		return ResponseEntity.ok(academicAdvisors);
 	}
-	
+
 	@GetMapping("/student/getUserInfo/{id}")
 	public ResponseEntity<StudentInformationResponse> getStudentInformation(@PathVariable("id") Long id) {
 		Student student = service.getStudent(id);
-		StudentInformationResponse res  = new StudentInformationResponse();
+		StudentInformationResponse res = new StudentInformationResponse();
 		res.setFirstName(student.getFirstName());
 		res.setLastName(student.getLastName());
 		res.setNameToBeAppeared(student.getNameToBeAppeared());
@@ -146,12 +158,12 @@ public class AdminController {
 		res.setIndexNo(student.getIndexNo());
 		return ResponseEntity.ok(res);
 	}
-	
+
 //	For Students TODO:add antMatcher as Role_FAC
 	@GetMapping("/fac/getUserInfo/{id}")
 	public ResponseEntity<FacInformationResponse> getFacInformation(@PathVariable("id") Long id) {
 		FACMember facMember = service.getFacMember(id);
-		FacInformationResponse res  = new FacInformationResponse();
+		FacInformationResponse res = new FacInformationResponse();
 		res.setFirstName(facMember.getFirstName());
 		res.setLastName(facMember.getLastName());
 		res.setNameToBeAppeared(facMember.getNameToBeAppeared());
@@ -159,18 +171,19 @@ public class AdminController {
 		res.setEmail(facMember.getEmail());
 		return ResponseEntity.ok(res);
 	}
-	
+
 //	For Students TODO:add antMatcher as AR
 	@GetMapping("/ar/getUserInfo/{id}")
 	public ResponseEntity<ArInformationResponse> getArInformation(@PathVariable("id") Long id) {
 		service.getAr(id);
 		return ResponseEntity.ok(null);
 	}
+
 //	For Students TODO:add antMatcher as UGS @Valid @RequestBody UserInformationRequest request
 	@GetMapping("/ugs/getUserInfo/{id}")
 	public ResponseEntity<UgsInformationResponse> getUgsInformation(@PathVariable("id") Long id) {
 		UgsStaff ugs = service.getUgsStaff(id);
-		UgsInformationResponse res  = new UgsInformationResponse();
+		UgsInformationResponse res = new UgsInformationResponse();
 		res.setFirstName(ugs.getFirstName());
 		res.setLastName(ugs.getLastName());
 		res.setNameToBeAppeared(ugs.getNameToBeAppeared());
@@ -178,40 +191,45 @@ public class AdminController {
 		res.setEmail(ugs.getEmail());
 		return ResponseEntity.ok(res);
 	}
-	
+
 	@PostMapping("/updatePassword")
 	public ResponseEntity<String> updatePassword(@Valid @RequestBody ChangePasswordRequest req) {
 		int updatePassword = service.updatePassword(req);
 		System.out.println(updatePassword);
 		if (updatePassword != 0) {
 			return ResponseEntity.ok("Password updated sucessfully");
-		}
-		else {
+		} else {
 			return ResponseEntity.ok("Sorry Try Again: Old Password may be incorrect");
 		}
 	}
+
 	@GetMapping("/students/{batch}")
-	public ResponseEntity<List<String>> getAllBatchStudents(@PathVariable("batch") String batch){
+	public ResponseEntity<List<String>> getAllBatchStudents(@PathVariable("batch") String batch) {
 		List<String> studentsIndexNumbers = service.getAllStudentByBatch(batch);
 		return ResponseEntity.ok(studentsIndexNumbers);
 	}
-	
+
 	@PostMapping("/students/advisor/batch")
-	public ResponseEntity<String> setAcademicAdvisor(@RequestBody AcadAdvisorBatchRequest request){
+	public ResponseEntity<String> setAcademicAdvisor(@RequestBody AcadAdvisorBatchRequest request) {
 		String index = service.setAcademicAdvisor(request);
-		return ResponseEntity.ok("Academic Advisor set successfully for index " + index );
+		return ResponseEntity.ok("Academic Advisor set successfully for index " + index);
 	}
-	
+
 	@PostMapping("/module/add")
 	public ResponseEntity<String> addModule(@RequestBody ModuleAdd request) {
 		String moduleCode = service.setModule(request);
-		return ResponseEntity.ok("Module Added Successfully with module code :" + moduleCode);
+		if(moduleCode != null) {
+		return ResponseEntity.ok("Module Added Successfully with module code :" + moduleCode); }
+		else {
+			return ResponseEntity.badRequest().body("Module Already exists");
+			
+		}
 	}
-	
+
 	@PostMapping("/fac/role/academic")
 	public ResponseEntity<String> setAcademicAdvisorRole(@RequestBody FacAcademicRequest request) {
 		String email = service.setFacRoleAcademicAdvisor(request);
 		return ResponseEntity.ok("Role Added Successfully with for MR/MRS :" + email);
 	}
-	
+
 }
