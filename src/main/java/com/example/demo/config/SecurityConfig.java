@@ -176,6 +176,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/meetings/addMeetingMatters").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
 		.antMatchers("/meetings/addMeetingAgenda").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
 		.antMatchers("/meetings/addAgendaDecission").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
+		.antMatchers("/meetings/getMattersById/{id}").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
+		.antMatchers("/meetings/getPriliminaryById/{id}").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
+		.antMatchers("/meetings/updateMatterByUgs").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
+		.antMatchers("/meetings/updatePrilByDugs").hasAnyAuthority("ROLE_AR","ROLE_DUGS")
 		.antMatchers("/meetings/getMattersByFacId/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/meetings/getAgendaByFacId/{id}/{agenda}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/meetings/getAgendaWithoutDecision/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
@@ -185,6 +189,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/getRequestWithDecision/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		.antMatchers("/getMemoWithDecision/{facid}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")
 		
+		// 
 
 		.anyRequest().authenticated()
 		.and()

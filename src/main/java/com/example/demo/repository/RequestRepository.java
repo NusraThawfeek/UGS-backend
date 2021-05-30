@@ -93,7 +93,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 		
 		List<Request> findByFacMeeting1(FACMeeting facid);
 		
-		@Query(value = "select * from request r where r.fac_meeting1_id=?1 and r.decision is not null", nativeQuery = true)
+		@Query(value = "select * from request r where r.fac_meeting1_id=?1 and (r.decision != '')", nativeQuery = true)
 		List<Request> findRequestWithDecision(Integer id);
 		
 		

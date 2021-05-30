@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,15 @@ public class PriliminaryController {
 	@GetMapping(path = "/meetings/getPriliminaryByFacId/{id}")
 	public List<Priliminary> getMattersByFacId(@PathVariable("id") Integer meetingId) {
 		return service.getPrilimByfacmeeting_id(meetingId);
+	}
+	@PutMapping("/meetings/updatePrilByDugs")
+	public String updatePriliminary(@RequestParam int Id,@RequestParam String priliminary) {
+		service.updatePriliminary(Id, priliminary);
+		return "Succes";
+	}
+	@GetMapping(path = "/meetings/getPriliminaryById/{id}")
+	public Priliminary getPriliminaryById(@PathVariable("id") Integer id) {
+		return service.getPriliminaryById(id);
 	}
 
 }

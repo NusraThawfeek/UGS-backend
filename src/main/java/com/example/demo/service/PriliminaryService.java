@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.FACMeeting;
+import com.example.demo.entity.Matters;
 import com.example.demo.entity.Priliminary;
 import com.example.demo.repository.FACMeetingRepository;
 import com.example.demo.repository.PriliminaryRepository;
@@ -29,5 +30,13 @@ public class PriliminaryService {
 	}
 	public List<Priliminary> getPrilimByfacmeeting_id(Integer meetingId){
 		return this.repo.getByfacmeeting_id(meetingId);
+	}
+	public void updatePriliminary(int Id,String priliminary) {
+		Priliminary pril= repo.findById(Id).orElse(null);
+		pril.setPriliminary(priliminary);
+		repo.save(pril);
+	}
+	public Priliminary getPriliminaryById(int id) {
+		return repo.findById(id).orElse(null);
 	}
 }
