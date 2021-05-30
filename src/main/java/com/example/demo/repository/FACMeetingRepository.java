@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.demo.entity.FACMeeting;
 
-
-
 public interface FACMeetingRepository extends JpaRepository<FACMeeting, Integer> {
 	FACMeeting getById(Integer Id);
 

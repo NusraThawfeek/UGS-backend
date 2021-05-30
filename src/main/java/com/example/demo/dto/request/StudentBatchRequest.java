@@ -20,7 +20,6 @@ public class StudentBatchRequest {
 	@Email
 	private String email;
 	
-	@NotBlank
 	private String contactNo;
 	
 	

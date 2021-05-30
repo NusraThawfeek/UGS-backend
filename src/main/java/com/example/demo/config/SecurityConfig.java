@@ -46,15 +46,24 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 		.authorizeRequests()
-
+		// Shaja
+		.antMatchers("/all/login").permitAll()
+		.antMatchers("/admin/register/**").hasAuthority("ROLE_UGS")
+		.antMatchers("/ugs/getUserInfo/**").hasAuthority("ROLE_UGS")
+		.antMatchers("/student/getUserInfo/**").hasAuthority("ROLE_STUDENT")
+		.antMatchers("/fac/getUserInfo/**").hasAuthority("ROLE_FAC_MEMBER")
+		.antMatchers("/ar/getUserInfo/**").hasAuthority("ROLE_AR")
+//		.antMatchers("/admin/register/fac").hasAuthority("ROLE_UGS")
+//		.antMatchers("/admin/register/ar").hasAuthority("ROLE_UGS")
+//		.antMatchers("/admin/register/ugs").hasAuthority("ROLE_UGS")
+		
+		
 		.antMatchers("/*").permitAll()
 		.antMatchers("/*/*").permitAll()
 		.antMatchers("/*/*/*").permitAll()
 		.antMatchers("/*/*/*/*").permitAll()
 
-		// Shaja
-		.antMatchers("/admin/**","/admin/ugs/getUserInfo").hasAuthority("ROLE_UGS")
-		.antMatchers("/all/login").permitAll()
+		
 		
 		//Razan
 		.antMatchers("/request/leaverequest").hasAuthority("ROLE_STUDENT")
@@ -135,13 +144,15 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/Commented/EditByDugs/{rid},{uid}").hasAuthority("ROLE_UGS")
 		
 		//Fayaz
-		.antMatchers("/meetings").hasAuthority("ROLE_AR")
+				.antMatchers("/locations/get").permitAll()
+		.antMatchers("/meetings").permitAll()
 		.antMatchers("/meetings/get").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR")
 		.antMatchers("/meetings/{id}").hasAuthority("ROLE_AR")				//update meeting
 		.antMatchers("/meetings/{id}").hasAnyAuthority("ROLE_FAC_MEMBER","ROLE_AR","ROLE_UGS")  //get meeting by id
 
 		.antMatchers("/meetings/mail/{id}").hasAuthority("ROLE_AR")
 		.antMatchers("/subcomittee/**").hasAuthority("ROLE_AR")
+				.antMatchers("/subcomittee/{id}").permitAll()
 		.antMatchers("/subcomittee/fileupload/{id}").hasAuthority("ROLE_FAC_MEMBER")
 		.antMatchers("/subcomittee/statusupdate/{id}").hasAuthority("ROLE_AR")
 		.antMatchers("/attendance/create").hasAuthority("ROLE_AR")
