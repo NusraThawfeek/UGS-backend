@@ -34,6 +34,7 @@ public class FACMeetingController {
 	}
 	@PostMapping(path = "/meetings")
 	public ResponseEntity<?> create(@RequestBody FACMeeting facMeeting) {
+		System.out.println(facMeeting.getMeetingLink());
 		return service.create(facMeeting);
 	}
 
