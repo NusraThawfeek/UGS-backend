@@ -14,20 +14,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.request.AcadAdvisorBatchRequest;
 import com.example.demo.dto.request.ChangePasswordRequest;
 import com.example.demo.dto.request.FACRequest;
+import com.example.demo.dto.request.FacAcademicRequest;
+import com.example.demo.dto.request.ModuleAdd;
 import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.MRoles;
+import com.example.demo.entity.Module1;
 import com.example.demo.entity.Roles;
 import com.example.demo.entity.Student;
 import com.example.demo.entity.UgsStaff;
 import com.example.demo.entity.User;
 import com.example.demo.repository.AssistentRegistrarRepository;
 import com.example.demo.repository.FACMemberRepository;
+import com.example.demo.repository.ModuleRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.repository.UgsStaffRepository;
@@ -60,6 +65,9 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 
 	@Autowired
 	private EmailUtil email;
+
+	@Autowired
+	private ModuleRepository moduleRepository;
 
 	@Override
 	public String saveStudent(StudentSingleRegister studentReq) {
@@ -306,14 +314,47 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 		return 0;
 	}
 
-	@Override
-	public List<Student> getAllStudentByBatch(String batch) {
-		return null;
-	}
-	
-	
-	
 //	Student
-	
+	@Override
+	public List<String> getAllStudentByBatch(String batch) {
+		return studentRepo.findAllIndexByBatchYear(batch);
+	}
+
+	@Override
+	public String setAcademicAdvisor(AcadAdvisorBatchRequest request) {
+		Student student = studentRepo.findByIndexNo(request.getIndexNumber()).get();
+		FACMember acad = (FACMember) userRepo.findByEmail(request.getAcadAdvisorEmail()).get();
+		student.setAcademicAdvisor(acad);
+		return studentRepo.save(student).getIndexNo();
+	}
+
+	@Override
+	public String setModule(ModuleAdd request) {
+		Module1 module = new Module1();
+		module.setSemester(request.getSemester());
+		module.setDep(request.getDepartment());
+		module.setMcode(request.getModuleCode());
+		module.setMtitle(request.getModuleName());
+		module.setCredit(request.getCredit());
+		return moduleRepository.save(module).getMcode();
+	}
+
+	@Override
+	public String setFacRoleAcademicAdvisor(FacAcademicRequest request) {
+		FACMember fac = (FACMember) userRepo.findByEmail(request.getEmail()).get();
+		if (fac.isAcademicAdvisor()) {
+			fac.setAcademicAdvisor(true);
+			Set<Roles> roles = fac.getRoles();
+			Roles ROLEACADEMICADVISOR = roleRepo.findByName(MRoles.ROLE_ACADEMICADVISOR).get();
+			roles.add(ROLEACADEMICADVISOR);
+			FACMember saved = facRepo.save(fac);
+			return "Role Added Successfully with for MR/MRS :" + saved.getNameToBeAppeared();
+		} else {
+			return "Already Academic Advisor";
+		}
+		
+	}
+
+//	facDean
 
 }

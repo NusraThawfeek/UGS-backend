@@ -16,7 +16,6 @@ public class FACRequest {
 	private String lastName;
 	
 	@NotBlank
-	@Email
 	private String email;
 
 	private String contactNumber;

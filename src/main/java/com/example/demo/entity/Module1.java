@@ -20,6 +20,8 @@ public class Module1 {
 	private String mtitle;
 	private int credit;
 	private String dep;
+	private String semester;
+	
 	
 	@OneToMany(mappedBy = "module")
     private List<LateChanges> lateModuleChangeRequest;
@@ -69,6 +71,14 @@ public class Module1 {
 
 	public void setDep(String dep) {
 		this.dep = dep;
+	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
 	}
 	
 }

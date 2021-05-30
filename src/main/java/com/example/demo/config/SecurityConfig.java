@@ -49,7 +49,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		// Shaja
 		.antMatchers("/all/login").permitAll()
 		.antMatchers("/admin/register/**").hasAuthority("ROLE_UGS")
-		.antMatchers("/ugs/getUserInfo").hasAuthority("ROLE_UGS")
+		.antMatchers("/ugs/getUserInfo/**").hasAuthority("ROLE_UGS")
 		.antMatchers("/student/getUserInfo/**").hasAuthority("ROLE_STUDENT")
 		.antMatchers("/fac/getUserInfo/**").hasAuthority("ROLE_FAC_MEMBER")
 		.antMatchers("/ar/getUserInfo/**").hasAuthority("ROLE_AR")

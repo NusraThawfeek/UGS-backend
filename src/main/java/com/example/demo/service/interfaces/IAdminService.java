@@ -3,8 +3,11 @@ package com.example.demo.service.interfaces;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.dto.request.AcadAdvisorBatchRequest;
 import com.example.demo.dto.request.ChangePasswordRequest;
 import com.example.demo.dto.request.FACRequest;
+import com.example.demo.dto.request.FacAcademicRequest;
+import com.example.demo.dto.request.ModuleAdd;
 import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
@@ -50,7 +53,19 @@ public interface IAdminService {
 	UgsStaff getUgsStaff(long id);
 	
 //	Student
-	List<Student> getAllStudentByBatch(String batch);
+	List<String> getAllStudentByBatch(String batch);
+	String setAcademicAdvisor(AcadAdvisorBatchRequest request);
 	
+	
+//	Add Module
+	String setModule(ModuleAdd request);
 	int updatePassword(ChangePasswordRequest req);
+
+	//Add News Page
+	//Add Semester Start date
+
+	//FAC role Allocation
+		
+	String setFacRoleAcademicAdvisor(FacAcademicRequest request); 
 }
+

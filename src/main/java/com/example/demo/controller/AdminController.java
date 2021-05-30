@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.dto.request.AcadAdvisorBatchRequest;
 import com.example.demo.dto.request.ChangePasswordRequest;
 import com.example.demo.dto.request.FACRequest;
+import com.example.demo.dto.request.FacAcademicRequest;
+import com.example.demo.dto.request.ModuleAdd;
 import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
@@ -187,10 +191,27 @@ public class AdminController {
 		}
 	}
 	@GetMapping("/students/{batch}")
-	public ResponseEntity<List<Student>> getAllBatchStudents(@PathVariable("batch") String batch){
-		
-		return null;
+	public ResponseEntity<List<String>> getAllBatchStudents(@PathVariable("batch") String batch){
+		List<String> studentsIndexNumbers = service.getAllStudentByBatch(batch);
+		return ResponseEntity.ok(studentsIndexNumbers);
 	}
 	
+	@PostMapping("/students/advisor/batch")
+	public ResponseEntity<String> setAcademicAdvisor(@RequestBody AcadAdvisorBatchRequest request){
+		String index = service.setAcademicAdvisor(request);
+		return ResponseEntity.ok("Academic Advisor set successfully for index " + index );
+	}
+	
+	@PostMapping("/module/add")
+	public ResponseEntity<String> addModule(@RequestBody ModuleAdd request) {
+		String moduleCode = service.setModule(request);
+		return ResponseEntity.ok("Module Added Successfully with module code :" + moduleCode);
+	}
+	
+	@PostMapping("/fac/role/academic")
+	public ResponseEntity<String> setAcademicAdvisorRole(@RequestBody FacAcademicRequest request) {
+		String email = service.setFacRoleAcademicAdvisor(request);
+		return ResponseEntity.ok("Role Added Successfully with for MR/MRS :" + email);
+	}
 	
 }
