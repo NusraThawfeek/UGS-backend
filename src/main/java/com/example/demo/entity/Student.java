@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,10 +40,7 @@ public class Student extends User {
 	@JsonIgnore
 	@OneToMany(mappedBy="std",fetch = FetchType.LAZY)
 	private Set<Request> req;
-	
 
-
-	
 	@JoinColumn(name="academicAdvisor")
 	@ManyToOne(fetch = FetchType.EAGER)
 	private FACMember academicAdvisor;

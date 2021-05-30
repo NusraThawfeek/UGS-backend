@@ -13,35 +13,35 @@ import com.example.demo.payload.MessageResponse;
 @Service
 public class FACMemberService {
 
-	@Autowired
-	private FACMemberRepository repo;
+    @Autowired
+    private FACMemberRepository repo;
 
-	public FACMemberService(FACMemberRepository repo) {
-		this.repo = repo;
-	}
+    public FACMemberService(FACMemberRepository repo) {
+        this.repo = repo;
+    }
 
-	public FACMember postFACMember(FACMember facMember) {
-		return repo.save(facMember);
-	}
+    public FACMember postFACMember(FACMember facMember) {
+        return repo.save(facMember);
+    }
 
-	public FACMember getFACMember(long FACId) {
-		return repo.findById(FACId).orElse(null);
-	}
+    public FACMember getFACMember(long FACId) {
+        return repo.findById(FACId).orElse(null);
+    }
 
 
-	public List<FACMember> findAll() {
-	
-		return repo.findAll();
-	}
+    public List<FACMember> findAll() {
 
-	public ResponseEntity<?> create(FACMember facmember) {
-		this.repo.save(facmember);
-		return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
-	}
+        return repo.findAll();
+    }
 
-	public List<FACMember> getAll() {
-		return repo.findAll();
-	}
+    public ResponseEntity<?> create(FACMember facmember) {
+        this.repo.save(facmember);
+        return ResponseEntity.status(200).body(new MessageResponse("Created Successfully"));
+    }
+
+    public List<FACMember> getAll() {
+        return repo.findAll();
+    }
 
 
 }

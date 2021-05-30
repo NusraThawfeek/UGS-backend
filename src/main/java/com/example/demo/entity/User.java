@@ -42,7 +42,6 @@ public class User {
 	@NotBlank
 	private String nameToBeAppeared;
 
-
 	@NotBlank
 	@Email
 	private String email;
