@@ -97,9 +97,10 @@ public class FACMeetingService {
                     factoUpdate.setDate(facMeeting.getDate());
                     factoUpdate.setMeetingTime(facMeeting.getMeetingTime());
                     factoUpdate.setMeetingLink(facMeeting.getMeetingLink());
+                    factoUpdate.setLocation(null);
                 } else {
                     factoUpdate.setId(id);
-                    factoUpdate.setMeetingLink(facMeeting.getMeetingLink());
+                    factoUpdate.setMeetingLink(null);
                     Location l = service.getById(facMeeting.getLocation().getId());
                     factoUpdate.setLocation(l);
                     factoUpdate.setDate(facMeeting.getDate());
@@ -164,12 +165,12 @@ public class FACMeetingService {
             mMap.add("emailContent",
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Link: " + facMeeting.getMeetingLink() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                            + facMeeting.getMeetingTime() + "\nLink: " + facMeeting.getAgendaLink());
+                            + facMeeting.getMeetingTime() + "\nMeeting Agenda Link:http://localhost:3000/FAC/view-agenda/ " + facMeeting.getAgendaLink());
         } else {
             mMap.add("emailContent",
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation().getLocationName() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
-                            + facMeeting.getMeetingTime() + "\n Link:http://localhost:3000/FAC/view-agenda/" + facMeeting.getAgendaLink());
+                            + facMeeting.getMeetingTime() + "\nMeeting Agenda Link:http://localhost:3000/FAC/view-agenda/" + facMeeting.getAgendaLink());
         }
 
 
