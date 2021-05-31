@@ -47,10 +47,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.csrf().disable()
 		.authorizeRequests()
 		
-//		.antMatchers("/*").permitAll()
-//		.antMatchers("/*/*").permitAll()
-//		.antMatchers("/*/*/*").permitAll()
-//		.antMatchers("/*/*/*/*").permitAll()
+		.antMatchers("/*").permitAll()
+		.antMatchers("/*/*").permitAll()
+		.antMatchers("/*/*/*").permitAll()
+		.antMatchers("/*/*/*/*").permitAll()
 //		
 		// Shaja
 		.antMatchers("/all/login").permitAll()
