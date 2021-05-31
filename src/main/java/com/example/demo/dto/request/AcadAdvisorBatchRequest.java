@@ -1,5 +1,7 @@
 package com.example.demo.dto.request;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;

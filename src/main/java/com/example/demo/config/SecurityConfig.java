@@ -47,11 +47,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.csrf().disable()
 		.authorizeRequests()
 		
-		.antMatchers("/*").permitAll()
-		.antMatchers("/*/*").permitAll()
-		.antMatchers("/*/*/*").permitAll()
-		.antMatchers("/*/*/*/*").permitAll()
-		
+//		.antMatchers("/*").permitAll()
+//		.antMatchers("/*/*").permitAll()
+//		.antMatchers("/*/*/*").permitAll()
+//		.antMatchers("/*/*/*/*").permitAll()
+//		
 		// Shaja
 		.antMatchers("/all/login").permitAll()
 		.antMatchers("/admin/register/**").hasAuthority("ROLE_UGS")
@@ -60,6 +60,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/fac/getUserInfo/**").hasAuthority("ROLE_FAC_MEMBER")
 		.antMatchers("/ar/getUserInfo/**").hasAuthority("ROLE_AR")
 		.antMatchers("/module/add").hasAuthority("ROLE_UGS")
+		.antMatchers("/admin/student/**").hasAuthority("ROLE_UGS")
+		.antMatchers("/admin/fac").hasAuthority("ROLE_UGS")
+		.antMatchers("/admin/students/advisor/batch").hasAuthority("ROLE_UGS")
+		.antMatchers("/admin/students/**").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/fac").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/ar").hasAuthority("ROLE_UGS")
 //		.antMatchers("/admin/register/ugs").hasAuthority("ROLE_UGS")

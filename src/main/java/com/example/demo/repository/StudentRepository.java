@@ -19,4 +19,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	@Query(value = "select s.index_no  from student s WHERE s.batch_year=:batch", nativeQuery = true)
 	List<String> findAllIndexByBatchYear(@Param("batch")String batch);
 	
+	@Query(value = "SELECT DISTINCT TOP 6 s.batch_year"
+			+ "FROM  student s"
+			+ "ORDER BY s.batch_year", nativeQuery = true)
+	List<String> findRecentBatch();
+	
 }

@@ -22,6 +22,9 @@ import com.example.demo.dto.request.ModuleAdd;
 import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
+import com.example.demo.dto.response.StaffAdminResponse;
+import com.example.demo.dto.response.StudentAdminRequestResponse;
+import com.example.demo.dto.response.StudentInformationResponse;
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.MRoles;
@@ -114,18 +117,21 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 	public List<Object> saveAll(List<StudentBatchRequest> students) {
 		List<Object> response = new ArrayList<>();
 //		Hashmap to store registered user's in "index" : "Success" pair
-		HashMap<String, String> registeredUser = new HashMap<String, String>();
+		
 
 //		HashMap to store with already exists message
-		HashMap<String, String> alreadyExists = new HashMap<String, String>();
+//		HashMap<String, String> alreadyExists = new HashMap<String, String>();
 		for (int i = 0; i < students.size(); i++) {
+			HashMap<String, String> registeredUser = new HashMap<String, String>();
 			StudentBatchRequest oneStudent = students.get(i);
 //			if (userRepo.existsByEmail(oneStudent.getEmail())) {
 //				alreadyExists.put(oneStudent.getIndexNo(), "Already exist user");
 //			}
 
 			if (studentRepo.existsByIndexNo(oneStudent.getIndexNo())) {
-				alreadyExists.put(oneStudent.getIndexNo(), "Already exist user");
+				registeredUser.put("id",oneStudent.getIndexNo());
+				registeredUser.put("message", "Already exist user");
+				response.add(registeredUser);
 				continue;
 			}
 
@@ -151,11 +157,12 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 						+ "Please use the following password to log in to the system " + "\n " + password + "\n"
 						+ "Please be kind to change the password soon after your first login";
 				email.sendEmail(student.getEmail(), "One Time Login Password", message);
-				registeredUser.put(savedStudent.getIndexNo(), "Success");
+				registeredUser.put("id",oneStudent.getIndexNo());
+				registeredUser.put("message", "Success");
+				response.add(registeredUser);
 			}
 		}
-		response.add(alreadyExists);
-		response.add(registeredUser);
+		
 		return response;
 	}
 
@@ -363,6 +370,47 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 		
 	}
 
-//	facDean
+//Student Info Search
+	@Override
+	public StudentAdminRequestResponse searchUserInformation(String index) {
+		Optional<Student> getStudent = studentRepo.findByIndexNo(index);
+		if(getStudent.isEmpty()) {
+			return null;
+		}
+		
+		Student student = getStudent.get();
+		StudentAdminRequestResponse response = new StudentAdminRequestResponse();
+		response.setFirstName(student.getFirstName());
+		response.setLastName(student.getLastName());
+		response.setNameToBeAppeared(student.getNameToBeAppeared());
+		response.setEmail(student.getEmail());
+		response.setBatch(student.getBatchYear());
+		response.setIndexNumber(student.getIndexNo());
+		response.setCourse(student.getCourseTitle());
+		response.setContactNumber(student.getContactNo());
+		return response;
+	}
 
+	@Override
+	public StaffAdminResponse getFacDetails(FacAcademicRequest request) {
+		Optional<User> fac = userRepo.findByEmail(request.getEmail());
+		
+		if(fac.isEmpty()) {
+			return null;
+		}
+		FACMember facMember = (FACMember)fac.get();
+		
+		StaffAdminResponse response = new StaffAdminResponse();
+		response.setTitle(facMember.getTitle());
+		response.setFirstName(facMember.getFirstName());
+		response.setLastName(facMember.getLastName());
+		response.setNameToBeAppeared(facMember.getNameToBeAppeared());
+		response.setEmail(facMember.getEmail());
+		response.setDepartment(facMember.getDepartment());
+		response.setContactNumber(facMember.getContactNo());
+		return response;
+	}
+
+	
+	
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import javax.validation.Valid;
 import org.apache.log4j.Logger;
@@ -27,6 +28,8 @@ import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.dto.response.AcademicAdvisorListResponse;
 import com.example.demo.dto.response.ArInformationResponse;
 import com.example.demo.dto.response.FacInformationResponse;
+import com.example.demo.dto.response.StaffAdminResponse;
+import com.example.demo.dto.response.StudentAdminRequestResponse;
 import com.example.demo.dto.response.StudentInformationResponse;
 import com.example.demo.dto.response.UgsInformationResponse;
 import com.example.demo.entity.AssistentRegistrar;
@@ -107,10 +110,11 @@ public class AdminController {
 	public ResponseEntity<String> registerFAC(@RequestBody FACRequest request) {
 		log.info("Registration of FACMember called, Email:" + request.getEmail());
 		String email = service.saveFacMember(request);
-		if(email != null) {
-		return ResponseEntity.ok("Registration Completed with  Email: " + email); }
-		else {
-			return ResponseEntity.badRequest().body("Registration Failed with  Email: " + email + " .User Already exists");
+		if (email != null) {
+			return ResponseEntity.ok("Registration Completed with  Email: " + email);
+		} else {
+			return ResponseEntity.badRequest()
+					.body("Registration Failed with  Email: " + email + " .User Already exists");
 		}
 	}
 
@@ -118,22 +122,24 @@ public class AdminController {
 	public ResponseEntity<String> registerAssistantReg(@RequestBody RegistrationRequestAcademic request) {
 		log.info("Registration of Assistant Registrar called, Email:" + request.getEmail());
 		String email = service.saveAR(request);
-		if(email != null) {
-			return ResponseEntity.ok("Registration Completed with  Email: " + email); }
-			else {
-				return ResponseEntity.badRequest().body("Registration Failed with  Email: " + email + " .User Already exists");
-			}
+		if (email != null) {
+			return ResponseEntity.ok("Registration Completed with  Email: " + email);
+		} else {
+			return ResponseEntity.badRequest()
+					.body("Registration Failed with  Email: " + email + " .User Already exists");
+		}
 	}
 
 	@PostMapping("/admin/register/ugs")
 	public ResponseEntity<String> registerUgsStaff(@RequestBody RegistrationRequestAcademic request) {
 		log.info("Registration of FACMember called, Email:" + request.getEmail());
 		String email = service.saveUGS(request);
-		if(email != null) {
-			return ResponseEntity.ok("Registration Completed with  Email: " + email); }
-			else {
-				return ResponseEntity.badRequest().body("Registration Failed with  Email: " + request.getEmail() + " .User Already exists");
-			}
+		if (email != null) {
+			return ResponseEntity.ok("Registration Completed with  Email: " + email);
+		} else {
+			return ResponseEntity.badRequest()
+					.body("Registration Failed with  Email: " + request.getEmail() + " .User Already exists");
+		}
 	}
 
 //	Get All FAC Members who are Academic Advisors
@@ -199,17 +205,17 @@ public class AdminController {
 		if (updatePassword != 0) {
 			return ResponseEntity.ok("Password updated sucessfully");
 		} else {
-			return ResponseEntity.ok("Sorry Try Again: Old Password may be incorrect");
+			return ResponseEntity.badRequest().body("Sorry Try Again: Old Password may be incorrect");
 		}
 	}
 
-	@GetMapping("/students/{batch}")
+	@GetMapping("/admin/students/{batch}")
 	public ResponseEntity<List<String>> getAllBatchStudents(@PathVariable("batch") String batch) {
 		List<String> studentsIndexNumbers = service.getAllStudentByBatch(batch);
 		return ResponseEntity.ok(studentsIndexNumbers);
 	}
 
-	@PostMapping("/students/advisor/batch")
+	@PostMapping("/admin/students/advisor/batch")
 	public ResponseEntity<String> setAcademicAdvisor(@RequestBody AcadAdvisorBatchRequest request) {
 		String index = service.setAcademicAdvisor(request);
 		return ResponseEntity.ok("Academic Advisor set successfully for index " + index);
@@ -218,11 +224,11 @@ public class AdminController {
 	@PostMapping("/module/add")
 	public ResponseEntity<String> addModule(@RequestBody ModuleAdd request) {
 		String moduleCode = service.setModule(request);
-		if(moduleCode != null) {
-		return ResponseEntity.ok("Module Added Successfully with module code :" + moduleCode); }
-		else {
+		if (moduleCode != null) {
+			return ResponseEntity.ok("Module Added Successfully with module code :" + moduleCode);
+		} else {
 			return ResponseEntity.badRequest().body("Module Already exists");
-			
+
 		}
 	}
 
@@ -230,6 +236,27 @@ public class AdminController {
 	public ResponseEntity<String> setAcademicAdvisorRole(@RequestBody FacAcademicRequest request) {
 		String email = service.setFacRoleAcademicAdvisor(request);
 		return ResponseEntity.ok("Role Added Successfully with for MR/MRS :" + email);
+	}
+
+	@GetMapping("/admin/student/{index}")
+	public ResponseEntity<StudentAdminRequestResponse> getStudentDetails(@PathVariable("index") String index) {
+		StudentAdminRequestResponse response = service.searchUserInformation(index);
+		if (response == null) {
+			return ResponseEntity.badRequest().body(response);
+		} else {
+			return ResponseEntity.ok(response);
+		}
+	}
+	
+	
+	@PostMapping("/admin/fac")
+	public ResponseEntity<StaffAdminResponse> getFacDetails(@RequestBody FacAcademicRequest request) {
+		StaffAdminResponse response = service.getFacDetails(request);
+		if (response == null) {
+			return ResponseEntity.badRequest().body(response);
+		} else {
+			return ResponseEntity.ok(response);
+		}
 	}
 
 }

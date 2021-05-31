@@ -1,5 +1,6 @@
 package com.example.demo.service.interfaces;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,9 @@ import com.example.demo.dto.request.ModuleAdd;
 import com.example.demo.dto.request.RegistrationRequestAcademic;
 import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
+import com.example.demo.dto.response.StaffAdminResponse;
+import com.example.demo.dto.response.StudentAdminRequestResponse;
+import com.example.demo.dto.response.StudentInformationResponse;
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.MRoles;
@@ -66,6 +70,10 @@ public interface IAdminService {
 
 	//FAC role Allocation
 		
-	String setFacRoleAcademicAdvisor(FacAcademicRequest request); 
+	String setFacRoleAcademicAdvisor(FacAcademicRequest request);
+
+	StudentAdminRequestResponse searchUserInformation(String index);
+
+	StaffAdminResponse getFacDetails(FacAcademicRequest request); 
 }
 
