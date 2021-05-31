@@ -86,7 +86,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac1.setFirstName("B.H");
 //		fac1.setLastName("Amila");
 //		fac1.setNameToBeAppeared("MR. Amila B.H.");
-//		fac1.setEmail("184160D@gmail.com");
+//		fac1.setEmail("nusra0408@gmail.com");
 //		fac1.setContactNo("0758989898");
 //		fac1.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac1.setDepartment("IT");
@@ -99,50 +99,13 @@ public class UgsApplication implements CommandLineRunner {
 //		fac1.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
 //		frepo.save(fac1);
 //
-//		//FAC NO: 2
-//		FACMember fac2 = new FACMember();
-//		fac2.setTitle("Mr");
-//		fac2.setFirstName("S.C");
-//		fac2.setLastName("Prem");
-//		fac2.setNameToBeAppeared( "Mr. S.C. Prem");
-//		fac2.setEmail("184161D@gmail.com");
-//		fac2.setContactNo("0758989898");
-//		fac2.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//		fac2.setDepartment("IT");
-//		fac2.setAcademicAdvisor(true);
-//		Set<Roles> rolesFac2 = new HashSet<Roles>();
-//		rolesFac2.add(roleAcaAd);
-//		rolesFac1.add(roleFacMember);
-//		fac2.setRoles(rolesFac2);
-//		fac2.setAcademicAdvisor(true);
-//		fac2.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
-//		frepo.save(fac2);
-//
-//
-//		// FAC NO: 3
-//		FACMember fac3 = new FACMember();
-//		fac3.setTitle("Mr");
-//		fac3.setFirstName("M.F.M.");
-//		fac3.setLastName("Mohamed");
-//		fac3.setNameToBeAppeared("DR. Mohamed M.F.M.");
-//		fac3.setEmail("184162D@gmail.com");
-//		fac3.setContactNo("0758989898");
-//		fac3.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
-//		fac3.setDepartment("IT");
-//		fac3.setOnlyLecturer(true);
-//		Set<Roles> rolesFac3 = new HashSet<Roles>();
-//		rolesFac3.add(roleFacMember);
-//		fac3.setRoles(rolesFac3);
-//		fac3.setLectureGradeLevel("SENIOR LECTURER GRADE 1");
-//		frepo.save(fac3);
-//
-//			//	FAC NO: 4 HOD
+//		//	FAC NO: 4 HOD
 //		FACMember fac4 = new FACMember();
 //		fac4.setTitle("Mr");
 //		fac4.setFirstName("M.Z.M.");
 //		fac4.setLastName("Sathyan");
 //		fac4.setNameToBeAppeared("DR. Sathyan M.Z.M.");
-//		fac4.setEmail("184163D@gmail.com");
+//		fac4.setEmail("fayaz861818@gmail.com");
 //		fac4.setContactNo("0758989898");
 //		fac4.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac4.setDepartment("IT");
@@ -160,7 +123,7 @@ public class UgsApplication implements CommandLineRunner {
 //		fac5.setFirstName("M.L.M.");
 //		fac5.setLastName("THARAKA");
 //		fac5.setNameToBeAppeared("DR. THARAKA M.L.M.");
-//		fac5.setEmail("184164D@gmail.com");
+//		fac5.setEmail("priyalini8@gmail.com");
 //		fac5.setContactNo("0758989898");
 //		fac5.setPassword("$2a$10$921Uz2.ZYthANXACWAr6MO6CX32XiTrXedlKVyH416fwGF0yM5Cnm");
 //		fac5.setDepartment("IT");
