@@ -55,6 +55,7 @@ public class FACMeeting {
     private List<SubComittee> createSubCommitee;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportSubmittedFacMeeting")
+    @JsonIgnore
     private List<SubComittee> reportSubmittedSubCommitee;
 
 

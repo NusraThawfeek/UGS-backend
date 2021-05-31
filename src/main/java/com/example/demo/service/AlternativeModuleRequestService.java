@@ -128,6 +128,8 @@ public class AlternativeModuleRequestService {
 			throws UnsupportedEncodingException, MessagingException {
 
 		AlternativeModuleRequest existingAlterRequest = getAlterRequest(rid);
+		
+		System.out.println(alterMcode.length);
 
 		existingAlterRequest.setStatus(status);
 		existingAlterRequest.setDecision(decision);

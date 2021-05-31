@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -8,11 +9,13 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.AlternativeModuleRequest;
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.CommentKey;
 import com.example.demo.entity.Commented;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.MRoles;
+import com.example.demo.entity.ModuleDiscontinue;
 import com.example.demo.entity.Request;
 import com.example.demo.entity.Roles;
 import com.example.demo.repository.AssistentRegistrarRepository;
@@ -48,6 +51,9 @@ public class CommentedService {
 
 	@Autowired
 	private DecisionMailService mailService;
+	
+	@Autowired
+	private AlternativeModuleRequestService alterService;
 
 	public Commented getByRidAndUid(Request rid, FACMember uid) {
 		// TODO Auto-generated method stub
@@ -150,8 +156,19 @@ public class CommentedService {
 				role = "Dean";
 			}
 
-			r.setStatus("Rejected");
-			r.setDecision("Rejected by " + role);
+			r.setStatus("Rejected by " + role);
+			r.setDecision(c.getDescription());
+			
+			if(r.getType().equals("Alternative")) {
+				AlternativeModuleRequest alterRequest = alterService.getModuleDiscontinue(r.getRid());
+				List<ModuleDiscontinue> moduleDiscontinue = alterRequest.getModuleDiscontinue();
+				
+				for(int i = 0; i < moduleDiscontinue.size(); i++) {
+					moduleDiscontinue.get(i).setAlterMcode("Rejected");
+					moduleDiscontinue.get(i).setOfferingSem("Rejected");
+				}
+			}
+			
 			mailService.decsisionEmail(r, "http://localhost:3000");
 			rrepo.save(r);
 
