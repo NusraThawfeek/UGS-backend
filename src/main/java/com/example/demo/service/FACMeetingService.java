@@ -167,6 +167,7 @@ public class FACMeetingService {
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Link: " + facMeeting.getMeetingLink() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
 
+
                             + facMeeting.getMeetingTime() + "\nLink:http://localhost:3000/All/view-agenda/" + facMeeting.getId());
 
 
@@ -175,8 +176,9 @@ public class FACMeetingService {
                     "FAC Meeting ID: " + facMeeting.getId() + "\n" + "Meeting Location: " + facMeeting.getLocation().getLocationName() + "\n"
                             + "Meeeting Date: " + facMeeting.getDate() + "\n" + "Meeting Time: "
 
-                            + facMeeting.getMeetingTime() + "\n Meeting Agenda Link :http://localhost:3000/All/view-agenda/" + facMeeting.getId());
+                            + facMeeting.getMeetingTime() + "\nMeeting Agenda Link:http://localhost:3000/FAC/view-agenda/" + facMeeting.getId());
         }
+
 
         mailController.sendmail(mMap);
 

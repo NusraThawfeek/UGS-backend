@@ -28,11 +28,7 @@ public interface IAdminService {
 	String saveStudent(StudentSingleRegister student);
 //	TODO: List<Student> saveAll(file);
 //	TODO: UGS STAFF || ADMIN 
-	
-	////	Student getStudentDetail(Long id);	
-//	Student deleteStudentDetails(Student student);
-////	Student updateStudentDetails(Student student); //this will be implemented from the serviceImpl  class
-//	Student getStudentDetail(String indexNumber);
+
 	
 	Optional<User> findUserByUserName(String email);
 

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.Attend;
 
 public interface AttendRepository extends JpaRepository<Attend, Integer> {
+	Attend getByfacmeeting_idAndFacmember_userId(Integer id,Long userId); //unique key
+
 	List<Attend> getByfacmeeting_id(Integer id);
 
 	List<Attend> getByfacmeeting_date(Date date);

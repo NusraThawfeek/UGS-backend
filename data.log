@@ -305,3 +305,10 @@
 2021-05-30 02:05:32.716  INFO 51 --- [ loginUser ] com.example.demo.controller.all.LoginController : Login method at com.itfac.ugs.controllers.all.LoginController called with username fayaz861818@gmail.com 
 2021-05-30 02:13:18.821  INFO 51 --- [ loginUser ] com.example.demo.controller.all.LoginController : Login method at com.itfac.ugs.controllers.all.LoginController called with username sarath@gmail.com 
 2021-05-30 08:15:57.401  INFO 51 --- [ loginUser ] com.example.demo.controller.all.LoginController : Login method at com.itfac.ugs.controllers.all.LoginController called with username sarath@gmail.com 
+2021-06-07 04:19:57.219  INFO 51 --- [ loginUser ] com.example.demo.controller.all.LoginController : Login method at com.itfac.ugs.controllers.all.LoginController called with username malith@gmail.com 
+2021-06-07 04:21:17.150  INFO 59 --- [ registerSingleStudent ] com.example.demo.controller.AdminController : Registration of Single Student called, Index:184006F 
+2021-06-07 04:21:39.294  INFO 59 --- [ registerSingleStudent ] com.example.demo.controller.AdminController : Registration of Single Student called, Index:184006F 
+2021-06-07 04:22:10.542  INFO 59 --- [ registerSingleStudent ] com.example.demo.controller.AdminController : Registration of Single Student called, Index:184006F 
+2021-06-07 04:23:11.165  INFO 59 --- [ registerSingleStudent ] com.example.demo.controller.AdminController : Registration of Single Student called, Index:184006F 
+2021-06-10 12:00:37.983  INFO 51 --- [ loginUser ] com.example.demo.controller.all.LoginController : Login method at com.itfac.ugs.controllers.all.LoginController called with username sarath@gmail.com 
+2021-06-13 09:08:59.638  INFO 51 --- [ loginUser ] com.example.demo.controller.all.LoginController : Login method at com.itfac.ugs.controllers.all.LoginController called with username sarath@gmail.com 
