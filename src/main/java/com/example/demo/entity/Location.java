@@ -1,12 +1,9 @@
 package com.example.demo.entity;
 
-import lombok.Data;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 import javax.persistence.*;
 
 
-@Data
 @Entity
 @Table(name = "locations")
 public class Location {
@@ -22,5 +19,23 @@ public class Location {
     public Location(String locationName){
         this.locationName = locationName;
     }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+    
+    
 
 }

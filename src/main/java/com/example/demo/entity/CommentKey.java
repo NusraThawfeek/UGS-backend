@@ -5,9 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
-@Data
+
 @NoArgsConstructor
 @Embeddable
 public class CommentKey implements Serializable {
@@ -54,4 +53,31 @@ public class CommentKey implements Serializable {
 			return false;
 		return true;
 	}
+
+
+	public long getUid() {
+		return uid;
+	}
+
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+
+	public int getRid() {
+		return rid;
+	}
+
+
+	public void setRid(int rid) {
+		this.rid = rid;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 }

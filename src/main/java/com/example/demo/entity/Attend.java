@@ -8,10 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
 
 
-@Data
 @Entity
 public class Attend {
 
@@ -48,4 +46,46 @@ public class Attend {
         // TODO Auto-generated method stub
 
     }
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public FACMeeting getFacmeeting() {
+		return facmeeting;
+	}
+
+	public void setFacmeeting(FACMeeting facmeeting) {
+		this.facmeeting = facmeeting;
+	}
+
+	public FACMember getFacmember() {
+		return facmember;
+	}
+
+	public void setFacmember(FACMember facmember) {
+		this.facmember = facmember;
+	}
+
+	public String getAttendence() {
+		return attendence;
+	}
+
+	public void setAttendence(String attendence) {
+		this.attendence = attendence;
+	}
+
+	public String getApology() {
+		return apology;
+	}
+
+	public void setApology(String apology) {
+		this.apology = apology;
+	}
+    
+    
 }

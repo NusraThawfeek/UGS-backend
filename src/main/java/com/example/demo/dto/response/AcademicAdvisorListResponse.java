@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.example.demo.entity.FACMember;
 
-import lombok.Data;
-@Data
 public class AcademicAdvisorListResponse {
 	
 	private List<FACMember> academicAdvisors;
@@ -19,4 +17,13 @@ public class AcademicAdvisorListResponse {
 		}
 		
 	}
+
+	public List<FACMember> getAcademicAdvisors() {
+		return academicAdvisors;
+	}
+
+	public void setAcademicAdvisors(List<FACMember> academicAdvisors) {
+		this.academicAdvisors = academicAdvisors;
+	}
+	
 }

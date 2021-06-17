@@ -2,9 +2,6 @@ package com.example.demo.dto.response;
 
 import java.util.List;
 
-import lombok.Data;
-
-@Data
 public class UserDetailsResponse {
 	private String token;
 	
@@ -51,5 +48,30 @@ public class UserDetailsResponse {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }

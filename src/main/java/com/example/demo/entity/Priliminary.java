@@ -7,9 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
 
-@Data
 @Entity
 public class Priliminary {
 	@Id
@@ -30,5 +28,25 @@ public class Priliminary {
 	public Priliminary() {
 		
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public FACMeeting getFacmeeting() {
+		return facmeeting;
+	}
+	public void setFacmeeting(FACMeeting facmeeting) {
+		this.facmeeting = facmeeting;
+	}
+	public String getPriliminary() {
+		return priliminary;
+	}
+	public void setPriliminary(String priliminary) {
+		this.priliminary = priliminary;
+	}
+	
+	
 	
 }

@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Data
 @Entity
 @Table(name = "subcommittees")
 public class SubComittee {
@@ -60,76 +59,85 @@ public class SubComittee {
         this.facmeeting = facmeeting;
     }
 
-//    public String getPurpose() {
-//        return purpose;
-//    }
-//
-//    public FACMember getFacmember() {
-//        return facmember;
-//    }
-//
-//    public void setFacmember(FACMember facmember) {
-//        this.facmember = facmember;
-//    }
-//
-//    public void setPurpose(String purpose) {
-//        this.purpose = purpose;
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public Date getAppointdate() {
-//        return appointdate;
-//    }
-//
-//    public void setAppointdate(Date appointdate) {
-//        this.appointdate = appointdate;
-//    }
-//
-//    public String getSubcomitteefileName() {
-//        return subcomitteefileName;
-//    }
-//
-//    public void setSubcomitteefileName(String subcomitteefileName) {
-//        this.subcomitteefileName = subcomitteefileName;
-//    }
-//
-//    public String getSubcomitteeStatus() {
-//        return subcomitteeStatus;
-//    }
-//
-//    public void setSubcomitteeStatus(String subcomitteeStatus) {
-//        this.subcomitteeStatus = subcomitteeStatus;
-//    }
-//
-//    public FACMeeting getFacmeeting() {
-//        return facmeeting;
-//    }
-//
-//    public void setFacmeeting(FACMeeting facmeeting) {
-//        this.facmeeting = facmeeting;
-//    }
-//
-//    public FACMeeting getCreatedFacMeeting() {
-//        return createdFacMeeting;
-//    }
-//
-//    public void setCreatedFacMeeting(FACMeeting createdFacMeeting) {
-//        this.createdFacMeeting = createdFacMeeting;
-//    }
-//
-//    public FACMeeting getReportSubmittedFacMeeting() {
-//        return reportSubmittedFacMeeting;
-//    }
-//
-//    public void setReportSubmittedFacMeeting(FACMeeting reportSubmittedFacMeeting) {
-//        this.reportSubmittedFacMeeting = reportSubmittedFacMeeting;
-//    }
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getAppointdate() {
+		return appointdate;
+	}
+
+	public void setAppointdate(Date appointdate) {
+		this.appointdate = appointdate;
+	}
+
+	public String getSubcomitteefileName() {
+		return subcomitteefileName;
+	}
+
+	public void setSubcomitteefileName(String subcomitteefileName) {
+		this.subcomitteefileName = subcomitteefileName;
+	}
+
+	public String getSubcomitteeStatus() {
+		return subcomitteeStatus;
+	}
+
+	public void setSubcomitteeStatus(String subcomitteeStatus) {
+		this.subcomitteeStatus = subcomitteeStatus;
+	}
+
+	public FACMeeting getFacmeeting() {
+		return facmeeting;
+	}
+
+	public void setFacmeeting(FACMeeting facmeeting) {
+		this.facmeeting = facmeeting;
+	}
+
+	public FACMember getFacmember() {
+		return facmember;
+	}
+
+	public void setFacmember(FACMember facmember) {
+		this.facmember = facmember;
+	}
+
+	public FACMeeting getCreatedFacMeeting() {
+		return createdFacMeeting;
+	}
+
+	public void setCreatedFacMeeting(FACMeeting createdFacMeeting) {
+		this.createdFacMeeting = createdFacMeeting;
+	}
+
+	public FACMeeting getReportSubmittedFacMeeting() {
+		return reportSubmittedFacMeeting;
+	}
+
+	public void setReportSubmittedFacMeeting(FACMeeting reportSubmittedFacMeeting) {
+		this.reportSubmittedFacMeeting = reportSubmittedFacMeeting;
+	}
+
 
 }

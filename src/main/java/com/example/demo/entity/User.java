@@ -17,10 +17,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import lombok.Data;
 
 
-@Data
 @Entity 
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(uniqueConstraints = {
@@ -58,5 +56,71 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "roles_id")
 			)
 	private Set<Roles> roles = new HashSet<Roles>();
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getNameToBeAppeared() {
+		return nameToBeAppeared;
+	}
+
+	public void setNameToBeAppeared(String nameToBeAppeared) {
+		this.nameToBeAppeared = nameToBeAppeared;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
+	}
+	
+	
 }
 

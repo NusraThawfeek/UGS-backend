@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
-@Data
+
 @Entity
 public class Matters {
 	@Id
@@ -41,5 +41,48 @@ public class Matters {
 public Matters() {
 		
 	}
+public Integer getId() {
+	return id;
+}
+public void setId(Integer id) {
+	this.id = id;
+}
+public FACMeeting getFacmeeting() {
+	return facmeeting;
+}
+public void setFacmeeting(FACMeeting facmeeting) {
+	this.facmeeting = facmeeting;
+}
+public String getMatters() {
+	return matters;
+}
+public void setMatters(String matters) {
+	this.matters = matters;
+}
+public String getDecission() {
+	return decission;
+}
+public void setDecission(String decission) {
+	this.decission = decission;
+}
+public String getDecissionBy() {
+	return decissionBy;
+}
+public void setDecissionBy(String decissionBy) {
+	this.decissionBy = decissionBy;
+}
+public Boolean getAgenda() {
+	return agenda;
+}
+public void setAgenda(Boolean agenda) {
+	this.agenda = agenda;
+}
+public Boolean getMinute() {
+	return minute;
+}
+public void setMinute(Boolean minute) {
+	this.minute = minute;
+}
 	
+
 }
