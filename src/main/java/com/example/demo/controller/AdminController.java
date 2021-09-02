@@ -60,7 +60,7 @@ public class AdminController {
 		String index = service.saveStudent(registerStudent);
 		if (index == null) {
 			return ResponseEntity.badRequest().body(
-					"\"User Account Already exists with email or index number\\n Email : \" + registerStudent.getEmail() + \"\\n Index Number:  \"+registerStudent.getIndexNumber()");
+					"User Account Already exists with email or index number\n Email : " + registerStudent.getEmail() + "\n Index Number:  "+registerStudent.getIndexNumber());
 		} else {
 			return ResponseEntity.ok("Registration Successfull Index Number: " + index);
 		}

@@ -10,10 +10,15 @@ import javax.persistence.Id;
 
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+
 
 @Entity
 public class Roles {
+	
+
+	public Roles() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
