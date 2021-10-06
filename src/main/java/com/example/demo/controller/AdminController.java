@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import javax.validation.Valid;
+
+import com.example.demo.entity.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +34,6 @@ import com.example.demo.dto.response.StaffAdminResponse;
 import com.example.demo.dto.response.StudentAdminRequestResponse;
 import com.example.demo.dto.response.StudentInformationResponse;
 import com.example.demo.dto.response.UgsInformationResponse;
-import com.example.demo.entity.AssistentRegistrar;
-import com.example.demo.entity.FACMember;
-import com.example.demo.entity.Student;
-import com.example.demo.entity.UgsStaff;
 import com.example.demo.service.interfaces.IAdminService;
 import com.example.demo.utils.ExcelHelper;
 
@@ -221,6 +219,12 @@ public class AdminController {
 		return ResponseEntity.ok("Academic Advisor set successfully for index " + index);
 	}
 
+	@GetMapping("/module")
+	public ResponseEntity<List<Module1>> getAllModule() {
+		List<Module1> modules = service.getAllModules();
+		return ResponseEntity.ok(modules);
+	}
+
 	@PostMapping("/module/add")
 	public ResponseEntity<String> addModule(@RequestBody ModuleAdd request) {
 		String moduleCode = service.setModule(request);
@@ -230,6 +234,12 @@ public class AdminController {
 			return ResponseEntity.badRequest().body("Module Already exists");
 
 		}
+	}
+
+	@PostMapping("/module/update")
+	public ResponseEntity<String> updateModule(@RequestBody ModuleAdd request) {
+		String moduleCode = service.updateModule(request);
+		return ResponseEntity.ok("Module updated Successfully with module code :" + moduleCode);
 	}
 
 	@PostMapping("/fac/role/academic")

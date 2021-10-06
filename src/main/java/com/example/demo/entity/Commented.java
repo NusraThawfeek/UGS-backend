@@ -14,10 +14,8 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
 public class Commented {
 
 	@EmbeddedId
@@ -40,9 +38,12 @@ public class Commented {
 	private boolean IsForwarded;
 	private boolean IsRejected;
 	private String description;
-    
+
+	public Commented() {
+	}
+
 	public Commented(FACMember facMember, Request request, boolean isForwarded, boolean isRecommended, boolean isRejected,
-			Date enteredDate, String description) {
+					 Date enteredDate, String description) {
 		super();
 		this.cid = new CommentKey(facMember.getUserId(), request.getRid());
 		this.uid = facMember;
@@ -53,6 +54,7 @@ public class Commented {
 		this.enteredDate = enteredDate;
 		this.description = description;
 	}
+
 
 	public CommentKey getCid() {
 		return cid;

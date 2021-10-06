@@ -15,13 +15,7 @@ import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.dto.response.StaffAdminResponse;
 import com.example.demo.dto.response.StudentAdminRequestResponse;
 import com.example.demo.dto.response.StudentInformationResponse;
-import com.example.demo.entity.AssistentRegistrar;
-import com.example.demo.entity.FACMember;
-import com.example.demo.entity.MRoles;
-import com.example.demo.entity.Roles;
-import com.example.demo.entity.Student;
-import com.example.demo.entity.UgsStaff;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 
 
 public interface IAdminService {
@@ -41,7 +35,7 @@ public interface IAdminService {
 	List<Object> saveAll(List<StudentBatchRequest> students);
 	
 	List<FACMember> getAllAcademicAdvisors();
-//	TODO: add repo method to get the academic advisors
+
 		
 	void changePassword(User user);
 	
@@ -59,6 +53,9 @@ public interface IAdminService {
 	
 //	Add Module
 	String setModule(ModuleAdd request);
+	String updateModule(ModuleAdd request);
+	List<Module1> getAllModules();
+
 	int updatePassword(ChangePasswordRequest req);
 
 	//Add News Page
@@ -70,6 +67,8 @@ public interface IAdminService {
 
 	StudentAdminRequestResponse searchUserInformation(String index);
 
-	StaffAdminResponse getFacDetails(FacAcademicRequest request); 
+	StaffAdminResponse getFacDetails(FacAcademicRequest request);
+
+
 }
 

@@ -2,12 +2,8 @@ package com.example.demo.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,10 +12,10 @@ import javax.persistence.Table;
 public class Module1 {
 
 	@Id
-	private String mcode;
-	private String mtitle;
+	private String moduleCode;
+	private String moduleName;
 	private double credits;
-	private String dep;
+	private String department;
 	private String semester;
 	private String degreeProgramme;
 	
@@ -29,40 +25,40 @@ public class Module1 {
 	@OneToMany(mappedBy = "module")
     private List<LateChanges> alterModuleRequest;
 
-	public Module1(String mcode, String mtitle, double credit, String dep) {
+	public Module1(String moduleCode, String moduleName, double credit, String department) {
 		super();
-		this.mcode = mcode;
-		this.mtitle = mtitle;
+		this.moduleCode = moduleCode;
+		this.moduleName = moduleName;
 		this.credits = credit;
-		this.dep = dep;
+		this.department = department;
 	}
 
 	public Module1() {
 		super();
 	}
 
-	public String getMcode() {
-		return mcode;
+	public String getModuleCode() {
+		return moduleCode;
 	}
 
-	public void setMcode(String mcode) {
-		this.mcode = mcode;
+	public void setModuleCode(String mcode) {
+		this.moduleCode = mcode;
 	}
 
-	public String getMtitle() {
-		return mtitle;
+	public String getModuleName() {
+		return moduleName;
 	}
 
-	public void setMtitle(String mtitle) {
-		this.mtitle = mtitle;
+	public void setModuleName(String mtitle) {
+		this.moduleName = mtitle;
 	}
 
-	public String getDep() {
-		return dep;
+	public String getDepartment() {
+		return department;
 	}
 
-	public void setDep(String dep) {
-		this.dep = dep;
+	public void setDepartment(String dep) {
+		this.department = dep;
 	}
 
 	public String getSemester() {

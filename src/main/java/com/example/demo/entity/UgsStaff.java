@@ -2,9 +2,8 @@ package com.example.demo.entity;
 
 import javax.persistence.Entity;
 
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
+
 
 @Entity
 public class UgsStaff extends User {

@@ -32,7 +32,7 @@ public class LateChanges {
 			int noOfAttendedLectures, int noOfNotAttendedLectures, int noOfMissedAssignments, String remarks,
 			String addOrDrop) {
 		super();
-		this.id = new LateChangesKey(lateModuleChangeRequest.getRid(), module.getMcode());
+		this.id = new LateChangesKey(lateModuleChangeRequest.getRid(), module.getModuleCode());
 		this.lateModuleChangeRequest = lateModuleChangeRequest;
 		this.module = module;
 		NoOfAttendedLectures = noOfAttendedLectures;

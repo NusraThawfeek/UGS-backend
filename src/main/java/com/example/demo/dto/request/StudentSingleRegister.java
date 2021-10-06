@@ -4,10 +4,6 @@ package com.example.demo.dto.request;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
 public class StudentSingleRegister {
 	@NotBlank
 	private String indexNumber;
@@ -37,7 +33,10 @@ public class StudentSingleRegister {
 	
 	private int longTermBal;
 
-	public String getIndexNumber() {
+    public StudentSingleRegister() {
+    }
+
+    public String getIndexNumber() {
 		return indexNumber;
 	}
 

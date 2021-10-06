@@ -7,10 +7,10 @@ import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor
+
+
 @Entity
 @Table(name = "fac_meeting")
 public class FACMeeting {
@@ -63,8 +63,10 @@ public class FACMeeting {
     @JoinColumn(name = "location_id1", referencedColumnName = "id")
     private Location location;
 
+	public FACMeeting() {
+	}
 
-    public FACMeeting(Date date, String meetingTime, String meetingLink, Location location) {
+	public FACMeeting(Date date, String meetingTime, String meetingLink, Location location) {
         super();
         this.date = date;
         this.meetingTime = meetingTime;

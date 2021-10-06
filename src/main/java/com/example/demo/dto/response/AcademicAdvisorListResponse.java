@@ -1,8 +1,8 @@
 package com.example.demo.dto.response;
 
-import java.util.List;
-
 import com.example.demo.entity.FACMember;
+
+import java.util.List;
 
 public class AcademicAdvisorListResponse {
 	

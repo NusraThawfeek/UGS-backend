@@ -24,7 +24,6 @@ import com.example.demo.dto.request.StudentBatchRequest;
 import com.example.demo.dto.request.StudentSingleRegister;
 import com.example.demo.dto.response.StaffAdminResponse;
 import com.example.demo.dto.response.StudentAdminRequestResponse;
-import com.example.demo.dto.response.StudentInformationResponse;
 import com.example.demo.entity.AssistentRegistrar;
 import com.example.demo.entity.FACMember;
 import com.example.demo.entity.MRoles;
@@ -347,11 +346,27 @@ public class AdminServiceImpl implements IAdminService, UserDetailsService {
 		Module1 module = new Module1();
 		module.setDegreeProgramme(request.getDegreeProgramme());
 		module.setSemester(request.getSemester());
-		module.setDep(request.getDepartment());
-		module.setMcode(request.getModuleCode());
-		module.setMtitle(request.getModuleName());
+		module.setDepartment(request.getDepartment());
+		module.setModuleCode(request.getModuleCode());
+		module.setModuleName(request.getModuleName());
 		module.setCredits(request.getCredits());
-		return moduleRepository.save(module).getMcode();
+		return moduleRepository.save(module).getModuleCode();
+	}
+
+	@Override
+	public String updateModule(ModuleAdd request) {
+			Module1 module = moduleRepository.findByModuleCode(request.getModuleCode());
+		   	module.setDegreeProgramme(request.getDegreeProgramme());
+			module.setSemester(request.getSemester());
+			module.setDepartment(request.getDepartment());
+			module.setModuleName(request.getModuleName());
+			module.setCredits(request.getCredits());
+			return moduleRepository.save(module).getModuleCode();
+	}
+
+	@Override
+	public List<Module1> getAllModules() {
+		return moduleRepository.findAll();
 	}
 
 	@Override

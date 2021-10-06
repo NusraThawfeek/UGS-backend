@@ -5,9 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+
 @Embeddable
 public class CommentKey implements Serializable {
 
@@ -21,6 +20,9 @@ public class CommentKey implements Serializable {
 	
 	@Column(name = "rid")
 	private int rid;
+
+	public CommentKey() {
+	}
 
 	public CommentKey(Long long1, int rid) {
 		super();

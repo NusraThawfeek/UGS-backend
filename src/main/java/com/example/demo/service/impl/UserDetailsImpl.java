@@ -11,10 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.example.demo.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.EqualsAndHashCode;
 
 
-@EqualsAndHashCode
+
 
 public class UserDetailsImpl implements UserDetails {
 

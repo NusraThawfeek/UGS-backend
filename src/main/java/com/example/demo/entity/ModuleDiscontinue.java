@@ -29,7 +29,7 @@ public class ModuleDiscontinue {
 	public ModuleDiscontinue(AlternativeModuleRequest alterModuleRequest, Module1 module,
 			String alterMcode, String offeringSem, String currentGrade) {
 		super();
-		this.id = new ModuleDiscontinueKey(alterModuleRequest.getRid(), module.getMcode());
+		this.id = new ModuleDiscontinueKey(alterModuleRequest.getRid(), module.getModuleCode());
 		this.alterModuleRequest = alterModuleRequest;
 		this.module = module;
 		this.alterMcode = alterMcode;

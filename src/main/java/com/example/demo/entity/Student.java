@@ -12,9 +12,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = "indexNo") })
 public class Student extends User {
